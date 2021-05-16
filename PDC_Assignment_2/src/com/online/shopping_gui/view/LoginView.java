@@ -18,34 +18,38 @@ import javax.swing.event.*;
  */
 public class LoginView extends JFrame {
 
-    private JButton okay;
-    private JLabel logLabel, passLabel;
+    private JButton okay, quit;
+    private JLabel logLbl, passLbl;
     private JPasswordField enterPass;
-    private JTextField loginText;
+    private JTextField loginTxt;
 
     public LoginView() {
         okay = new JButton("Login");
-        logLabel = new JLabel("Login ID");
-        passLabel = new JLabel("Password");
+        quit = new JButton("Quit");
+        logLbl = new JLabel("Login ID");
+        passLbl = new JLabel("Password");
         enterPass = new JPasswordField(30);
-        loginText = new JTextField(30);
+        loginTxt = new JTextField(30);
 
         setPreferredSize(new Dimension(394, 319));
         setLayout(null);
 
         add(okay);
-        add(logLabel);
-        add(passLabel);
+        add(quit);
+        add(logLbl);
+        add(passLbl);
         add(enterPass);
-        add(loginText);
+        add(loginTxt);
 
-        okay.setBounds(145, 165, 100, 25);
-        logLabel.setBounds(80, 80, 100, 25);
-        passLabel.setBounds(75, 120, 100, 25);
+        okay.setBounds(75, 165, 100, 25);
+        quit.setBounds(180, 165, 100, 25);
+        logLbl.setBounds(80, 80, 100, 25);
+        passLbl.setBounds(75, 120, 100, 25);
         enterPass.setBounds(145, 120, 100, 25);
-        loginText.setBounds(145, 80, 100, 25);
+        loginTxt.setBounds(145, 80, 100, 25);
     }
 
+    //testing
     public static void main(String[] args) {
         LoginView login = new LoginView();
         login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
