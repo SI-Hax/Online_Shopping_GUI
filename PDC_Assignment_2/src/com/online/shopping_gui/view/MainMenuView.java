@@ -5,8 +5,8 @@
  */
 package com.online.shopping_gui.view;
 
-import java.awt.Dimension;
 import javax.swing.*;
+import java.awt.*;
 
 /**
  *

@@ -1,9 +1,9 @@
 package com.online.shopping_gui.view;
 
-import java.awt.*;
-import java.awt.event.*;
+import com.formdev.flatlaf.FlatLightLaf;
+
 import javax.swing.*;
-import javax.swing.event.*;
+import java.awt.*;
 
 /**
  * This class contains the State Enumeration which maintains constant variables
@@ -24,6 +24,10 @@ public class LoginView extends JFrame {
     private JTextField loginTxt;
 
     public LoginView() {
+        FlatLightLaf.install();
+        this.setLayout(null);
+        this.setTitle("Login");
+
         okay = new JButton("Login");
         quit = new JButton("Quit");
         logLbl = new JLabel("Login ID");
@@ -31,8 +35,17 @@ public class LoginView extends JFrame {
         enterPass = new JPasswordField(30);
         loginTxt = new JTextField(30);
 
-        setPreferredSize(new Dimension(394, 319));
-        setLayout(null);
+        //get the size of the screen
+        Toolkit kit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = kit.getScreenSize();
+
+        this.setPreferredSize(new Dimension(400, 320));
+
+        //Calculate the frame location
+        int x = (screenSize.width - this.getWidth()) / 2;
+        int y = (screenSize.height - this.getHeight()) / 2;
+
+        this.setLocation(x, y);
 
         add(okay);
         add(quit);
@@ -55,5 +68,6 @@ public class LoginView extends JFrame {
         login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         login.pack();
         login.setVisible(true);
+        login.setResizable(false);
     }
 }

@@ -1,7 +1,9 @@
 package com.online.shopping_gui.view;
 
-import java.awt.Dimension;
+import com.formdev.flatlaf.FlatLightLaf;
+
 import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -20,6 +22,7 @@ public class CreateAccountView extends JPanel
     private JButton createAccountBtn;
     
     public CreateAccountView() {
+        FlatLightLaf.install();
         setLayout(null);
         setPreferredSize(new Dimension(296, 406));
         
@@ -101,6 +104,7 @@ public class CreateAccountView extends JPanel
     
     public static void main(String[] args) {
         JFrame frame = new JFrame("test");
+        frame.setLocationRelativeTo(null);
         frame.add(new CreateAccountView());
         frame.pack();
         frame.setVisible(true);

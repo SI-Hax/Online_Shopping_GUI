@@ -1,9 +1,7 @@
 package com.online.shopping_gui.view;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * This class contains the State Enumeration which maintains constant variables
@@ -21,7 +19,7 @@ public class ImageShopAndRun extends JPanel {
     public Image image;
     
     public ImageShopAndRun(){
-        this.image = new ImageIcon("./resources/shop-and-run.jpg").getImage();
+        this.image = new ImageIcon("./resources/images/shop-and-run.jpg").getImage();
     }
     
     @Override

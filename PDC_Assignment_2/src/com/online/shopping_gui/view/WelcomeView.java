@@ -1,7 +1,9 @@
 package com.online.shopping_gui.view;
 
-import java.awt.*;
+import com.formdev.flatlaf.FlatLightLaf;
+
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * This class contains the State Enumeration which maintains constant variables
@@ -19,6 +21,7 @@ public class WelcomeView extends JFrame {
     private MainMenuView mainMenu;
 
     public WelcomeView() {
+        FlatLightLaf.install();
         setLayout(null);
         setPreferredSize(new Dimension(900, 600));
         setBackground(Color.white);
@@ -34,6 +37,17 @@ public class WelcomeView extends JFrame {
 
     public static void main(String[] args) {
         WelcomeView hi = new WelcomeView();
+        // Get the size of the screen
+        Toolkit kit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = kit.getScreenSize();
+
+        hi.setSize(500, 500);
+
+        //Calculate the frame location
+        int x = (screenSize.width - hi.getWidth()) / 2;
+        int y = (screenSize.height - hi.getHeight()) / 2;
+
+        hi.setLocation(x,y);
         hi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         hi.pack();
         hi.setVisible(true);
