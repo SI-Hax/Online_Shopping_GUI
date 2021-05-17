@@ -1,10 +1,11 @@
-package com.online.shopping_gui.view;
+package test.view;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * This class contains the image for the GUI
+ * This class contains the State Enumeration which maintains constant variables
+ * for the user account state
  *
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
@@ -15,6 +16,7 @@ import java.awt.*;
  */
 
 public class ImageShopAndRun extends JPanel {
+    public static final String NAME = "Right Panel";
     public Image image;
     
     public ImageShopAndRun(){
