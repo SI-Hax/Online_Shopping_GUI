@@ -73,7 +73,7 @@ public class WelcomeView extends JFrame {
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screenSize = kit.getScreenSize();
 
-        hi.setSize(500, 500);
+        hi.setSize(900, 600);
 
         // Calculate the frame location
         int x = (screenSize.width - hi.getWidth()) / 2;
