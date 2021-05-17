@@ -63,7 +63,9 @@ public class CardView extends JPanel implements Observer {
         mainMenuView.custLogin.addActionListener(controller);
         mainMenuView.adminLogin.addActionListener(controller);
         mainMenuView.createAccount.addActionListener(controller);
+        mainMenuView.quit.addActionListener(controller);
         loginView.backBtn.addActionListener(controller);
+        createAccountView.backBtn.addActionListener(controller);
     }
 
     public MainMenuView getMainMenuView() {

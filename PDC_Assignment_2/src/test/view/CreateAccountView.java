@@ -20,7 +20,7 @@ public class CreateAccountView extends JPanel
     private JLabel nameLbl, phoneNoLbl, emailLbl, cardNoLbl, cardHolderLbl;
     private JTextField loginIDTxtField, nameTxtField, phoneNoTxtField, emailTxtField, cardNoTxtField, cardHolderTxtField;
     private JPasswordField passwordPassField, confirmPassField;
-    private JButton createAccountBtn;
+    protected JButton createAccountBtn, backBtn;
     
     public CreateAccountView() {
         FlatLightLaf.install();
@@ -57,6 +57,7 @@ public class CreateAccountView extends JPanel
         cardHolderTxtField = new JTextField(50);
         
         createAccountBtn = new JButton("Create Account");
+        backBtn = new JButton("Back");
 
         // Add components to panel.
         add(loginIDLbl);
@@ -79,6 +80,7 @@ public class CreateAccountView extends JPanel
         add(cardHolderLbl);
         add(cardHolderTxtField);
         add(createAccountBtn);
+        add(backBtn);
 
         // Set component bounds (size and location)
         loginIDLbl.setBounds(70, 25, 50, 25);
@@ -101,5 +103,10 @@ public class CreateAccountView extends JPanel
         cardHolderLbl.setBounds(50, 300, 70, 25);
         cardHolderTxtField.setBounds(135, 305, 145, 25);
         createAccountBtn.setBounds(135, 345, 145, 45);
+        backBtn.setBounds(280, 500, 100, 25);
+    }
+
+    public JButton getBackBtn() {
+        return backBtn;
     }
 }

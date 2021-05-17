@@ -80,6 +80,7 @@ public class WelcomeView extends JFrame {
         int y = (screenSize.height - hi.getHeight()) / 2;
 
         hi.setLocation(x,y);
+        hi.setTitle("Si Hax Store");
         hi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         hi.pack();
         hi.setVisible(true);
