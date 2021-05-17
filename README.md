@@ -6,7 +6,7 @@
 
 # Online Shopping Graphical User Interface
 
-An Graphical Version of an online shopping system for Program Design Construction Assignment 2.
+A Graphical Version of an online shopping system for Program Design Construction Assignment 2.
 
 # Key Features
 
