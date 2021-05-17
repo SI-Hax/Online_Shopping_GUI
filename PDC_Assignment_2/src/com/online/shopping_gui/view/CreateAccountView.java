@@ -11,7 +11,7 @@ import java.awt.*;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 1.0
+ * @version 2.0.1
  * @since 15/05/2021
  */
 public class CreateAccountView extends JPanel 
