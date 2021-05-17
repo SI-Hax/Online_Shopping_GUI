@@ -52,6 +52,11 @@ public class WelcomeView extends JFrame {
         this.add(rightPanel);
     }
 
+    /**
+     * Entry point of the program.
+     * 
+     * @param args 
+     */
     public static void main(String[] args) {
         WelcomeView hi = new WelcomeView();
         // Get the size of the screen
