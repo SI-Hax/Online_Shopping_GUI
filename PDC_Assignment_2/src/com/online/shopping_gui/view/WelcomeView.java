@@ -1,5 +1,6 @@
 package com.online.shopping_gui.view;
 
+import com.online.shopping_gui.controller.MainMenuController;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
@@ -11,31 +12,39 @@ import java.awt.*;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.0.3
+ * @version 2.0.4
  * @since 15/05/2021
  */
 public class WelcomeView extends JFrame {
 
-    private JPanel rightPanel;
+    private JPanel leftPanel, rightPanel;
 
     public WelcomeView() {
         FlatLightLaf.install();
         setLayout(null);
         setPreferredSize(new Dimension(900, 600));
-        setBackground(Color.white);
-
-        ImageShopAndRun leftPanel = new ImageShopAndRun();
-        leftPanel.setBounds(50, 200, 400, 116);
-        this.add(leftPanel);
+        setBackground(Color.WHITE);
+        setForeground(Color.WHITE);
+        
+        initLeftPanel();
 
         initRightPanel();
+    }
+    
+    public void initLeftPanel() {
+        leftPanel = new ImageShopAndRun();
+//        leftPanel.setOpaque(false);
+        leftPanel.setAlignmentX(SwingConstants.CENTER);
+        leftPanel.setAlignmentY(SwingConstants.CENTER);
+        leftPanel.setBounds(50, 200, 400, 116);
+        this.add(leftPanel);
     }
     
     /**
      * Initialises the right side panel. It links a Model, View, and Controller
      * together.
      */
-    public void initRightPanel(){
+    public void initRightPanel() {
         CardModel cardModel = new CardModel();
         CardView cardView = new CardView();
         cardModel.addObserver(cardView);
@@ -47,8 +56,9 @@ public class WelcomeView extends JFrame {
         mainMenuController.initModel(0);
         cardView.addController(mainMenuController);
         
-        this.rightPanel = cardView;
-        rightPanel.setBounds(475, 50, 400, 560);
+        rightPanel = cardView;
+//        rightPanel.setOpaque(false);
+        rightPanel.setBounds(475, 0, 400, 560);
         this.add(rightPanel);
     }
 

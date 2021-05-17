@@ -1,5 +1,6 @@
 package com.online.shopping_gui.view;
 
+import com.online.shopping_gui.controller.MainMenuController;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.util.Observable;
@@ -65,6 +66,18 @@ public class CardView extends JPanel implements Observer {
         mainMenuView.quit.addActionListener(controller);
     }
 
+    public MainMenuView getMainMenuView() {
+        return mainMenuView;
+    }
+
+    public LoginView getLoginView() {
+        return loginView;
+    }
+
+    public CreateAccountView getCreateAccountView() {
+        return createAccountView;
+    }
+    
     @Override
     public void update(Observable cardModel, Object selection) {
         setActivePanel((int) selection);
