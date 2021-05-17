@@ -6,8 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * This class contains the State Enumeration which maintains constant variables
- * for the user account state
+ * This class contains the Login GUI
  *
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
