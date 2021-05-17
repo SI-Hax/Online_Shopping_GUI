@@ -11,11 +11,10 @@ import java.awt.*;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 1.0
- * @since 15/03/2021
- *
+ * @version 2.0.1
+ * @since 15/05/2021
  */
-public class LoginView extends JFrame {
+public class LoginView extends JPanel {
 
     private JButton okay, quit;
     private JLabel logLbl, passLbl;
@@ -25,7 +24,6 @@ public class LoginView extends JFrame {
     public LoginView() {
         FlatLightLaf.install();
         this.setLayout(null);
-        this.setTitle("Login");
 
         okay = new JButton("Login");
         quit = new JButton("Quit");
@@ -59,14 +57,5 @@ public class LoginView extends JFrame {
         passLbl.setBounds(75, 120, 100, 25);
         enterPass.setBounds(145, 120, 100, 25);
         loginTxt.setBounds(145, 80, 100, 25);
-    }
-
-    //testing
-    public static void main(String[] args) {
-        LoginView login = new LoginView();
-        login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        login.pack();
-        login.setVisible(true);
-        login.setResizable(false);
     }
 }
