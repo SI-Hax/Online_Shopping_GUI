@@ -6,19 +6,17 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * This class contains the State Enumeration which maintains constant variables
- * for the user account state
+ * Main driver class for the Online Shopping System.
  *
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 1.0
- * @since 15/03/2021
- *
+ * @version 2.0.3
+ * @since 15/05/2021
  */
 public class WelcomeView extends JFrame {
 
-    private MainMenuView mainMenu;
+    private JPanel rightPanel;
 
     public WelcomeView() {
         FlatLightLaf.install();
@@ -26,13 +24,32 @@ public class WelcomeView extends JFrame {
         setPreferredSize(new Dimension(900, 600));
         setBackground(Color.white);
 
-        ImageShopAndRun rightPanel = new ImageShopAndRun();
-        rightPanel.setBounds(50, 200, 400, 116);
-        this.add(rightPanel);
+        ImageShopAndRun leftPanel = new ImageShopAndRun();
+        leftPanel.setBounds(50, 200, 400, 116);
+        this.add(leftPanel);
 
-        mainMenu = new MainMenuView();
-        mainMenu.setBounds(475, 50, 400, 560);
-        this.add(mainMenu);
+        initRightPanel();
+    }
+    
+    /**
+     * Initialises the right side panel. It links a Model, View, and Controller
+     * together.
+     */
+    public void initRightPanel(){
+        CardModel cardModel = new CardModel();
+        CardView cardView = new CardView();
+        cardModel.addObserver(cardView);
+        
+        MainMenuController mainMenuController = new MainMenuController();
+        //pass the reference of model and view to the controllor
+        mainMenuController.addModel(cardModel);
+        mainMenuController.addView(this, cardView);
+        mainMenuController.initModel(0);
+        cardView.addController(mainMenuController);
+        
+        this.rightPanel = cardView;
+        rightPanel.setBounds(475, 50, 400, 560);
+        this.add(rightPanel);
     }
 
     public static void main(String[] args) {
