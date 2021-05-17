@@ -6,7 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- *
+ * Contains fields to collect data from user. 
+ * 
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
@@ -100,13 +101,5 @@ public class CreateAccountView extends JPanel
         cardHolderLbl.setBounds(50, 300, 70, 25);
         cardHolderTxtField.setBounds(135, 305, 145, 25);
         createAccountBtn.setBounds(135, 345, 145, 45);
-    }
-    
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("test");
-        frame.setLocationRelativeTo(null);
-        frame.add(new CreateAccountView());
-        frame.pack();
-        frame.setVisible(true);
     }
 }
