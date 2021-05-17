@@ -4,8 +4,6 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * This class contains the State Enumeration which maintains constant variables
@@ -20,45 +18,21 @@ import java.awt.event.ActionListener;
  */
 public class WelcomeView extends JFrame {
 
-    private RootPanel rootPanel;
     private MainMenuView mainMenu;
-    private CreateAccountView createAccountView;
-    private ImageShopAndRun rightPanel;
 
     public WelcomeView() {
         FlatLightLaf.install();
-        /*setLayout(null);
+        setLayout(null);
         setPreferredSize(new Dimension(900, 600));
-        setBackground(Color.white);*/
+        setBackground(Color.white);
 
-        this.rootPanel = new RootPanel();
-
-        this.mainMenu = new MainMenuView();
-        rootPanel.addCardToStack(mainMenu, MainMenuView.NAME);
-
-        this.createAccountView = new CreateAccountView();
-        rootPanel.addCardToStack(createAccountView, CreateAccountView.NAME);
-
-        getContentPane().add(this.rootPanel);
-        setSize(745,525);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-
-        mainMenu.getCreateAccount().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                rootPanel.showCardInStack(CreateAccountView.NAME);
-                System.out.println("Test");
-            }
-        });
-
-        /*ImageShopAndRun rightPanel = new ImageShopAndRun();
+        ImageShopAndRun rightPanel = new ImageShopAndRun();
         rightPanel.setBounds(50, 200, 400, 116);
-        this.add(rightPanel);*/
+        this.add(rightPanel);
 
-        /*mainMenu = new MainMenuView();
+        mainMenu = new MainMenuView();
         mainMenu.setBounds(475, 50, 400, 560);
-        this.add(mainMenu);*/
+        this.add(mainMenu);
     }
 
     public static void main(String[] args) {

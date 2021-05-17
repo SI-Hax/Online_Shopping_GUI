@@ -20,7 +20,7 @@ public class ImageShopAndRun extends JPanel {
     public Image image;
     
     public ImageShopAndRun(){
-        this.image = new ImageIcon("./PDC_Assignment_2/Resources/images/shop-and-run.jpg").getImage();
+        this.image = new ImageIcon("./Resources/images/shop-and-run.jpg").getImage();
     }
     
     @Override
