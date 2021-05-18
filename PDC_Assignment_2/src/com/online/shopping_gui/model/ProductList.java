@@ -129,11 +129,11 @@ public class ProductList {
      */
     public Object[][] convertProductList() {
         ArrayList<Product> pList = this.getProductList();
-        int secondElement = this.singleProductList.getClass().getDeclaredFields().length;
+        int secondElement = pList.getClass().getDeclaredFields().length;
 
-        Object[][] data = new Object[this.singleProductList.size()][secondElement];
+        Object[][] data = new Object[pList.size()][secondElement];
 
-        for (int i = 0; i < this.singleProductList.size(); i++) {
+        for (int i = 0; i < pList.size(); i++) {
             data[i][0] = pList.get(i).getProductID();
             data[i][1] = pList.get(i).getProductName();
             data[i][2] = pList.get(i).getPrice();
