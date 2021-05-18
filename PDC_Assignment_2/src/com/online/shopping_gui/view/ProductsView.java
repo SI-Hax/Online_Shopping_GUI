@@ -1,11 +1,9 @@
 package com.online.shopping_gui.view;
 
 import com.online.shopping_gui.model.ProductList;
+import com.online.shopping_gui.utilities.ProductFileIO;
 import java.awt.Dimension;
-import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 
 /**
  * This class contains the Products Table
@@ -13,10 +11,10 @@ import javax.swing.table.TableModel;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.0.1
+ * @version 2.0.2
  * @since 17/05/2021
  */
-public class ProductsView extends JFrame {
+public class ProductsView extends JPanel {
 
     private JTable productTable;
     private JScrollPane scrollPane;
@@ -24,7 +22,7 @@ public class ProductsView extends JFrame {
     ProductList list;
 
     public ProductsView() {
-        list = new ProductList();
+        list = ProductFileIO.importProductData();
         boolean sorter = true;
         table = new Table();
 
@@ -38,12 +36,5 @@ public class ProductsView extends JFrame {
         add(scrollPane);
 
         this.setPreferredSize(new Dimension(500, 500));
-        this.pack();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        new ProductsView();
     }
 }
