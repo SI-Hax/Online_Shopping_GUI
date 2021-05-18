@@ -1,8 +1,8 @@
 package test.utilities;
 
-import test.enumerations.Category;
-import test.model.Product;
-import test.model.ProductList;
+import com.online.shopping_gui.enumerations.Category;
+import com.online.shopping_gui.model.Product;
+import com.online.shopping_gui.model.ProductList;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -31,8 +31,7 @@ import java.util.ArrayList;
  *
  */
 public final class ProductFileIO {
-
-    public static final String PRODUCT_FILEPATH = "./resources/product_database.csv";
+    public static final String PRODUCT_FILEPATH = "./Resources/csv_files/product_database.csv";
 
     /**
      * This method reads Products' information from a .csv file and loads them

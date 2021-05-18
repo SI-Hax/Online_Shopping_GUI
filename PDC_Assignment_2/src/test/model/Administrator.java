@@ -1,6 +1,6 @@
 package test.model;
 
-import test.utilities.Utilities;
+import com.online.shopping_gui.utilities.Utilities;
 
 /**
  * This class holds information about an Administrator of the system. It is an
