@@ -30,8 +30,7 @@ import java.util.ArrayList;
  *
  */
 public final class ProductFileIO {
-
-    public static final String PRODUCT_FILEPATH = "./resources/product_database.csv";
+    public static final String PRODUCT_FILEPATH = "./Resources/csv_files/product_database.csv";
 
     /**
      * This method reads Products' information from a .csv file and loads them
