@@ -18,7 +18,7 @@ import java.util.LinkedHashMap;
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
  * @version 1.0
- * @since 15/03/2021
+ * @since 18/05/2021
  *
  */
 public class ProductList {
@@ -120,6 +120,28 @@ public class ProductList {
         pListStr += "\n";
 
         return pListStr;
+    }
+    
+    /**
+     * Converts HashMap into an Object array.
+     *
+     * @return Object array containing information to be displayed in JTable.
+     */
+    public Object[][] convertProductList() {
+        ArrayList<Product> pList = this.getProductList();
+        int secondElement = this.singleProductList.getClass().getDeclaredFields().length;
+
+        Object[][] data = new Object[this.singleProductList.size()][secondElement];
+
+        for (int i = 0; i < this.singleProductList.size(); i++) {
+            data[i][0] = pList.get(i).getProductID();
+            data[i][1] = pList.get(i).getProductName();
+            data[i][2] = pList.get(i).getPrice();
+            data[i][3] = pList.get(i).getCategory();
+            data[i][4] = pList.get(i).getStock();
+        }
+
+        return data;
     }
 
     public LinkedHashMap<Category, ArrayList<Product>> getSingleProductList() {
