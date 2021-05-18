@@ -33,8 +33,8 @@ import java.util.Map;
  */
 public final class UserFileIO {
 
-    public static final String CUSTOMER_FILEPATH = "./resources/customer_database.csv";
-    public static final String ADMIN_FILEPATH = "./resources/admin_database.csv";
+    public static final String CUSTOMER_FILEPATH = "./Resources/csv_files/customer_database.csv";
+    public static final String ADMIN_FILEPATH = "./Resources/csv_files/admin_database.csv";
 
     /**
      * This method reads Users' information from multiple .csv files and loads
