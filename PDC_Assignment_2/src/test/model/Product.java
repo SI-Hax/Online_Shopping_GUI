@@ -1,6 +1,6 @@
 package test.model;
 
-import com.online.shopping_gui.enumerations.Category;
+import test.enumerations.Category;
 
 /**
  * This class contains the Product Class which encapsulates the following

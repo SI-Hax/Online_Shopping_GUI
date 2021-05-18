@@ -1,6 +1,6 @@
 package test.model;
 
-import com.online.shopping_gui.utilities.Utilities;
+import test.utilities.Utilities;
 
 /**
  * This class holds information about a Customer. It is an extension of User

@@ -37,4 +37,12 @@ public class ProductsView extends JPanel {
 
         this.setPreferredSize(new Dimension(500, 500));
     }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1000,500);
+        frame.add(new test.view.ProductsView());
+        frame.setVisible(true);
+    }
 }

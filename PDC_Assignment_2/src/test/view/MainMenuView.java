@@ -13,7 +13,6 @@ import java.awt.*;
  * @author roxyc
  */
 public class MainMenuView extends JPanel {
-    public static final String NAME = "Main Menu";
     private JButton custLogin, adminLogin, createAccount, quit;
 
     public MainMenuView(){
@@ -35,12 +34,5 @@ public class MainMenuView extends JPanel {
         createAccount.setBounds(125, 260, 150, 55);
         quit.setBounds(125, 335, 150, 55);
     }
-
-    public JButton getCustLogin() {
-        return custLogin;
-    }
-
-    public JButton getCreateAccount() {
-        return createAccount;
-    }
+    
 }

@@ -1,6 +1,6 @@
 package test.model;
 
-import com.online.shopping_gui.enumerations.State;
+import test.enumerations.State;
 
 /**
  * This is an abstract class that expresses characteristics (such as login

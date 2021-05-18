@@ -1,8 +1,8 @@
 package test.utilities;
 
-import com.online.shopping_gui.model.Administrator;
-import com.online.shopping_gui.model.Customer;
-import com.online.shopping_gui.model.User;
+import test.model.Administrator;
+import test.model.Customer;
+import test.model.User;
 
 import java.io.*;
 import java.util.HashMap;

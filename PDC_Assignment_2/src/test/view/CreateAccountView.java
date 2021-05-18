@@ -15,7 +15,6 @@ import java.awt.*;
  */
 public class CreateAccountView extends JPanel 
 {
-    public static final String NAME = "Create Account";
     private JLabel loginIDLbl, loginIDCheckLbl, passwordLbl, passwordCheckLbl, confirmPassLbl, confirmPassCheckLbl;
     private JLabel nameLbl, phoneNoLbl, emailLbl, cardNoLbl, cardHolderLbl;
     private JTextField loginIDTxtField, nameTxtField, phoneNoTxtField, emailTxtField, cardNoTxtField, cardHolderTxtField;

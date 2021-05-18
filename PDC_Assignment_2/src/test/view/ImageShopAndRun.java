@@ -4,8 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * This class contains the State Enumeration which maintains constant variables
- * for the user account state
+ * This class contains the image for the GUI
  *
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
@@ -16,11 +15,10 @@ import java.awt.*;
  */
 
 public class ImageShopAndRun extends JPanel {
-    public static final String NAME = "Right Panel";
     public Image image;
     
     public ImageShopAndRun(){
-        this.image = new ImageIcon("./Resources/images/shop-and-run.jpg").getImage();
+        this.image = new ImageIcon("./PDC_Assignment_2/Resources/images/shop-and-run.jpg").getImage();
     }
     
     @Override

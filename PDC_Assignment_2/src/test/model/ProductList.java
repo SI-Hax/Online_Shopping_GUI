@@ -1,6 +1,6 @@
 package test.model;
 
-import com.online.shopping_gui.enumerations.Category;
+import test.enumerations.Category;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -122,7 +122,7 @@ public class ProductList {
 
         return pListStr;
     }
-    
+
     /**
      * Converts HashMap into an Object array.
      *
