@@ -1,6 +1,6 @@
 package com.online.shopping_gui.view;
 
-import com.online.shopping_gui.controller.MainMenuController;
+import com.online.shopping_gui.controller.CardController;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.util.Observable;
@@ -58,12 +58,14 @@ public class CardView extends JPanel implements Observer {
         }
     }
 
-    public void addController(MainMenuController controller) {
+    public void addController(CardController controller) {
         //need a controller before adding it as a listener 
-        mainMenuView.custLogin.addActionListener(controller);
-        mainMenuView.adminLogin.addActionListener(controller);
-        mainMenuView.createAccount.addActionListener(controller);
-        mainMenuView.quit.addActionListener(controller);
+        mainMenuView.getCustLogin().addActionListener(controller);
+        mainMenuView.getAdminLogin().addActionListener(controller);
+        mainMenuView.getCreateAccount().addActionListener(controller);
+        mainMenuView.getQuit().addActionListener(controller);
+        loginView.getBackBtn().addActionListener(controller);
+        createAccountView.getBackBtn().addActionListener(controller);
     }
 
     public MainMenuView getMainMenuView() {
