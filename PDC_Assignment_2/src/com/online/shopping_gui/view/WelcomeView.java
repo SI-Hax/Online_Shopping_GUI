@@ -1,6 +1,6 @@
 package com.online.shopping_gui.view;
 
-import com.online.shopping_gui.controller.MainMenuController;
+import com.online.shopping_gui.controller.CardController;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
@@ -33,7 +33,6 @@ public class WelcomeView extends JFrame {
     
     public void initLeftPanel() {
         leftPanel = new ImageShopAndRun();
-//        leftPanel.setOpaque(false);
         leftPanel.setAlignmentX(SwingConstants.CENTER);
         leftPanel.setAlignmentY(SwingConstants.CENTER);
         leftPanel.setBounds(50, 200, 400, 116);
@@ -49,7 +48,7 @@ public class WelcomeView extends JFrame {
         CardView cardView = new CardView();
         cardModel.addObserver(cardView);
         
-        MainMenuController mainMenuController = new MainMenuController();
+        CardController mainMenuController = new CardController();
         //pass the reference of model and view to the controllor
         mainMenuController.addModel(cardModel);
         mainMenuController.addView(this, cardView);
@@ -57,7 +56,6 @@ public class WelcomeView extends JFrame {
         cardView.addController(mainMenuController);
         
         rightPanel = cardView;
-//        rightPanel.setOpaque(false);
         rightPanel.setBounds(475, 0, 400, 560);
         this.add(rightPanel);
     }
@@ -73,15 +71,17 @@ public class WelcomeView extends JFrame {
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screenSize = kit.getScreenSize();
 
-        hi.setSize(500, 500);
+        hi.setSize(900, 600);
 
-        //Calculate the frame location
+        // Calculate the frame location
         int x = (screenSize.width - hi.getWidth()) / 2;
         int y = (screenSize.height - hi.getHeight()) / 2;
 
         hi.setLocation(x,y);
+        hi.setTitle("Si Hax Store");
         hi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         hi.pack();
         hi.setVisible(true);
+        hi.setResizable(false);
     }
 }
