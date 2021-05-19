@@ -27,14 +27,13 @@ import java.util.Map;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 1.02
+ * @version 2.0.1
  * @since 09/04/2021
- *
  */
 public final class UserFileIO {
 
-    public static final String CUSTOMER_FILEPATH = "./resources/customer_database.csv";
-    public static final String ADMIN_FILEPATH = "./resources/admin_database.csv";
+    public static final String CUSTOMER_FILEPATH = "./Resources/csv_files/customer_database.csv";
+    public static final String ADMIN_FILEPATH = "./Resources/csv_files/admin_database.csv";
 
     /**
      * This method reads Users' information from multiple .csv files and loads
