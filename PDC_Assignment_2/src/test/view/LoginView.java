@@ -15,7 +15,7 @@ import javax.swing.*;
  */
 public class LoginView extends JPanel {
 
-    private JButton okay, quit, backBtn;
+    private JButton okay, resetBtn, backBtn;
     private JLabel logLbl, passLbl;
     private JPasswordField enterPass;
     private JTextField loginTxt;
@@ -25,7 +25,7 @@ public class LoginView extends JPanel {
         this.setLayout(null);
 
         okay = new JButton("Login");
-        quit = new JButton("Quit"); //TODO: Remove redundant Quit Button.
+        resetBtn = new JButton("Reset");
         logLbl = new JLabel("Login ID");
         passLbl = new JLabel("Password");
         enterPass = new JPasswordField(30);
@@ -33,7 +33,7 @@ public class LoginView extends JPanel {
         backBtn = new JButton("Back");
 
         add(okay);
-        add(quit); //TODO: Remove redundant Quit Button.
+        add(resetBtn);
         add(logLbl);
         add(passLbl);
         add(enterPass);
@@ -41,11 +41,11 @@ public class LoginView extends JPanel {
         add(backBtn);
 
         okay.setBounds(75, 165, 100, 25);
-        quit.setBounds(180, 165, 100, 25); //TODO: Remove redundant Quit Button.
+        resetBtn.setBounds(180, 165, 100, 25);
         logLbl.setBounds(80, 80, 100, 25);
         passLbl.setBounds(75, 120, 100, 25);
-        enterPass.setBounds(145, 120, 100, 25);
-        loginTxt.setBounds(145, 80, 100, 25);
+        enterPass.setBounds(145, 120, 135, 25);
+        loginTxt.setBounds(145, 80, 135, 25);
         backBtn.setBounds(280, 500, 100, 25);
     }
     
