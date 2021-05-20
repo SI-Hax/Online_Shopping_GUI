@@ -20,7 +20,7 @@ public class CreateAccountView extends JPanel
     private JLabel nameLbl, phoneNoLbl, emailLbl, cardNoLbl, cardHolderLbl;
     private JTextField loginIDTxtField, nameTxtField, phoneNoTxtField, emailTxtField, cardNoTxtField, cardHolderTxtField;
     private JPasswordField passwordPassField, confirmPassField;
-    private JButton createAccountBtn, backBtn;
+    private JButton createAccountBtn, backBtn, resetBtn;
     
     public CreateAccountView() {
         FlatLightLaf.install();
@@ -57,7 +57,9 @@ public class CreateAccountView extends JPanel
         cardHolderTxtField = new JTextField(50);
         
         createAccountBtn = new JButton("Create Account");
-        
+
+        resetBtn = new JButton("Reset");
+
         backBtn = new JButton("Back");
 
         // Add components to panel.
@@ -81,6 +83,7 @@ public class CreateAccountView extends JPanel
         add(cardHolderLbl);
         add(cardHolderTxtField);
         add(createAccountBtn);
+        add(resetBtn);
         add(backBtn);
 
         // Set component bounds (size and location)
@@ -103,12 +106,17 @@ public class CreateAccountView extends JPanel
         cardNoTxtField.setBounds(135, 265, 145, 25);
         cardHolderLbl.setBounds(50, 300, 70, 25);
         cardHolderTxtField.setBounds(135, 305, 145, 25);
-        createAccountBtn.setBounds(135, 345, 145, 45);
+        createAccountBtn.setBounds(50, 345, 145, 45);
+        resetBtn.setBounds(200, 345, 145, 45);
         backBtn.setBounds(280, 500, 100, 25);
     }
     
     public JButton getBackBtn() {
         return backBtn;
+    }
+
+    public JButton getResetBtn() {
+        return resetBtn;
     }
 
     public JButton getCreateAccountBtn() {
@@ -145,5 +153,16 @@ public class CreateAccountView extends JPanel
 
     public JTextField getCardHolderTxtField() {
         return cardHolderTxtField;
+    }
+
+    public void reset() {
+        getLoginIDTxtField().setText("");
+        getPasswordPassField().setText("");
+        getConfirmPassField().setText("");
+        getNameTxtField().setText("");
+        getEmailTxtField().setText("");
+        getPhoneNoTxtField().setText("");
+        getCardNoTxtField().setText("");
+        getCardHolderTxtField().setText("");
     }
 }

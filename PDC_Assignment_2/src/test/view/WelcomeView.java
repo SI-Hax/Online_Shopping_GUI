@@ -2,7 +2,6 @@ package test.view;
 
 import test.controller.CardController;
 import com.formdev.flatlaf.FlatLightLaf;
-import test.view.ImageShopAndRun;
 
 import javax.swing.*;
 import java.awt.*;

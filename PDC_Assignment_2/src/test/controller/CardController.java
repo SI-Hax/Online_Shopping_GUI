@@ -44,8 +44,10 @@ public class CardController implements ActionListener {
             System.out.println("Clicked!");
             Administrator.establishConnection();
             Administrator.insertData(cardView);
-        }else if(source == cardView.getCreateAccountView().getBackBtn()) {
+        } else if(source == cardView.getCreateAccountView().getBackBtn()) {
             cardModel.setMainMenuSelection(0);
+        } else if(source == cardView.getCreateAccountView().getResetBtn()) {
+            cardView.getCreateAccountView().reset();
         }
     }
     
