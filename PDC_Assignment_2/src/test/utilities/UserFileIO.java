@@ -3,6 +3,7 @@ package test.utilities;
 import test.model.Administrator;
 import test.model.Customer;
 import test.model.User;
+import test.utilities.Utilities;
 
 import java.io.*;
 import java.util.HashMap;
@@ -28,9 +29,8 @@ import java.util.Map;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 1.02
+ * @version 2.0.1
  * @since 09/04/2021
- *
  */
 public final class UserFileIO {
 
@@ -56,7 +56,7 @@ public final class UserFileIO {
 
         // Try-with-resources to import data from 2 csv files (1st:customer_database; 2nd:admin_database).
         try (BufferedReader br2 = new BufferedReader(new FileReader(UserFileIO.ADMIN_FILEPATH));
-             BufferedReader br = new BufferedReader(new FileReader(UserFileIO.CUSTOMER_FILEPATH));) {
+                BufferedReader br = new BufferedReader(new FileReader(UserFileIO.CUSTOMER_FILEPATH));) {
             // Block to import data from customer_database.csv
             String line = null;
             String[] data = new String[8];
@@ -73,12 +73,12 @@ public final class UserFileIO {
 
                     // Stores imported Customer data onto a local HashMap.
                     usersData.put(data[0], new Customer(data[0], // LoginID
-                            Utilities.decrypt(data[1]), // Password
+                            test.utilities.Utilities.decrypt(data[1]), // Password
                             data[2], // Name 
                             data[3], // Phone
                             data[4], // Email
                             data[5].replaceAll(";", ","), // Address
-                            Utilities.decrypt(data[6]), // Card number
+                            test.utilities.Utilities.decrypt(data[6]), // Card number
                             data[7]));                           // Card holder
                 }
             }
@@ -136,7 +136,7 @@ public final class UserFileIO {
 
         // Try-with-resources (Buffered PrintWriter which overwrites existing files with new data).
         try (PrintWriter pw2 = new PrintWriter(new BufferedWriter(new FileWriter(UserFileIO.ADMIN_FILEPATH, false)));
-             PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(UserFileIO.CUSTOMER_FILEPATH, false)));) {
+                PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(UserFileIO.CUSTOMER_FILEPATH, false)));) {
             // Prints out column headers.
             pw.println("LoginID,Password,Name,Phone,Email,Address,Card Number,Card Holder");
             pw2.println("LoginID,Password,Name,Email");

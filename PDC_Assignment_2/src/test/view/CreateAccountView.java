@@ -6,11 +6,12 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- *
+ * Contains fields to collect data from user. 
+ * 
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 1.0
+ * @version 2.0.1
  * @since 15/05/2021
  */
 public class CreateAccountView extends JPanel 
@@ -19,7 +20,7 @@ public class CreateAccountView extends JPanel
     private JLabel nameLbl, phoneNoLbl, emailLbl, cardNoLbl, cardHolderLbl;
     private JTextField loginIDTxtField, nameTxtField, phoneNoTxtField, emailTxtField, cardNoTxtField, cardHolderTxtField;
     private JPasswordField passwordPassField, confirmPassField;
-    private JButton createAccountBtn;
+    private JButton createAccountBtn, backBtn;
     
     public CreateAccountView() {
         FlatLightLaf.install();
@@ -56,6 +57,8 @@ public class CreateAccountView extends JPanel
         cardHolderTxtField = new JTextField(50);
         
         createAccountBtn = new JButton("Create Account");
+        
+        backBtn = new JButton("Back");
 
         // Add components to panel.
         add(loginIDLbl);
@@ -78,6 +81,7 @@ public class CreateAccountView extends JPanel
         add(cardHolderLbl);
         add(cardHolderTxtField);
         add(createAccountBtn);
+        add(backBtn);
 
         // Set component bounds (size and location)
         loginIDLbl.setBounds(70, 25, 50, 25);
@@ -100,13 +104,46 @@ public class CreateAccountView extends JPanel
         cardHolderLbl.setBounds(50, 300, 70, 25);
         cardHolderTxtField.setBounds(135, 305, 145, 25);
         createAccountBtn.setBounds(135, 345, 145, 45);
+        backBtn.setBounds(280, 500, 100, 25);
     }
     
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("test");
-        frame.setLocationRelativeTo(null);
-        frame.add(new CreateAccountView());
-        frame.pack();
-        frame.setVisible(true);
+    public JButton getBackBtn() {
+        return backBtn;
+    }
+
+    public JButton getCreateAccountBtn() {
+        return createAccountBtn;
+    }
+
+    public JTextField getLoginIDTxtField() {
+        return loginIDTxtField;
+    }
+
+    public JPasswordField getPasswordPassField() {
+        return passwordPassField;
+    }
+
+    public JPasswordField getConfirmPassField() {
+        return confirmPassField;
+    }
+
+    public JTextField getNameTxtField() {
+        return nameTxtField;
+    }
+
+    public JTextField getEmailTxtField() {
+        return emailTxtField;
+    }
+
+    public JTextField getPhoneNoTxtField() {
+        return phoneNoTxtField;
+    }
+
+    public JTextField getCardNoTxtField() {
+        return cardNoTxtField;
+    }
+
+    public JTextField getCardHolderTxtField() {
+        return cardHolderTxtField;
     }
 }

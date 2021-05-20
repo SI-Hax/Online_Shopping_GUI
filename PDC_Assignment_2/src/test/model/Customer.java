@@ -1,5 +1,6 @@
 package test.model;
 
+import test.model.User;
 import test.utilities.Utilities;
 
 /**

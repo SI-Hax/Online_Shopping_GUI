@@ -1,6 +1,10 @@
 package test.model;
 
 import test.utilities.Utilities;
+import test.view.CardView;
+
+import javax.swing.*;
+import java.sql.*;
 
 /**
  * This class holds information about an Administrator of the system. It is an
@@ -32,6 +36,7 @@ public class Administrator extends User {
 
     private String adminName;
     private String adminEmail;
+    private static Connection conn;
 
     /**
      * 2-parameter constructor for Administrator class. Admins must have at
@@ -96,6 +101,66 @@ public class Administrator extends User {
         
         return set;
     }
+
+    // Temp method
+    public static void  establishConnection() {
+        try {
+            conn = DriverManager.getConnection(DatabaseConn.CONNECTION_URL);
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void createTable() {
+        try {
+            Statement statement = conn.createStatement();
+            String newTableName = "Admin";
+            /*//String sqlCreate = "create table " + newTableName + " (Login_ID varchar(50)," + "Password varchar(20))";
+            String sqlCreate = "create table " + newTableName + " (Login_ID varchar(50), Password varchar(50), " +
+                    "Name varchar(50), Email varchar(50), phoneNumber int, CardNumber int, CardHolder varchar(50))";
+            statement.executeUpdate(sqlCreate);*/
+
+            statement.close();
+            System.out.println("Table created");
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void insertData(CardView cardView) {
+        try {
+            Statement statement = conn.createStatement();
+            String newTableName = "Admin";
+
+            String url = "insert into " + newTableName + " values(?,?,?,?,?,?,?)";
+
+            PreparedStatement preparedStatement = conn.prepareStatement(url);
+
+            preparedStatement.setString(1, cardView.getCreateAccountView().getLoginIDTxtField().getText());
+            preparedStatement.setString(2, String.valueOf(cardView.getCreateAccountView().getConfirmPassField().getPassword()));
+            preparedStatement.setString(3, cardView.getCreateAccountView().getNameTxtField().getText());
+            preparedStatement.setString(4, cardView.getCreateAccountView().getEmailTxtField().getText());
+            preparedStatement.setString(5, cardView.getCreateAccountView().getPhoneNoTxtField().getText());
+            preparedStatement.setString(6, cardView.getCreateAccountView().getCardNoTxtField().getText());
+            preparedStatement.setString(7, cardView.getCreateAccountView().getCardHolderTxtField().getText());
+
+            int i = preparedStatement.executeUpdate();
+            
+            if (i > 0) {
+                System.out.println("New Record Saved");
+            }
+
+            System.out.println(cardView.getCreateAccountView().getConfirmPassField().getPassword());
+
+            statement.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    // Temp method
 
     /**
      * Overridden method from superclass (User). Users that are Administrators

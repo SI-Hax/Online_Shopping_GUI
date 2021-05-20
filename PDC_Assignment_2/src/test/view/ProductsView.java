@@ -1,12 +1,11 @@
 package test.view;
 
+import test.model.Table;
 import test.model.ProductList;
 import test.utilities.ProductFileIO;
 
+import java.awt.Dimension;
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import java.awt.*;
 
 /**
  * This class contains the Products Table
@@ -39,23 +38,5 @@ public class ProductsView extends JPanel {
         add(scrollPane);
 
         this.setPreferredSize(new Dimension(500, 500));
-
-        // Table listener
-        // maybe we can use this to change value of the database
-        productTable.getModel().addTableModelListener(new TableModelListener() {
-            @Override
-            public void tableChanged(TableModelEvent e) {
-                System.out.println("Row: " + productTable.getSelectedRow() + " | Column: " + productTable.getSelectedColumn() +
-                        " | Current Value: " + productTable.getValueAt(productTable.getEditingRow(),productTable.getSelectedColumn()).toString());
-            }
-        });
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000,500);
-        frame.add(new ProductsView());
-        frame.setVisible(true);
     }
 }

@@ -1,5 +1,9 @@
 package test.model;
 
+import test.model.Customer;
+import test.model.Product;
+import test.model.User;
+
 import java.util.ArrayList;
 
 /**
@@ -32,10 +36,10 @@ import java.util.ArrayList;
  */
 public class ShoppingCart {
 
-    private ArrayList<Product> products;
+    private ArrayList<test.model.Product> products;
     private ArrayList<Integer> quantity;
     private double grandTotal;
-    private User user;
+    private test.model.User user;
 
     /**
      * 1-Parameter constructor for ShoppingCart, prepares Object attributes so
@@ -44,8 +48,8 @@ public class ShoppingCart {
      * @param user : Logged in user who will be using the cart.
      *
      */
-    public ShoppingCart(User user) {
-        this.products = new ArrayList<Product>();
+    public ShoppingCart(test.model.User user) {
+        this.products = new ArrayList<test.model.Product>();
         this.quantity = new ArrayList<Integer>();
         this.grandTotal = 0.0;
         this.user = user;
@@ -126,7 +130,7 @@ public class ShoppingCart {
         String invoice = "";
 
         invoice += "\n-----------------Invoice----------------\n";
-        invoice += "Bill To: " + ((Customer) currentUser).getName() + "\n";
+        invoice += "Bill To: " + ((test.model.Customer) currentUser).getName() + "\n";
         invoice += "Billing Address: " + ((Customer) currentUser).getAddress() + "\n";
         invoice += "----------------------------------------\n";
         invoice += String.format("%20s%10s%7s\n", "Product", "Quantity", "Price");
