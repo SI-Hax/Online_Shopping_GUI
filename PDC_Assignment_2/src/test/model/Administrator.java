@@ -138,13 +138,13 @@ public class Administrator extends User {
 
             PreparedStatement preparedStatement = conn.prepareStatement(url);
 
-            preparedStatement.setString(1, cardView.getCreateAccountView().getLoginIDTxtField().getText());
-            preparedStatement.setString(2, String.valueOf(cardView.getCreateAccountView().getConfirmPassField().getPassword()));
-            preparedStatement.setString(3, cardView.getCreateAccountView().getNameTxtField().getText());
-            preparedStatement.setString(4, cardView.getCreateAccountView().getEmailTxtField().getText());
-            preparedStatement.setString(5, cardView.getCreateAccountView().getPhoneNoTxtField().getText());
-            preparedStatement.setString(6, cardView.getCreateAccountView().getCardNoTxtField().getText());
-            preparedStatement.setString(7, cardView.getCreateAccountView().getCardHolderTxtField().getText());
+            preparedStatement.setString(1, cardView.getCreatAdminAccountView().getLoginIDTxtField().getText());
+            preparedStatement.setString(2, String.valueOf(cardView.getCreatAdminAccountView().getConfirmPassField().getPassword()));
+            preparedStatement.setString(3, cardView.getCreatAdminAccountView().getNameTxtField().getText());
+            preparedStatement.setString(4, cardView.getCreatAdminAccountView().getEmailTxtField().getText());
+            preparedStatement.setString(5, cardView.getCreatAdminAccountView().getPhoneNoTxtField().getText());
+            preparedStatement.setString(6, cardView.getCreatAdminAccountView().getCardNoTxtField().getText());
+            preparedStatement.setString(7, cardView.getCreatAdminAccountView().getCardHolderTxtField().getText());
 
             int i = preparedStatement.executeUpdate();
             
@@ -152,7 +152,7 @@ public class Administrator extends User {
                 System.out.println("New Record Saved");
             }
 
-            System.out.println(cardView.getCreateAccountView().getConfirmPassField().getPassword());
+            System.out.println(cardView.getCreatAdminAccountView().getConfirmPassField().getPassword());
 
             statement.close();
 

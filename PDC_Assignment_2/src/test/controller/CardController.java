@@ -30,24 +30,46 @@ public class CardController implements ActionListener {
         Object source = e.getSource();
         
         if(source == cardView.getMainMenuView().getCustLogin()) {
+            // Go to Login menu
             cardModel.setMainMenuSelection(1); 
         } else if(source == cardView.getMainMenuView().getAdminLogin()) {
+            // Go to Login menu
             cardModel.setMainMenuSelection(1);
         } else if(source == cardView.getMainMenuView().getCreateAccount()) {
             cardModel.setMainMenuSelection(2);
+        } else if(source == cardView.getCreateAccountChoiceView().getCreateCustomerAccount()) {
+            // Go to Create Customer Panel
+            cardModel.setMainMenuSelection(3);
+        } else if(source == cardView.getCreateAccountChoiceView().getCreateAdminAccount()) {
+            // Go to Create Admin Panel
+            cardModel.setMainMenuSelection(4);
+        } else if(source == cardView.getCreateAccountChoiceView().getBackBtn()) {
+            // Go to Main Menu
+            cardModel.setMainMenuSelection(0);
         } else if(source == cardView.getMainMenuView().getQuit()) {
             // TODO: Temporary solution.
             System.exit(0);
         } else if(source == cardView.getLoginView().getBackBtn()) {
             cardModel.setMainMenuSelection(0);
-        } else if(source == cardView.getCreateAccountView().getCreateAccountBtn()) {
-            System.out.println("Clicked!");
+        } else if(source == cardView.getCreatCustomerAccountView().getCreateAccountBtn()) {
+            System.out.println("TODO");
+            // TODO Customer Database
+        } else if(source == cardView.getCreatCustomerAccountView().getResetBtn()) {
+            // Reset All Fields
+            cardView.getCreatCustomerAccountView().reset();
+        } else if(source == cardView.getCreatCustomerAccountView().getBackBtn()) {
+            // Go to Create Account Choice Menu
+            cardModel.setMainMenuSelection(2);
+        } else if(source == cardView.getCreatAdminAccountView().getCreateAccountBtn()) {
+            // Temporary Method
             Administrator.establishConnection();
             Administrator.insertData(cardView);
-        } else if(source == cardView.getCreateAccountView().getBackBtn()) {
-            cardModel.setMainMenuSelection(0);
-        } else if(source == cardView.getCreateAccountView().getResetBtn()) {
-            cardView.getCreateAccountView().reset();
+        } else if(source == cardView.getCreatAdminAccountView().getResetBtn()) {
+            // Reset All Fields
+            cardView.getCreatAdminAccountView().reset();
+        } else if(source == cardView.getCreatAdminAccountView().getBackBtn()) {
+            // Go to Create Account Choice Menu
+            cardModel.setMainMenuSelection(2);
         }
     }
     

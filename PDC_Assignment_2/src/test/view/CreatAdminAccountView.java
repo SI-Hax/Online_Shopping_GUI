@@ -6,32 +6,31 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Contains fields to collect data from user. 
- * 
+ * Contains fields to collect data from user.
+ *
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
  * @version 2.0.1
  * @since 15/05/2021
  */
-public class CreateAccountView extends JPanel 
-{
+public class CreatAdminAccountView extends JPanel {
     private JLabel loginIDLbl, loginIDCheckLbl, passwordLbl, passwordCheckLbl, confirmPassLbl, confirmPassCheckLbl;
     private JLabel nameLbl, phoneNoLbl, emailLbl, cardNoLbl, cardHolderLbl;
     private JTextField loginIDTxtField, nameTxtField, phoneNoTxtField, emailTxtField, cardNoTxtField, cardHolderTxtField;
     private JPasswordField passwordPassField, confirmPassField;
     private JButton createAccountBtn, backBtn, resetBtn;
-    
-    public CreateAccountView() {
+
+    public CreatAdminAccountView() {
         FlatLightLaf.install();
         setLayout(null);
         setPreferredSize(new Dimension(296, 406));
-        
+
         // Construct components.
         loginIDLbl = new JLabel ("Login ID");
         loginIDTxtField = new JTextField (50);
         loginIDCheckLbl = new JLabel ("");
-        
+
         passwordLbl = new JLabel("Password");
         passwordPassField = new JPasswordField(50);
         passwordPassField.setToolTipText("Password must contain 8+ Characters, 1 Upper, 1 Lower, 1 Number, & 1 Symbol");
@@ -40,22 +39,22 @@ public class CreateAccountView extends JPanel
         confirmPassLbl = new JLabel("Confirm Password");
         confirmPassField = new JPasswordField(50);
         confirmPassCheckLbl = new JLabel("");
-        
+
         nameLbl = new JLabel("Name");
         nameTxtField = new JTextField(50);
-        
+
         emailLbl = new JLabel("Email");
         emailTxtField = new JTextField(50);
-        
+
         phoneNoLbl = new JLabel("Phone Number");
         phoneNoTxtField = new JTextField(50);
-        
+
         cardNoLbl = new JLabel("Card Number");
         cardNoTxtField = new JTextField(50);
-        
+
         cardHolderLbl = new JLabel("Card Holder");
         cardHolderTxtField = new JTextField(50);
-        
+
         createAccountBtn = new JButton("Create Account");
 
         resetBtn = new JButton("Reset");
@@ -110,7 +109,7 @@ public class CreateAccountView extends JPanel
         resetBtn.setBounds(200, 345, 145, 45);
         backBtn.setBounds(280, 500, 100, 25);
     }
-    
+
     public JButton getBackBtn() {
         return backBtn;
     }

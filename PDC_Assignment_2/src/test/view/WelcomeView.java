@@ -49,7 +49,7 @@ public class WelcomeView extends JFrame {
         cardModel.addObserver(cardView);
         
         CardController mainMenuController = new CardController();
-        //pass the reference of model and view to the controllor
+        // Pass the reference of model and view to the controller
         mainMenuController.addModel(cardModel);
         mainMenuController.addView(this, cardView);
         mainMenuController.initModel(0);
@@ -62,8 +62,8 @@ public class WelcomeView extends JFrame {
 
     /**
      * Entry point of the program.
-     * 
-     * @param args 
+     *
+     * @param args
      */
     public static void main(String[] args) {
         WelcomeView hi = new WelcomeView();

@@ -1,9 +1,6 @@
 package test.view;
 
 import test.controller.CardController;
-import test.view.CreateAccountView;
-import test.view.LoginView;
-import test.view.MainMenuView;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -25,8 +22,11 @@ import javax.swing.JPanel;
 public class CardView extends JPanel implements Observer {
     protected MainMenuView mainMenuView;
     protected LoginView loginView;
-    protected CreateAccountView createAccountView;
-    
+    protected CreatAccountChoiceView createAccountChoiceView;
+    protected CreatCustomerAccountView creatCustomerAccountView;
+    protected CreatAdminAccountView creatAdminAccountView;
+
+
     public CardView() {
         this.setLayout(new CardLayout());
         this.setPreferredSize(new Dimension(400, 560));
@@ -36,9 +36,15 @@ public class CardView extends JPanel implements Observer {
         
         this.loginView = new LoginView();
         add(loginView, "Login Menu");
-        
-        this.createAccountView = new CreateAccountView();
-        add(createAccountView, "Create Account");
+
+        this.createAccountChoiceView = new CreatAccountChoiceView();
+        add(createAccountChoiceView, "Create Account Choice Menu");
+
+        this.creatCustomerAccountView = new CreatCustomerAccountView();
+        add(creatCustomerAccountView, "Create Customer Account");
+
+        this.creatAdminAccountView = new CreatAdminAccountView();
+        add(creatAdminAccountView, "Create Admin Account");
     }
     
     /**
@@ -57,21 +63,43 @@ public class CardView extends JPanel implements Observer {
                 cl.show(this, "Login Menu");
                 break;
             case 2:
-                cl.show(this, "Create Account");
-                break; 
+                cl.show(this,"Create Account Choice Menu");
+                break;
+            case 3:
+                cl.show(this,"Create Customer Account");
+                break;
+            case 4:
+                cl.show(this,"Create Admin Account");
+                break;
         }
     }
 
     public void addController(CardController controller) {
-        //need a controller before adding it as a listener 
+        // Need a controller before adding it as a listener
+
+        // Main Menu View
         mainMenuView.getCustLogin().addActionListener(controller);
         mainMenuView.getAdminLogin().addActionListener(controller);
         mainMenuView.getCreateAccount().addActionListener(controller);
         mainMenuView.getQuit().addActionListener(controller);
+
+        // Login View
         loginView.getBackBtn().addActionListener(controller);
-        createAccountView.getBackBtn().addActionListener(controller);
-        createAccountView.getResetBtn().addActionListener(controller);
-        createAccountView.getCreateAccountBtn().addActionListener(controller);
+
+        // Create Account Choice View
+        createAccountChoiceView.getCreateCustomerAccount().addActionListener(controller);
+        createAccountChoiceView.getCreateAdminAccount().addActionListener(controller);
+        createAccountChoiceView.getBackBtn().addActionListener(controller);
+
+        // Create Customer Account View
+        creatCustomerAccountView.getCreateAccountBtn().addActionListener(controller);
+        creatCustomerAccountView.getResetBtn().addActionListener(controller);
+        creatCustomerAccountView.getBackBtn().addActionListener(controller);
+
+        // Create Admin Account View
+        creatAdminAccountView.getCreateAccountBtn().addActionListener(controller);
+        creatAdminAccountView.getResetBtn().addActionListener(controller);
+        creatAdminAccountView.getBackBtn().addActionListener(controller);
     }
 
     public MainMenuView getMainMenuView() {
@@ -82,10 +110,18 @@ public class CardView extends JPanel implements Observer {
         return loginView;
     }
 
-    public CreateAccountView getCreateAccountView() {
-        return createAccountView;
+    public CreatAccountChoiceView getCreateAccountChoiceView() {
+        return createAccountChoiceView;
     }
-    
+
+    public CreatCustomerAccountView getCreatCustomerAccountView() {
+        return creatCustomerAccountView;
+    }
+
+    public CreatAdminAccountView getCreatAdminAccountView() {
+        return creatAdminAccountView;
+    }
+
     @Override
     public void update(Observable cardModel, Object selection) {
         setActivePanel((int) selection);
