@@ -9,16 +9,14 @@ import java.awt.*;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 1.0
- * @since 15/03/2021
- *
+ * @version 2.0.1
+ * @since 15/05/2021
  */
-
 public class ImageShopAndRun extends JPanel {
     public Image image;
     
     public ImageShopAndRun(){
-        this.image = new ImageIcon("./PDC_Assignment_2/Resources/images/shop-and-run.jpg").getImage();
+        this.image = new ImageIcon("./Resources/images/shop-and-run.jpg").getImage();
     }
     
     @Override

@@ -1,6 +1,10 @@
 package com.online.shopping_gui.model;
 
 import com.online.shopping_gui.utilities.Utilities;
+import com.online.shopping_gui.view.CardView;
+
+import javax.swing.*;
+import java.sql.*;
 
 /**
  * This class holds information about a Customer. It is an extension of User
@@ -39,6 +43,7 @@ public class Customer extends User {
     private String address;
     private String cardNumber;
     private String cardHolder;
+    private static Connection conn;
 
     /**
      * 2-parameter constructor for Customer class. User must have at least a 
@@ -199,6 +204,85 @@ public class Customer extends User {
         
         return set;
     }
+
+    // Temp method
+    public static void  establishConnection() {
+        try {
+            conn = DriverManager.getConnection(DatabaseConn.CONNECTION_URL);
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void createTable() {
+        try {
+            Statement statement = conn.createStatement();
+            String newTableName = "Customer";
+            String sqlCreate = "create table " + newTableName + " (Login_ID varchar(50), Password varchar(50), " +
+                    "Name varchar(50), Email varchar(50), phoneNumber int, CardNumber int, CardHolder varchar(50))";
+            statement.executeUpdate(sqlCreate);
+
+            statement.close();
+            System.out.println("Table created");
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void insertData(CardView cardView) {
+        try {
+            Statement statement = conn.createStatement();
+            String newTableName = "Customer";
+
+            String url = "insert into " + newTableName + " values(?,?,?,?,?,?,?)";
+
+            PreparedStatement preparedStatement = conn.prepareStatement(url);
+
+            preparedStatement.setString(1, cardView.getCreatCustomerAccountView().getLoginIDTxtField().getText());
+            preparedStatement.setString(2, String.valueOf(cardView.getCreatCustomerAccountView().getConfirmPassField().getPassword()));
+            preparedStatement.setString(3, cardView.getCreatCustomerAccountView().getNameTxtField().getText());
+            preparedStatement.setString(4, cardView.getCreatCustomerAccountView().getEmailTxtField().getText());
+            preparedStatement.setString(5, cardView.getCreatCustomerAccountView().getPhoneNoTxtField().getText());
+            preparedStatement.setString(6, cardView.getCreatCustomerAccountView().getCardNoTxtField().getText());
+            preparedStatement.setString(7, cardView.getCreatCustomerAccountView().getCardHolderTxtField().getText());
+
+            int i = preparedStatement.executeUpdate();
+
+            if (i > 0) {
+                System.out.println("New Record Saved");
+            }
+
+            statement.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static boolean loginCheck(String loginID, String password) {
+        try {
+            Statement statement = conn.createStatement();
+
+            String sql = "select * from Customer where LOGIN_ID='"+loginID+"' and PASSWORD='"+password+"'";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+                JOptionPane.showMessageDialog(null, "Login Successful!");
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(null, "Password or Login ID is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            statement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
+    }
+    // Temp method
 
     /**
      * To String method to serialise object. String files Object's attributes,

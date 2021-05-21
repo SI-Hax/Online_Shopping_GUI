@@ -1,19 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.online.shopping_gui.view;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
+ * This class contains the View (Buttons) for the Main Menu.
  *
- * @author roxyc
+ * @author Miguel Emmara - 18022146
+ * @author Amos Foong - 18044418
+ * @author Roxy Dao - 1073633
+ * @version 2.0.1
+ * @since 15/05/2021
  */
 public class MainMenuView extends JPanel {
-    private JButton custLogin, adminLogin, createAccount, quit;
+    protected JButton custLogin, adminLogin, createAccount, quit;
 
     public MainMenuView(){
         setPreferredSize(new Dimension(400, 560));
@@ -34,5 +34,20 @@ public class MainMenuView extends JPanel {
         createAccount.setBounds(125, 260, 150, 55);
         quit.setBounds(125, 335, 150, 55);
     }
-    
+
+    public JButton getCustLogin() {
+        return custLogin;
+    }
+
+    public JButton getAdminLogin() {
+        return adminLogin;
+    }
+
+    public JButton getCreateAccount() {
+        return createAccount;
+    }
+
+    public JButton getQuit() {
+        return quit;
+    }    
 }
