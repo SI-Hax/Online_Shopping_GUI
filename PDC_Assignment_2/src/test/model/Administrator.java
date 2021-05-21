@@ -116,10 +116,9 @@ public class Administrator extends User {
         try {
             Statement statement = conn.createStatement();
             String newTableName = "Admin";
-            /*//String sqlCreate = "create table " + newTableName + " (Login_ID varchar(50)," + "Password varchar(20))";
             String sqlCreate = "create table " + newTableName + " (Login_ID varchar(50), Password varchar(50), " +
                     "Name varchar(50), Email varchar(50), phoneNumber int, CardNumber int, CardHolder varchar(50))";
-            statement.executeUpdate(sqlCreate);*/
+            statement.executeUpdate(sqlCreate);
 
             statement.close();
             System.out.println("Table created");
@@ -152,13 +151,33 @@ public class Administrator extends User {
                 System.out.println("New Record Saved");
             }
 
-            System.out.println(cardView.getCreatAdminAccountView().getConfirmPassField().getPassword());
-
             statement.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public static boolean loginCheck(String loginID, String password) {
+        try {
+            Statement statement = conn.createStatement();
+
+            String sql = "select * from Admin where LOGIN_ID='"+loginID+"' and PASSWORD='"+password+"'";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+                JOptionPane.showMessageDialog(null, "Login Successful!");
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(null, "Password or Login ID is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            statement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
     }
     // Temp method
 

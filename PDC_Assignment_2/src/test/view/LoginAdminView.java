@@ -13,14 +13,14 @@ import javax.swing.*;
  * @version 2.0.2
  * @since 15/05/2021
  */
-public class LoginView extends JPanel {
+public class LoginAdminView extends JPanel {
 
     private JButton login, resetBtn, backBtn;
     private JLabel logLbl, passLbl;
     private JPasswordField enterPass;
     private JTextField loginTxt;
 
-    public LoginView() {
+    public LoginAdminView() {
         FlatLightLaf.install();
         this.setLayout(null);
 
@@ -48,7 +48,7 @@ public class LoginView extends JPanel {
         loginTxt.setBounds(145, 80, 135, 25);
         backBtn.setBounds(280, 500, 100, 25);
     }
-    
+
     public JButton getBackBtn() {
         return backBtn;
     }

@@ -2,6 +2,8 @@ package test.view;
 
 import test.controller.CardController;
 import com.formdev.flatlaf.FlatLightLaf;
+import test.model.Administrator;
+import test.model.Customer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,6 +68,9 @@ public class WelcomeView extends JFrame {
      * @param args
      */
     public static void main(String[] args) {
+        // Establish Database Connections
+        Administrator.establishConnection();
+        Customer.establishConnection();
         WelcomeView hi = new WelcomeView();
         // Get the size of the screen
         Toolkit kit = Toolkit.getDefaultToolkit();
