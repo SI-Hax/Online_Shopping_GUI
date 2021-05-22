@@ -136,7 +136,7 @@ public class ProductList {
         for (int i = 0; i < pList.size(); i++) {
             data[i][0] = pList.get(i).getProductID();
             data[i][1] = pList.get(i).getProductName();
-            data[i][2] = pList.get(i).getPrice();
+            data[i][2] = String.format("$%.2f", pList.get(i).getPrice());
             data[i][3] = pList.get(i).getCategory();
             data[i][4] = pList.get(i).getStock();
         }
