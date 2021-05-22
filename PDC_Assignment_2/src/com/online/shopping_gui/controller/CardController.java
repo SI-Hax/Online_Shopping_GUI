@@ -1,6 +1,6 @@
 package com.online.shopping_gui.controller;
 
-import com.online.shopping_gui.view.CardModel;
+import com.online.shopping_gui.model.CardModel;
 import com.online.shopping_gui.view.CardView;
 import com.online.shopping_gui.view.WelcomeView;
 import java.awt.event.ActionEvent;
