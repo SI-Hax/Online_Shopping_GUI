@@ -1,5 +1,6 @@
 package com.online.shopping_gui.view;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import com.online.shopping_gui.model.Table;
 import com.online.shopping_gui.model.ProductList;
 import com.online.shopping_gui.utilities.ProductFileIO;
@@ -28,6 +29,7 @@ public class ProductsView extends JPanel {
     private JButton addToCartBtn;
 
     public ProductsView() {
+        FlatLightLaf.install();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setPreferredSize(new Dimension(900, 500));
         
@@ -60,6 +62,7 @@ public class ProductsView extends JPanel {
         btnPanel.add(addToCartBtn);
         
         // Add all panels to the parent container.
+        this.add(Box.createRigidArea(new Dimension(0, 10)));
         this.add(tablePanel);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
         this.add(lblPanel);
@@ -71,8 +74,10 @@ public class ProductsView extends JPanel {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Test Table");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new ProductsView());
+        ProductsView pv = new ProductsView();
+        frame.add(pv);
         frame.pack();
+        frame.setMinimumSize(pv.getPreferredSize()); // Specifies the min size so table's info wont be obscured.
         frame.setVisible(true);
     }
 }
