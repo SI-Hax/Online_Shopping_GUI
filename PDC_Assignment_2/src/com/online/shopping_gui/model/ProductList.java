@@ -24,7 +24,6 @@ import javax.swing.JButton;
 public class ProductList {
 
     private LinkedHashMap<Category, ArrayList<Product>> singleProductList;
-    public JButton addBtn;
 
     public ProductList() {
         singleProductList = new LinkedHashMap<Category, ArrayList<Product>>();
@@ -34,9 +33,6 @@ public class ProductList {
         singleProductList = new LinkedHashMap<Category, ArrayList<Product>>();
 
         addSingleProduct(newProduct);
-
-        addBtn = new JButton("Add");
-
     }
 
     /**
@@ -133,7 +129,7 @@ public class ProductList {
      */
     public Object[][] convertProductList() {
         ArrayList<Product> pList = this.getProductList();
-        int secondElement = pList.getClass().getDeclaredFields().length + 2;
+        int secondElement = pList.getClass().getDeclaredFields().length;
 
         Object[][] data = new Object[pList.size()][secondElement];
 
@@ -143,19 +139,12 @@ public class ProductList {
             data[i][2] = pList.get(i).getPrice();
             data[i][3] = pList.get(i).getCategory();
             data[i][4] = pList.get(i).getStock();
-            data[i][5] = "";
-            data[i][6] = getAddBtn();
         }
 
         return data;
     }
 
-    public JButton getAddBtn() {
-        return addBtn;
-
-    }
-
-public LinkedHashMap<Category, ArrayList<Product>> getSingleProductList() {
+    public LinkedHashMap<Category, ArrayList<Product>> getSingleProductList() {
         return singleProductList;
     }
 
