@@ -13,7 +13,7 @@ import javax.swing.*;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.0.2
+ * @version 2.0.5
  * @since 17/05/2021
  */
 public class ProductsView extends JPanel {
