@@ -25,7 +25,7 @@ public class ProductsView extends JPanel {
     public ProductsView() {
         list = ProductFileIO.importProductData();
         boolean sorter = true;
-        table = new Table(list.convertProductList(), new String[]{"ID", "Product Name", "Price", "Category", "Stock", "Quantity", "Add To Cart"});
+        table = new Table(list.convertProductList(), new String[]{"ID", "Product Name", "Price", "Category", "Stock"});
  
         
         productTable = new JTable(table);
