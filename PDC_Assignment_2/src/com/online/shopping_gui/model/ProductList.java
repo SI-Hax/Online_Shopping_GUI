@@ -3,6 +3,7 @@ package com.online.shopping_gui.model;
 import com.online.shopping_gui.enumerations.Category;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import javax.swing.JButton;
 
 /**
  * This class contains the ProductList Class which encapsulates the following
@@ -23,6 +24,7 @@ import java.util.LinkedHashMap;
 public class ProductList {
 
     private LinkedHashMap<Category, ArrayList<Product>> singleProductList;
+    public JButton addBtn;
 
     public ProductList() {
         singleProductList = new LinkedHashMap<Category, ArrayList<Product>>();
@@ -32,6 +34,9 @@ public class ProductList {
         singleProductList = new LinkedHashMap<Category, ArrayList<Product>>();
 
         addSingleProduct(newProduct);
+
+        addBtn = new JButton("Add");
+
     }
 
     /**
@@ -120,7 +125,7 @@ public class ProductList {
 
         return pListStr;
     }
-    
+
     /**
      * Converts HashMap into an Object array.
      *
@@ -128,7 +133,7 @@ public class ProductList {
      */
     public Object[][] convertProductList() {
         ArrayList<Product> pList = this.getProductList();
-        int secondElement = pList.getClass().getDeclaredFields().length;
+        int secondElement = pList.getClass().getDeclaredFields().length + 2;
 
         Object[][] data = new Object[pList.size()][secondElement];
 
@@ -138,12 +143,19 @@ public class ProductList {
             data[i][2] = pList.get(i).getPrice();
             data[i][3] = pList.get(i).getCategory();
             data[i][4] = pList.get(i).getStock();
+            data[i][5] = "";
+            data[i][6] = getAddBtn();
         }
 
         return data;
     }
 
-    public LinkedHashMap<Category, ArrayList<Product>> getSingleProductList() {
+    public JButton getAddBtn() {
+        return addBtn;
+
+    }
+
+public LinkedHashMap<Category, ArrayList<Product>> getSingleProductList() {
         return singleProductList;
     }
 
