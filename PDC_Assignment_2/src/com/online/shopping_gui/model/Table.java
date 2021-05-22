@@ -13,10 +13,12 @@ import javax.swing.table.AbstractTableModel;
  */
 public class Table extends AbstractTableModel {
 
-    public String[] column =  new String[]{"ID", "Product Name", "Price", "Category", "Stock"};
+//    public String[] column =  new String[]{"ID", "Product Name", "Price", "Category", "Stock"};
+    public String[] column;
+
     private Object[][] data;
 
-    public Table() {
+    public Table(Object[][] data, String[] column) {
         this.column = column;
         this.data = data;
     }
@@ -38,5 +40,14 @@ public class Table extends AbstractTableModel {
 
     public String getColumnName(int col) {
         return column[col];
+    }
+    
+    @Override
+    public boolean isCellEditable(int row, int col) {
+        if(col == 5){
+            return true;
+        } else {
+            return false;
+        }
     }
 }
