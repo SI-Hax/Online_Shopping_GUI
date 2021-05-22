@@ -139,6 +139,12 @@ public class ShoppingCart {
         return invoice;
     }
     
+    /**
+     * Converts both ArrayLists into a 2D Object array.
+     *
+     * @return 2D Object array containing cart 
+     *          information to be displayed in JTable.
+     */
     public Object[][] convertShoppingCart() {
         int columns = 3;
         Object[][] cartObjArr = new Object[products.size()][columns];
