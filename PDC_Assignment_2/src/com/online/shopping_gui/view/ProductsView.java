@@ -70,6 +70,36 @@ public class ProductsView extends JPanel {
         this.add(btnPanel);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
     }
+
+    public ProductList getList() {
+        return list;
+    }
+
+    public Table getTable() {
+        return table;
+    }
+
+    public JTable getProductTable() {
+        return productTable;
+    }
+
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    public JLabel getItemSelectedLbl() {
+        return itemSelectedLbl;
+    }
+
+    public JTextField getQtyTxtField() {
+        return qtyTxtField;
+    }
+
+    public JButton getAddToCartBtn() {
+        return addToCartBtn;
+    }
+    
+    
     
     public static void main(String[] args) {
         JFrame frame = new JFrame("Test Table");
