@@ -1,5 +1,6 @@
 package com.online.shopping_gui.view;
 
+import com.online.shopping_gui.model.CardModel;
 import com.online.shopping_gui.controller.CardController;
 import com.formdev.flatlaf.FlatLightLaf;
 
