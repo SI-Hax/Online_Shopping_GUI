@@ -3,7 +3,6 @@ package com.online.shopping_gui.view;
 import com.online.shopping_gui.model.Table;
 import com.online.shopping_gui.model.ProductList;
 import com.online.shopping_gui.utilities.ProductFileIO;
-import java.awt.*;
 import java.awt.Dimension;
 import javax.swing.*;
 
@@ -17,7 +16,8 @@ import javax.swing.*;
  * @since 17/05/2021
  */
 public class ProductsView extends JPanel {
-
+    
+    private final String[] COLUMN_HEADERS = new String[]{"ID", "Product Name", "Price", "Category", "Stock"};
     private ProductList list;
     private Table table;
     private JTable productTable;
@@ -36,7 +36,7 @@ public class ProductsView extends JPanel {
         // Init table panel.
         tablePanel = new JPanel();
         boolean sorter = true;
-        table = new Table(list.convertProductList(), new String[]{"ID", "Product Name", "Price", "Category", "Stock"}); // Init Table Model.
+        table = new Table(list.convertProductList(), COLUMN_HEADERS); // Init Table Model.
         productTable = new JTable(table);
         productTable.setPreferredScrollableViewportSize(new Dimension(700, 400));
         productTable.setFillsViewportHeight(true);
@@ -52,7 +52,7 @@ public class ProductsView extends JPanel {
         
         // Init bottom panel to allow user to add an item with quantity specified to cart.
         btnPanel = new JPanel();
-        qtyLbl = new JLabel("Quantity");
+        qtyLbl = new JLabel("Quantity:");
         btnPanel.add(qtyLbl);
         qtyTxtField = new JTextField(5);
         btnPanel.add(qtyTxtField);
