@@ -25,9 +25,10 @@ public class ProductsView extends JPanel {
     public ProductsView() {
         list = ProductFileIO.importProductData();
         boolean sorter = true;
-        table = new Table();
-
-        productTable = new JTable(list.convertProductList(), table.column);
+        table = new Table(list.convertProductList(), new String[]{"ID", "Product Name", "Price", "Category", "Stock", "Quantity", "Add To Cart"});
+ 
+        
+        productTable = new JTable(table);
         productTable.setPreferredScrollableViewportSize(new Dimension(400, 400));
         productTable.setFillsViewportHeight(true);
         productTable.setAutoCreateRowSorter(sorter);
@@ -37,5 +38,13 @@ public class ProductsView extends JPanel {
         add(scrollPane);
 
         this.setPreferredSize(new Dimension(500, 500));
+    }
+    
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Test Table");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(new ProductsView());
+        frame.pack();
+        frame.setVisible(true);
     }
 }
