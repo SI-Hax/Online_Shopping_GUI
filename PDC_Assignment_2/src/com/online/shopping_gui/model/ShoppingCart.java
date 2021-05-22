@@ -47,7 +47,7 @@ public class ShoppingCart {
     public ShoppingCart(User user) {
         this.products = new ArrayList<Product>();
         this.quantity = new ArrayList<Integer>();
-        this.grandTotal = 0.0;
+        this.grandTotal = 0D;
         this.user = user;
     }
 
@@ -120,7 +120,6 @@ public class ShoppingCart {
      *
      * @param currentUser : User who is logged on currently.
      * @return String representation of the invoice.
-     *
      */
     public String generateInvoice(User currentUser) {
         String invoice = "";
@@ -138,5 +137,18 @@ public class ShoppingCart {
         invoice += String.format("%32s%7.2f\n", "Grand Total: $", this.getGrandTotal());
         invoice += "----------------------------------------";
         return invoice;
+    }
+    
+    public Object[][] convertShoppingCart() {
+        int columns = 3;
+        Object[][] cartObjArr = new Object[products.size()][columns];
+        
+        for(int i = 0; i < products.size(); i++) {
+            cartObjArr[i][0] = products.get(i).getProductName();
+            cartObjArr[i][1] = quantity.get(i);
+            cartObjArr[i][2] = String.format("$%.2f", products.get(i).getPrice() * quantity.get(i));
+        }
+        
+        return cartObjArr;
     }
 }
