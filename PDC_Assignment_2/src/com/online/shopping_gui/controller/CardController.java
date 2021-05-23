@@ -3,7 +3,7 @@ package com.online.shopping_gui.controller;
 import com.online.shopping_gui.model.Administrator;
 import com.online.shopping_gui.model.Customer;
 import com.online.shopping_gui.view.AdminDashboardView;
-import com.online.shopping_gui.view.CardModel;
+import com.online.shopping_gui.model.CardModel;
 import com.online.shopping_gui.view.CardView;
 import com.online.shopping_gui.view.WelcomeView;
 
@@ -109,7 +109,7 @@ public class CardController implements ActionListener {
                 if (Customer.isTableExist()) {
                     Customer.createTable();
                 }
-                Customer.insertData(cardView);
+                Customer.createAccount(cardView);
 
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -126,7 +126,7 @@ public class CardController implements ActionListener {
                 if (Administrator.isTableExist()) {
                     Administrator.createTable();
                 }
-                Administrator.insertData(cardView);
+                Administrator.createAccount(cardView);
 
             } catch (SQLException ex) {
                 ex.printStackTrace();

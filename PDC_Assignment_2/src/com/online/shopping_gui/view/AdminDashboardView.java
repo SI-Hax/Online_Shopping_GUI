@@ -3,6 +3,7 @@ package com.online.shopping_gui.view;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.online.shopping_gui.controller.AdminDashboardLeftPanelCardController;
 import com.online.shopping_gui.controller.AdminDashboardRightPanelCardController;
+import com.online.shopping_gui.model.CardModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +36,7 @@ public class AdminDashboardView extends JFrame {
 
         this.setLocation(x,y);
         this.setTitle("Admin Dashboard");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
         this.setVisible(true);
         this.setResizable(false);

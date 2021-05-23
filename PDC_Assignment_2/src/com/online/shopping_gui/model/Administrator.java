@@ -1,5 +1,6 @@
 package com.online.shopping_gui.model;
 
+import com.online.shopping_gui.utilities.AdminDBManager;
 import com.online.shopping_gui.utilities.Utilities;
 import com.online.shopping_gui.view.CardView;
 
@@ -104,7 +105,7 @@ public class Administrator extends User {
     }
 
     // Temp method
-    public static void  establishConnection() {
+    public static void establishConnection() {
         try {
             conn = DriverManager.getConnection(DatabaseConn.CONNECTION_URL);
 
@@ -113,16 +114,26 @@ public class Administrator extends User {
         }
     }
 
-    public static boolean isTableExist() throws SQLException {
+    /*public static boolean isTableExist() throws SQLException {
         if (conn != null) {
             DatabaseMetaData databaseMetaData = conn.getMetaData();
             ResultSet rs = databaseMetaData.getTables(null, null, TABLE_NAME.toUpperCase(), null);
             return !rs.next();
         }
-        return true;
+        return false;
+    }*/
+
+    // Using AdminDBManager
+    public static boolean isTableExist() throws SQLException {
+        if (AdminDBManager.getConnection() != null) {
+            DatabaseMetaData databaseMetaData = AdminDBManager.getConnection().getMetaData();
+            ResultSet rs = databaseMetaData.getTables(null, null, TABLE_NAME.toUpperCase(), null);
+            return !rs.next();
+        }
+        return false;
     }
 
-    public static void createTable() {
+    /*public static void createTable() {
         try {
             Statement statement = conn.createStatement();
             String sqlCreate = "create table " + TABLE_NAME + " (Login_ID varchar(50), Password varchar(50), " +
@@ -135,15 +146,24 @@ public class Administrator extends User {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }*/
+
+    // Using AdminDBManager
+    public static void createTable() {
+        String sqlCreate = "create table " + TABLE_NAME + " (Login_ID varchar(50), Password varchar(50), " +
+                "Name varchar(50), Email varchar(50), phoneNumber int, CardNumber int, CardHolder varchar(50))";
+        AdminDBManager.updateDB(sqlCreate);
+        System.out.println("Table created");
+
     }
 
-    public static void insertData(CardView cardView) {
+    public static void createAccount(CardView cardView) {
         try {
-            Statement statement = conn.createStatement();
+            Statement statement = AdminDBManager.getConnection().createStatement();
 
             String url = "insert into " + TABLE_NAME + " values(?,?,?,?,?,?,?)";
 
-            PreparedStatement preparedStatement = conn.prepareStatement(url);
+            PreparedStatement preparedStatement = AdminDBManager.getConnection().prepareStatement(url);
 
             preparedStatement.setString(1, cardView.getCreatAdminAccountView().getLoginIDTxtField().getText());
             preparedStatement.setString(2, String.valueOf(cardView.getCreatAdminAccountView().getConfirmPassField().getPassword()));
@@ -167,7 +187,27 @@ public class Administrator extends User {
         }
     }
 
-    public static boolean loginCheck(String loginID, String password) {
+    // Using AdminDBManager
+    // Doesn't work atm
+    /*public static void createAccount(CardView cardView) {
+        String sql = "insert into " + TABLE_NAME + " values("
+                + cardView.getCreatAdminAccountView().getLoginIDTxtField().getText() +
+                "," + String.valueOf(cardView.getCreatAdminAccountView().getConfirmPassField().getPassword()) +
+                "," + cardView.getCreatAdminAccountView().getNameTxtField().getText() +
+                "," + cardView.getCreatAdminAccountView().getEmailTxtField().getText() +
+                "," + cardView.getCreatAdminAccountView().getPhoneNoTxtField().getText() +
+                "," + cardView.getCreatAdminAccountView().getCardNoTxtField().getText() +
+                "," + cardView.getCreatAdminAccountView().getCardHolderTxtField().getText() + ")";
+
+        int i = AdminDBManager.updateDB(sql);
+
+        if (i > 0) {
+            System.out.println("New Record Saved");
+            JOptionPane.showMessageDialog(null, "Creating Administrator Account Successful!");
+        }
+    }*/
+
+    /*public static boolean loginCheck(String loginID, String password) {
         try {
             Statement statement = conn.createStatement();
 
@@ -184,6 +224,13 @@ public class Administrator extends User {
         }
 
         return false;
+    }*/
+
+    // Using AdminDBManager
+    public static boolean loginCheck(String loginID, String password) throws SQLException {
+        String sql = "select * from " + TABLE_NAME + " where LOGIN_ID='"+loginID+"' and PASSWORD='"+password+"'";
+
+        return AdminDBManager.queryDB(sql).next();
     }
     // Temp method
 

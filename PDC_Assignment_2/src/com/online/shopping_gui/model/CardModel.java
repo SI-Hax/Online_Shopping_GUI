@@ -1,4 +1,4 @@
-package com.online.shopping_gui.view;
+package com.online.shopping_gui.model;
 
 import java.util.Observable;
 

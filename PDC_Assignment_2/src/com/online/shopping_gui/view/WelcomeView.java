@@ -3,7 +3,10 @@ package com.online.shopping_gui.view;
 import com.online.shopping_gui.controller.CardController;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.online.shopping_gui.model.Administrator;
+import com.online.shopping_gui.model.CardModel;
 import com.online.shopping_gui.model.Customer;
+import com.online.shopping_gui.utilities.AdminDBManager;
+import com.online.shopping_gui.utilities.CustomerDBManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,8 +70,11 @@ public class WelcomeView extends JFrame {
      */
     public static void main(String[] args) {
         // Establish Database Connections
-        Administrator.establishConnection();
-        Customer.establishConnection();
+        //Administrator.establishConnection();
+        //Customer.establishConnection();
+
+        AdminDBManager.getConnection();
+        CustomerDBManager.getConnection();
 
         WelcomeView hi = new WelcomeView();
 

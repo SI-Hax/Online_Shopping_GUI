@@ -1,5 +1,7 @@
 package com.online.shopping_gui.model;
 
+import com.online.shopping_gui.utilities.AdminDBManager;
+import com.online.shopping_gui.utilities.CustomerDBManager;
 import com.online.shopping_gui.utilities.Utilities;
 import com.online.shopping_gui.view.CardView;
 
@@ -216,16 +218,26 @@ public class Customer extends User {
         }
     }
 
-    public static boolean isTableExist() throws SQLException {
+    /*public static boolean isTableExist() throws SQLException {
         if (conn != null) {
             DatabaseMetaData databaseMetaData = conn.getMetaData();
             ResultSet rs = databaseMetaData.getTables(null, null, TABLE_NAME.toUpperCase(), null);
             return !rs.next();
         }
-        return true;
+        return false;
+    }*/
+
+    // Using CustomerDBManager
+    public static boolean isTableExist() throws SQLException {
+        if (CustomerDBManager.getConnection() != null) {
+            DatabaseMetaData databaseMetaData = CustomerDBManager.getConnection().getMetaData();
+            ResultSet rs = databaseMetaData.getTables(null, null, TABLE_NAME.toUpperCase(), null);
+            return !rs.next();
+        }
+        return false;
     }
 
-    public static void createTable() {
+    /*public static void createTable() {
         try {
             Statement statement = conn.createStatement();
             String sqlCreate = "create table " + TABLE_NAME + " (Login_ID varchar(50), Password varchar(50), " +
@@ -238,15 +250,22 @@ public class Customer extends User {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }*/
+
+    // Using CustomerDBManager
+    public static void createTable() {
+        String sqlCreate = "create table " + TABLE_NAME + " (Login_ID varchar(50), Password varchar(50), " +
+                "Name varchar(50), Email varchar(50), phoneNumber int, CardNumber int, CardHolder varchar(50))";
+        CustomerDBManager.updateDB(sqlCreate);
     }
 
-    public static void insertData(CardView cardView) {
+    public static void createAccount(CardView cardView) {
         try {
-            Statement statement = conn.createStatement();
+            Statement statement = CustomerDBManager.getConnection().createStatement();
 
             String url = "insert into " + TABLE_NAME + " values(?,?,?,?,?,?,?)";
 
-            PreparedStatement preparedStatement = conn.prepareStatement(url);
+            PreparedStatement preparedStatement = CustomerDBManager.getConnection().prepareStatement(url);
 
             preparedStatement.setString(1, cardView.getCreatCustomerAccountView().getLoginIDTxtField().getText());
             preparedStatement.setString(2, String.valueOf(cardView.getCreatCustomerAccountView().getConfirmPassField().getPassword()));
@@ -270,7 +289,7 @@ public class Customer extends User {
         }
     }
 
-    public static boolean loginCheck(String loginID, String password) {
+    /*public static boolean loginCheck(String loginID, String password) {
         try {
             Statement statement = conn.createStatement();
 
@@ -287,7 +306,15 @@ public class Customer extends User {
         }
 
         return false;
+    }*/
+
+    // Using CustomerDBManager
+    public static boolean loginCheck(String loginID, String password) throws SQLException {
+        String sql = "select * from " + TABLE_NAME + " where LOGIN_ID='"+loginID+"' and PASSWORD='"+password+"'";
+
+        return CustomerDBManager.queryDB(sql).next();
     }
+
     // Temp method
 
     /**
