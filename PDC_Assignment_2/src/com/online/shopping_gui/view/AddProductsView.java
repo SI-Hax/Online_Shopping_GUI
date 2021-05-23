@@ -64,6 +64,7 @@ public class AddProductsView extends JPanel {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Test Table");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       
         frame.add(new AddProductsView());
         frame.pack();
         frame.setVisible(true);

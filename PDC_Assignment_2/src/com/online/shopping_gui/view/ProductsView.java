@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 import com.online.shopping_gui.model.Table;
 import com.online.shopping_gui.model.ProductList;
 import com.online.shopping_gui.utilities.ProductFileIO;
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.*;
 
@@ -32,11 +33,13 @@ public class ProductsView extends JPanel {
         FlatLightLaf.install();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setPreferredSize(new Dimension(900, 500));
+        this.setBackground(Color.WHITE);
         
         list = ProductFileIO.importProductData(); // Import products list.
         
         // Init table panel.
         tablePanel = new JPanel();
+        tablePanel.setBackground(Color.WHITE);
         boolean sorter = true;
         table = new Table(list.convertProductList(), COLUMN_HEADERS); // Init Table Model.
         productTable = new JTable(table);
@@ -49,11 +52,13 @@ public class ProductsView extends JPanel {
         
         // Init label panel to display item selected.
         lblPanel = new JPanel();
+        lblPanel.setBackground(Color.WHITE);
         itemSelectedLbl = new JLabel("Item Selected: ");
         lblPanel.add(itemSelectedLbl);
         
         // Init bottom panel to allow user to add an item with quantity specified to cart.
         btnPanel = new JPanel();
+        btnPanel.setBackground(Color.WHITE);
         qtyLbl = new JLabel("Quantity:");
         btnPanel.add(qtyLbl);
         qtyTxtField = new JTextField(5);
