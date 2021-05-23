@@ -2,6 +2,7 @@ package com.online.shopping_gui.controller;
 
 import com.online.shopping_gui.model.Administrator;
 import com.online.shopping_gui.model.Customer;
+import com.online.shopping_gui.view.AdminDashboardView;
 import com.online.shopping_gui.view.CardModel;
 import com.online.shopping_gui.view.CardView;
 import com.online.shopping_gui.view.WelcomeView;
@@ -65,8 +66,10 @@ public class CardController implements ActionListener {
                     if (Administrator.isTableExist()) {
                         Administrator.createTable();
                     }
-                    if (Administrator.loginCheck(loginID, password))
+                    if (Administrator.loginCheck(loginID, password)) {
                         JOptionPane.showMessageDialog(null, "Login Successful!");
+                        new AdminDashboardView();
+                    }
                     else
                         JOptionPane.showMessageDialog(null, "Password or Login ID is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (SQLException ex) {

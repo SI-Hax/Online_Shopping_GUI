@@ -25,8 +25,6 @@ public class WelcomeView extends JFrame {
         FlatLightLaf.install();
         setLayout(null);
         setPreferredSize(new Dimension(900, 600));
-        setBackground(Color.WHITE);
-        setForeground(Color.WHITE);
         
         initLeftPanel();
 
@@ -71,7 +69,9 @@ public class WelcomeView extends JFrame {
         // Establish Database Connections
         Administrator.establishConnection();
         Customer.establishConnection();
+
         WelcomeView hi = new WelcomeView();
+
         // Get the size of the screen
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screenSize = kit.getScreenSize();
