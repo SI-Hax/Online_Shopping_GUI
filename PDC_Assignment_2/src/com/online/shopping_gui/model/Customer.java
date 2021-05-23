@@ -278,7 +278,6 @@ public class Customer extends User {
             ResultSet resultSet = statement.executeQuery(sql);
 
             if (resultSet.next()) {
-                JOptionPane.showMessageDialog(null, "Login Successful!");
                 return true;
             }
 
