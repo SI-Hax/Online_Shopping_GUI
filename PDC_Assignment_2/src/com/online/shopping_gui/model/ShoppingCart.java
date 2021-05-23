@@ -1,9 +1,5 @@
 package com.online.shopping_gui.model;
 
-import com.online.shopping_gui.model.Customer;
-import com.online.shopping_gui.model.Product;
-import com.online.shopping_gui.model.User;
-
 import java.util.ArrayList;
 
 /**
@@ -36,10 +32,10 @@ import java.util.ArrayList;
  */
 public class ShoppingCart {
 
-    private ArrayList<com.online.shopping_gui.model.Product> products;
+    private ArrayList<Product> products;
     private ArrayList<Integer> quantity;
     private double grandTotal;
-    private com.online.shopping_gui.model.User user;
+    private User user;
 
     /**
      * 1-Parameter constructor for ShoppingCart, prepares Object attributes so
@@ -48,8 +44,8 @@ public class ShoppingCart {
      * @param user : Logged in user who will be using the cart.
      *
      */
-    public ShoppingCart(com.online.shopping_gui.model.User user) {
-        this.products = new ArrayList<com.online.shopping_gui.model.Product>();
+    public ShoppingCart(User user) {
+        this.products = new ArrayList<Product>();
         this.quantity = new ArrayList<Integer>();
         this.grandTotal = 0.0;
         this.user = user;
@@ -130,7 +126,7 @@ public class ShoppingCart {
         String invoice = "";
 
         invoice += "\n-----------------Invoice----------------\n";
-        invoice += "Bill To: " + ((com.online.shopping_gui.model.Customer) currentUser).getName() + "\n";
+        invoice += "Bill To: " + ((Customer) currentUser).getName() + "\n";
         invoice += "Billing Address: " + ((Customer) currentUser).getAddress() + "\n";
         invoice += "----------------------------------------\n";
         invoice += String.format("%20s%10s%7s\n", "Product", "Quantity", "Price");

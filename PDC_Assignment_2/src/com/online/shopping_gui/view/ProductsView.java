@@ -1,8 +1,8 @@
 package com.online.shopping_gui.view;
 
 import com.online.shopping_gui.model.Table;
-import com.online.shopping_gui.model.ProductList;
 import com.online.shopping_gui.utilities.ProductFileIO;
+import com.online.shopping_gui.model.ProductList;
 
 import java.awt.Dimension;
 import javax.swing.*;

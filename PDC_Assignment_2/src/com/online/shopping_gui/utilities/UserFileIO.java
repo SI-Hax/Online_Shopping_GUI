@@ -1,9 +1,8 @@
 package com.online.shopping_gui.utilities;
 
+import com.online.shopping_gui.model.User;
 import com.online.shopping_gui.model.Administrator;
 import com.online.shopping_gui.model.Customer;
-import com.online.shopping_gui.model.User;
-import com.online.shopping_gui.utilities.Utilities;
 
 import java.io.*;
 import java.util.HashMap;
@@ -73,12 +72,12 @@ public final class UserFileIO {
 
                     // Stores imported Customer data onto a local HashMap.
                     usersData.put(data[0], new Customer(data[0], // LoginID
-                            com.online.shopping_gui.utilities.Utilities.decrypt(data[1]), // Password
+                            Utilities.decrypt(data[1]), // Password
                             data[2], // Name 
                             data[3], // Phone
                             data[4], // Email
                             data[5].replaceAll(";", ","), // Address
-                            com.online.shopping_gui.utilities.Utilities.decrypt(data[6]), // Card number
+                            Utilities.decrypt(data[6]), // Card number
                             data[7]));                           // Card holder
                 }
             }

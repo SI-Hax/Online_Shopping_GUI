@@ -1,7 +1,6 @@
 package com.online.shopping_gui.model;
 
 import com.online.shopping_gui.enumerations.Category;
-import com.online.shopping_gui.model.Product;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -24,14 +23,14 @@ import java.util.LinkedHashMap;
  */
 public class ProductList {
 
-    private LinkedHashMap<Category, ArrayList<com.online.shopping_gui.model.Product>> singleProductList;
+    private LinkedHashMap<Category, ArrayList<Product>> singleProductList;
 
     public ProductList() {
-        singleProductList = new LinkedHashMap<Category, ArrayList<com.online.shopping_gui.model.Product>>();
+        singleProductList = new LinkedHashMap<Category, ArrayList<Product>>();
     }
 
-    public ProductList(com.online.shopping_gui.model.Product newProduct) {
-        singleProductList = new LinkedHashMap<Category, ArrayList<com.online.shopping_gui.model.Product>>();
+    public ProductList(Product newProduct) {
+        singleProductList = new LinkedHashMap<Category, ArrayList<Product>>();
 
         addSingleProduct(newProduct);
     }
@@ -41,8 +40,8 @@ public class ProductList {
      *
      * @param newProductEntry
      */
-    public void addSingleProduct(com.online.shopping_gui.model.Product newProductEntry) {
-        ArrayList<com.online.shopping_gui.model.Product> tempList = new ArrayList<com.online.shopping_gui.model.Product>();
+    public void addSingleProduct(Product newProductEntry) {
+        ArrayList<Product> tempList = new ArrayList<Product>();
         if (singleProductList.containsKey(newProductEntry.getCategory())) {
             tempList = singleProductList.get(newProductEntry.getCategory());
         }
@@ -56,11 +55,11 @@ public class ProductList {
      *
      * @return allProducts
      */
-    public ArrayList<com.online.shopping_gui.model.Product> getProductList() {
-        ArrayList<com.online.shopping_gui.model.Product> allProducts = new ArrayList<com.online.shopping_gui.model.Product>();
+    public ArrayList<Product> getProductList() {
+        ArrayList<Product> allProducts = new ArrayList<Product>();
 
         for (Category category : singleProductList.keySet()) {
-            ArrayList<com.online.shopping_gui.model.Product> tempList = singleProductList.get(category);
+            ArrayList<Product> tempList = singleProductList.get(category);
             allProducts.addAll(tempList);
         }
 
@@ -72,10 +71,10 @@ public class ProductList {
      *
      * @return Product that matched keyword
      */
-    public com.online.shopping_gui.model.Product searchProduct(String keyword) {
-        ArrayList<com.online.shopping_gui.model.Product> pList = this.getProductList();
+    public Product searchProduct(String keyword) {
+        ArrayList<Product> pList = this.getProductList();
 
-        for (com.online.shopping_gui.model.Product product : pList) {
+        for (Product product : pList) {
             if (product.getProductName().contains(keyword)) { // If keyword partially matches an entry in pList...
                 return product; // Return found product.
             }
@@ -90,7 +89,7 @@ public class ProductList {
      * @param category : Product category
      * @param index : Index of product within that category
      */
-    public void removeProduct(Category category, com.online.shopping_gui.model.Product product) {
+    public void removeProduct(Category category, Product product) {
         this.singleProductList.get(category).remove(product);
     }
 
@@ -111,7 +110,7 @@ public class ProductList {
      */
     @Override
     public String toString() {
-        ArrayList<com.online.shopping_gui.model.Product> pList = this.getProductList();
+        ArrayList<Product> pList = this.getProductList();
         String pListStr = "\nAvailable Products:\n\n";
 
         for (int i = 0; i < pList.size(); i++) {// For loop to traverse through the ArrayList-ed products.
@@ -129,7 +128,7 @@ public class ProductList {
      * @return Object array containing information to be displayed in JTable.
      */
     public Object[][] convertProductList() {
-        ArrayList<com.online.shopping_gui.model.Product> pList = this.getProductList();
+        ArrayList<Product> pList = this.getProductList();
         int secondElement = pList.getClass().getDeclaredFields().length;
 
         Object[][] data = new Object[pList.size()][secondElement];
@@ -145,7 +144,7 @@ public class ProductList {
         return data;
     }
 
-    public LinkedHashMap<Category, ArrayList<com.online.shopping_gui.model.Product>> getSingleProductList() {
+    public LinkedHashMap<Category, ArrayList<Product>> getSingleProductList() {
         return singleProductList;
     }
 
