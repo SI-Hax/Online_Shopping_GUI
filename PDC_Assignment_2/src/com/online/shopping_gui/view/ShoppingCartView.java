@@ -11,6 +11,7 @@ import com.online.shopping_gui.model.ProductList;
 import com.online.shopping_gui.model.ShoppingCart;
 import com.online.shopping_gui.model.Table;
 import com.online.shopping_gui.utilities.ProductFileIO;
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -41,15 +42,17 @@ public class ShoppingCartView extends JPanel
         FlatLightLaf.install();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setPreferredSize(new Dimension(900, 500));
+        this.setBackground(Color.WHITE);
         
         this.cart = cart;
         
         // Init table panel.
         tablePanel = new JPanel();
+        tablePanel.setBackground(Color.WHITE);
         boolean sorter = true;
         this.scTableModel = new Table(cart.convertShoppingCart(), COLUMN_HEADERS);
         cartTable = new JTable(scTableModel);
-        cartTable.setPreferredScrollableViewportSize(new Dimension(700, 400));
+        cartTable.setPreferredScrollableViewportSize(new Dimension(700, 350));
         cartTable.setFillsViewportHeight(true);
         cartTable.setAutoCreateRowSorter(sorter);
         scrollPane = new JScrollPane(cartTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -58,6 +61,7 @@ public class ShoppingCartView extends JPanel
         
         // Init label panel to display item selected.
         lblPanel = new JPanel();
+        lblPanel.setBackground(Color.WHITE);
         itemSelectedLbl = new JLabel("Item Selected: ");
         lblPanel.add(itemSelectedLbl);
         
@@ -65,6 +69,7 @@ public class ShoppingCartView extends JPanel
         btnPanel = new JPanel();
         btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.X_AXIS));
         btnPanel.setPreferredSize(new Dimension(700, 40));
+        btnPanel.setBackground(Color.WHITE);
         rmvFromCartBtn = new JButton("Remove From Cart");
         continueShopBtn = new JButton("Continue Shopping");
         proceedToChkOutBtn = new JButton("Proceed to Checkout");
