@@ -24,8 +24,16 @@ import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 
 /**
+ * This class contains the view to simulate a Shopping Cart.
+ * The shopping cart table displays the name of the product,
+ * quantity ordered, and its respective cost (cost of product
+ * multiplied by the quantity).
  *
- * @author Amos Foong <18044418>
+ * @author Miguel Emmara - 18022146
+ * @author Amos Foong - 18044418
+ * @author Roxy Dao - 1073633
+ * @version 2.0.3
+ * @since 22/05/2021
  */
 public class ShoppingCartView extends JPanel
 {
@@ -49,7 +57,7 @@ public class ShoppingCartView extends JPanel
         // Init table panel.
         tablePanel = new JPanel();
         tablePanel.setBackground(Color.WHITE);
-        boolean sorter = true;
+        boolean sorter = false; // Does not allow sort function of table columns.
         this.scTableModel = new Table(cart.convertShoppingCart(), COLUMN_HEADERS);
         cartTable = new JTable(scTableModel);
         cartTable.setPreferredScrollableViewportSize(new Dimension(700, 350));
