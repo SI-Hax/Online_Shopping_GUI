@@ -44,6 +44,7 @@ public class Customer extends User {
     private String cardNumber;
     private String cardHolder;
     private static Connection conn;
+    private static final String TABLE_NAME = "Customer";
 
     /**
      * 2-parameter constructor for Customer class. User must have at least a 
@@ -206,7 +207,7 @@ public class Customer extends User {
     }
 
     // Temp method
-    public static void  establishConnection() {
+    public static void establishConnection() {
         try {
             conn = DriverManager.getConnection(DatabaseConn.CONNECTION_URL);
 
@@ -215,11 +216,19 @@ public class Customer extends User {
         }
     }
 
+    public static boolean isTableExist() throws SQLException {
+        if (conn != null) {
+            DatabaseMetaData databaseMetaData = conn.getMetaData();
+            ResultSet rs = databaseMetaData.getTables(null, null, TABLE_NAME.toUpperCase(), null);
+            return !rs.next();
+        }
+        return true;
+    }
+
     public static void createTable() {
         try {
             Statement statement = conn.createStatement();
-            String newTableName = "Customer";
-            String sqlCreate = "create table " + newTableName + " (Login_ID varchar(50), Password varchar(50), " +
+            String sqlCreate = "create table " + TABLE_NAME + " (Login_ID varchar(50), Password varchar(50), " +
                     "Name varchar(50), Email varchar(50), phoneNumber int, CardNumber int, CardHolder varchar(50))";
             statement.executeUpdate(sqlCreate);
 
@@ -234,9 +243,8 @@ public class Customer extends User {
     public static void insertData(CardView cardView) {
         try {
             Statement statement = conn.createStatement();
-            String newTableName = "Customer";
 
-            String url = "insert into " + newTableName + " values(?,?,?,?,?,?,?)";
+            String url = "insert into " + TABLE_NAME + " values(?,?,?,?,?,?,?)";
 
             PreparedStatement preparedStatement = conn.prepareStatement(url);
 
@@ -252,6 +260,7 @@ public class Customer extends User {
 
             if (i > 0) {
                 System.out.println("New Record Saved");
+                JOptionPane.showMessageDialog(null, "Creating Customer Account Successful!");
             }
 
             statement.close();
@@ -271,8 +280,6 @@ public class Customer extends User {
             if (resultSet.next()) {
                 JOptionPane.showMessageDialog(null, "Login Successful!");
                 return true;
-            } else {
-                JOptionPane.showMessageDialog(null, "Password or Login ID is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
             statement.close();

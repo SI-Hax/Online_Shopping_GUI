@@ -9,6 +9,7 @@ import com.online.shopping_gui.view.WelcomeView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 /**
  * This class contains the controllers for associated Panels in CardView.
@@ -57,11 +58,20 @@ public class CardController implements ActionListener {
             cardModel.setMainMenuSelection(0);
         } else if(source == cardView.getLoginAdminView().getLogin()) {
             if (cardView.getLoginAdminView().getEnterPass().getPassword().length != 0 && !cardView.getLoginAdminView().getLoginTxt().getText().isEmpty()) {
-                // TODO check login from database
-                //Administrator.establishConnection();
+                // Temp Method
                 String loginID = cardView.getLoginAdminView().getLoginTxt().getText();
                 String password = String.valueOf(cardView.getLoginAdminView().getEnterPass().getPassword());
-                Administrator.loginCheck(loginID, password);
+                try {
+                    if (Administrator.isTableExist()) {
+                        Administrator.createTable();
+                    }
+                    if (Administrator.loginCheck(loginID, password))
+                        JOptionPane.showMessageDialog(null, "Login Successful!");
+                    else
+                        JOptionPane.showMessageDialog(null, "Password or Login ID is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             } else
                 JOptionPane.showMessageDialog(null, "Please fill both fields", "Error", JOptionPane.ERROR_MESSAGE);
         } else if(source == cardView.getLoginAdminView().getResetBtn()) {
@@ -71,11 +81,20 @@ public class CardController implements ActionListener {
             cardModel.setMainMenuSelection(0);
         } else if(source == cardView.getLoginCustomerView().getLogin()) {
             if (cardView.getLoginCustomerView().getEnterPass().getPassword().length != 0 && !cardView.getLoginCustomerView().getLoginTxt().getText().isEmpty()) {
-                // TODO check login from database
-                //Customer.establishConnection();
+                // Temp Method
                 String loginID = cardView.getLoginCustomerView().getLoginTxt().getText();
                 String password = String.valueOf(cardView.getLoginCustomerView().getEnterPass().getPassword());
-                Customer.loginCheck(loginID, password);
+                try {
+                    if (Customer.isTableExist()) {
+                        Customer.createTable();
+                    }
+                    if (Customer.loginCheck(loginID, password))
+                        JOptionPane.showMessageDialog(null, "Login Successful!");
+                    else
+                        JOptionPane.showMessageDialog(null, "Password or Login ID is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             } else
                 JOptionPane.showMessageDialog(null, "Please fill both fields", "Error", JOptionPane.ERROR_MESSAGE);
         } else if(source == cardView.getLoginCustomerView().getResetBtn()) {
@@ -83,8 +102,15 @@ public class CardController implements ActionListener {
             cardView.getLoginCustomerView().reset();
         } else if(source == cardView.getCreatCustomerAccountView().getCreateAccountBtn()) {
             // Temporary Method
-            //Customer.establishConnection();
-            Customer.insertData(cardView);
+            try {
+                if (Customer.isTableExist()) {
+                    Customer.createTable();
+                }
+                Customer.insertData(cardView);
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } else if(source == cardView.getCreatCustomerAccountView().getResetBtn()) {
             // Reset All Fields
             cardView.getCreatCustomerAccountView().reset();
@@ -93,8 +119,15 @@ public class CardController implements ActionListener {
             cardModel.setMainMenuSelection(3);
         } else if(source == cardView.getCreatAdminAccountView().getCreateAccountBtn()) {
             // Temporary Method
-            //Administrator.establishConnection();
-            Administrator.insertData(cardView);
+            try {
+                if (Administrator.isTableExist()) {
+                    Administrator.createTable();
+                }
+                Administrator.insertData(cardView);
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } else if(source == cardView.getCreatAdminAccountView().getResetBtn()) {
             // Reset All Fields
             cardView.getCreatAdminAccountView().reset();

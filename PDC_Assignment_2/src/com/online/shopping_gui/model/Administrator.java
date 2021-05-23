@@ -37,6 +37,7 @@ public class Administrator extends User {
     private String adminName;
     private String adminEmail;
     private static Connection conn;
+    private static final String TABLE_NAME = "Admin";
 
     /**
      * 2-parameter constructor for Administrator class. Admins must have at
@@ -112,11 +113,19 @@ public class Administrator extends User {
         }
     }
 
+    public static boolean isTableExist() throws SQLException {
+        if (conn != null) {
+            DatabaseMetaData databaseMetaData = conn.getMetaData();
+            ResultSet rs = databaseMetaData.getTables(null, null, TABLE_NAME.toUpperCase(), null);
+            return !rs.next();
+        }
+        return true;
+    }
+
     public static void createTable() {
         try {
             Statement statement = conn.createStatement();
-            String newTableName = "Admin";
-            String sqlCreate = "create table " + newTableName + " (Login_ID varchar(50), Password varchar(50), " +
+            String sqlCreate = "create table " + TABLE_NAME + " (Login_ID varchar(50), Password varchar(50), " +
                     "Name varchar(50), Email varchar(50), phoneNumber int, CardNumber int, CardHolder varchar(50))";
             statement.executeUpdate(sqlCreate);
 
@@ -131,9 +140,8 @@ public class Administrator extends User {
     public static void insertData(CardView cardView) {
         try {
             Statement statement = conn.createStatement();
-            String newTableName = "Admin";
 
-            String url = "insert into " + newTableName + " values(?,?,?,?,?,?,?)";
+            String url = "insert into " + TABLE_NAME + " values(?,?,?,?,?,?,?)";
 
             PreparedStatement preparedStatement = conn.prepareStatement(url);
 
@@ -149,6 +157,7 @@ public class Administrator extends User {
             
             if (i > 0) {
                 System.out.println("New Record Saved");
+                JOptionPane.showMessageDialog(null, "Creating Administrator Account Successful!");
             }
 
             statement.close();
@@ -162,14 +171,11 @@ public class Administrator extends User {
         try {
             Statement statement = conn.createStatement();
 
-            String sql = "select * from Admin where LOGIN_ID='"+loginID+"' and PASSWORD='"+password+"'";
+            String sql = "select * from " + TABLE_NAME + " where LOGIN_ID='"+loginID+"' and PASSWORD='"+password+"'";
             ResultSet resultSet = statement.executeQuery(sql);
 
             if (resultSet.next()) {
-                JOptionPane.showMessageDialog(null, "Login Successful!");
                 return true;
-            } else {
-                JOptionPane.showMessageDialog(null, "Password or Login ID is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
             statement.close();
