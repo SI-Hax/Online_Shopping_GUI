@@ -13,6 +13,7 @@ package com.online.shopping_gui.view;
  */
 import java.awt.*;
 import javax.swing.*;
+import com.formdev.flatlaf.FlatLightLaf;
 
 public class AddProductsView extends JPanel {
 
@@ -21,6 +22,8 @@ public class AddProductsView extends JPanel {
     private JTextField prodIDTxt, prodNameTxt, priceTxt, catTxt, stockTxt;
 
     public AddProductsView() {
+        FlatLightLaf.install();
+
         add = new JButton("Add");
         productID = new JLabel("Product ID");
         prodIDTxt = new JTextField(10);
