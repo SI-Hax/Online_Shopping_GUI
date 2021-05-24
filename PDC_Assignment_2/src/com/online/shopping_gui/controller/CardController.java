@@ -28,18 +28,18 @@ public class CardController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         
-        if(source == cardView.getMainMenuView().getCustLogin()) {
+        if(source == cardView.getMainMenuView().getCustLogin()) { // Main Menu Panel -> Customer login btn.
             cardModel.setMainMenuSelection(1); 
-        } else if(source == cardView.getMainMenuView().getAdminLogin()) {
+        } else if(source == cardView.getMainMenuView().getAdminLogin()) { // Main Menu Panel -> Admin login btn.
             cardModel.setMainMenuSelection(1);
-        } else if(source == cardView.getMainMenuView().getCreateAccount()) {
+        } else if(source == cardView.getMainMenuView().getCreateAccount()) { // Main Menu Panel -> Create account btn
             cardModel.setMainMenuSelection(2);
-        } else if(source == cardView.getMainMenuView().getQuit()) {
+        } else if(source == cardView.getMainMenuView().getQuit()) { // Main Menu Panel-> Quit btn
             // TODO: Temporary solution.
             System.exit(0);
-        } else if(source == cardView.getLoginView().getBackBtn()) {
+        } else if(source == cardView.getLoginView().getBackBtn()) { // Login Panel -> Back btn
             cardModel.setMainMenuSelection(0);
-        } else if(source == cardView.getCreateAccountView().getBackBtn()) {
+        } else if(source == cardView.getCreateAccountView().getBackBtn()) { // Create Account Panel -> Back btn
             cardModel.setMainMenuSelection(0);
         }
     }
