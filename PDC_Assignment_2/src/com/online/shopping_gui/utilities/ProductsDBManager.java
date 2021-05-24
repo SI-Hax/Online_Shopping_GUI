@@ -1,6 +1,3 @@
-/*
- * The programs are designed for PDC paper
- */
 package com.online.shopping_gui.utilities;
 
 import java.sql.Connection;
@@ -10,6 +7,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * A Database Manager Class for managing an embedded 
+ * database to store details of Products.
+ * Applies the singleton design pattern.
+ * 
+ * @author Miguel Emmara - 18022146
+ * @author Amos Foong - 18044418
+ * @author Roxy Dao - 1073633
+ * @version 2.0.1
+ * @since 23/05/2021
+ */
 public final class ProductsDBManager {
 
     private static final String USER_NAME = "pdc"; // DB username
