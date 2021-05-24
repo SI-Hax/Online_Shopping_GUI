@@ -1,7 +1,9 @@
 package com.online.shopping_gui.view;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import com.online.shopping_gui.controller.CardController;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Observable;
 import java.util.Observer;
@@ -24,8 +26,10 @@ public class CardView extends JPanel implements Observer {
     protected CreateAccountView createAccountView;
     
     public CardView() {
+        FlatLightLaf.install();
         this.setLayout(new CardLayout());
         this.setPreferredSize(new Dimension(400, 560));
+        this.setBackground(Color.WHITE);
         
         this.mainMenuView = new MainMenuView();
         add(mainMenuView, "Main Menu");
@@ -81,7 +85,7 @@ public class CardView extends JPanel implements Observer {
     }
     
     @Override
-    public void update(Observable cardModel, Object selection) {
+    public void update(Observable cardModel, Object selection) {        
         setActivePanel((int) selection);
     }
 }
