@@ -6,6 +6,8 @@ import com.online.shopping_gui.model.ProductList;
 import com.online.shopping_gui.utilities.ProductFileIO;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.*;
 
 /**
@@ -48,6 +50,31 @@ public class ProductsView extends JPanel {
         productTable.setAutoCreateRowSorter(sorter);
         scrollPane = new JScrollPane(productTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        productTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Allows user to select only one row at a time.
+        productTable.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+            
+            @Override
+            public void mousePressed(MouseEvent e) {
+                String selectedCellValue = productTable.getValueAt(productTable.getSelectedRow() , 1).toString();
+                System.out.println(selectedCellValue);
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+            
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+            
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                itemSelectedLbl.setText("Item Selected: " + productTable.getValueAt(productTable.getSelectedRow() , 1));
+            }
+        });
         tablePanel.add(scrollPane);
         
         // Init label panel to display item selected.
