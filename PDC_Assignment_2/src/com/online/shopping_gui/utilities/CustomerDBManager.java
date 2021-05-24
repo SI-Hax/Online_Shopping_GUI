@@ -88,6 +88,17 @@ public final class CustomerDBManager {
         }
     }
     
+    public static boolean tableExists(String tableName) {
+        try {
+            DatabaseMetaData databaseMetadata = getConnection().getMetaData();
+            ResultSet resultSet = databaseMetadata.getTables(null, null, tableName, null);
+            return resultSet.next(); 
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+    
     @Override //Override the Object clone method to prevent cloning
     public Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();
