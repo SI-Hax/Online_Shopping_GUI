@@ -4,24 +4,40 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * This class contains the image for the GUI
+ * This class contains the icon for the GUI
  *
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.0.1
+ * @version 2.0.2
  * @since 15/05/2021
  */
 public class ImageShopAndRun extends JPanel {
-    public Image image;
+    public final int PANEL_WIDTH = 460;
+    public final int PANEL_HEIGHT = 530;
+    public final String imagePath = "./Resources/images/shop-and-run-v-w.png";
+    private DrawingPanel drawPanel;
+    public ImageIcon icon;
     
     public ImageShopAndRun(){
-        this.image = new ImageIcon("./Resources/images/shop-and-run.jpg").getImage();
+        icon = new ImageIcon(imagePath);
+        drawPanel = new DrawingPanel();
+        add(drawPanel);
     }
     
-    @Override
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        g.drawImage(this.image, 0, 0, null);
+    private class DrawingPanel extends JPanel
+    {
+        public DrawingPanel() {
+            setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
+            setBackground(Color.WHITE);
+        }
+        
+        @Override
+        public void paintComponent(Graphics g){
+            super.paintComponent(g);
+            Image i = icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
+            icon.setImage(i);
+            icon.paintIcon(this, g, 0, 0);
+        }
     }
 }
