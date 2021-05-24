@@ -16,8 +16,9 @@ public class MainMenuView extends JPanel {
     protected JButton custLogin, adminLogin, createAccount, quit;
 
     public MainMenuView(){
-        setPreferredSize(new Dimension(400, 560));
-        setLayout(null);
+        this.setPreferredSize(new Dimension(400, 560));
+        this.setLayout(null);
+        this.setBackground(Color.WHITE);
         
         custLogin = new JButton("Login as Customer");
         adminLogin = new JButton("Login as Admin");
