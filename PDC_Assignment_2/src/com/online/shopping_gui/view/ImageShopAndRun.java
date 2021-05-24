@@ -9,22 +9,33 @@ import java.awt.*;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.0.2
+ * @version 2.1.0
  * @since 15/05/2021
  */
 public class ImageShopAndRun extends JPanel {
     public final int PANEL_WIDTH = 460;
     public final int PANEL_HEIGHT = 530;
-    public final String imagePath = "./Resources/images/shop-and-run-v-w.png";
+    public final String imagePath = "./Resources/images/shop-and-run-";
+    public int counter;
     private DrawingPanel drawPanel;
     public ImageIcon icon;
+    private Timer timer;
     
     public ImageShopAndRun(){
-        icon = new ImageIcon(imagePath);
+        counter = 0;
+        icon = new ImageIcon(imagePath+counter+".png");
         drawPanel = new DrawingPanel();
         add(drawPanel);
+        
+        timer = new Timer(200, (execute -> {
+            counter++;
+            if(counter == 12) { counter = 0;}
+            icon = new ImageIcon(imagePath+counter+".png");
+            this.drawPanel.repaint();
+        }));
+        timer.start();
     }
-    
+
     private class DrawingPanel extends JPanel
     {
         public DrawingPanel() {
