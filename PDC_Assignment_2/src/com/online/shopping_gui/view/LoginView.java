@@ -48,6 +48,24 @@ public class LoginView extends JPanel {
         loginTxt.setBounds(145, 80, 100, 25);
         backBtn.setBounds(280, 500, 100, 25);
     }
+
+    public JButton getOkay() {
+        return okay;
+    }
+
+    public JButton getQuit() {
+        return quit;
+    }
+
+    public JPasswordField getEnterPass() {
+        return enterPass;
+    }
+
+    public JTextField getLoginTxt() {
+        return loginTxt;
+    }
+    
+    
     
     public JButton getBackBtn() {
         return backBtn;
