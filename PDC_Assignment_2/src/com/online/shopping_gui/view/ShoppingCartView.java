@@ -33,18 +33,20 @@ import javax.swing.ScrollPaneConstants;
 public class ShoppingCartView extends JPanel
 {
     private final String[] COLUMN_HEADERS = new String[]{"Product", "Quantity", "Price"};
+    public final int PANEL_WIDTH = 900;
+    public final int PANEL_HEIGHT = 500;
     private ShoppingCart cart;
     private Table scTableModel;
     private JTable cartTable;
     private JScrollPane scrollPane;
     private JPanel tablePanel, lblPanel, btnPanel;
     private JLabel itemSelectedLbl;
-    private JButton rmvFromCartBtn, continueShopBtn, proceedToChkOutBtn;
+    private JButton rmvFromCartBtn, viewTotalBtn, proceedToChkOutBtn;
     
     public ShoppingCartView(ShoppingCart cart) {
         FlatLightLaf.install();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setPreferredSize(new Dimension(900, 500));
+        this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         this.setBackground(Color.WHITE);
         
         this.cart = cart;
@@ -74,12 +76,12 @@ public class ShoppingCartView extends JPanel
         btnPanel.setPreferredSize(new Dimension(700, 40));
         btnPanel.setBackground(Color.WHITE);
         rmvFromCartBtn = new JButton("Remove From Cart");
-        continueShopBtn = new JButton("Continue Shopping");
+        viewTotalBtn = new JButton("View Grand Total");
         proceedToChkOutBtn = new JButton("Proceed to Checkout");
         btnPanel.add(Box.createRigidArea(new Dimension(20, 0)));
         btnPanel.add(rmvFromCartBtn);
         btnPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-        btnPanel.add(continueShopBtn);
+        btnPanel.add(viewTotalBtn);
         btnPanel.add(Box.createRigidArea(new Dimension(20, 0)));
         btnPanel.add(proceedToChkOutBtn);
         btnPanel.add(Box.createRigidArea(new Dimension(20, 0)));
@@ -98,6 +100,13 @@ public class ShoppingCartView extends JPanel
         return cart;
     }
 
+    public void setCart(ShoppingCart cart) {
+        if(cart == null) {
+            this.cart = new ShoppingCart(null);
+        }
+        this.cart = cart;
+    }
+    
     public Table getScTableModel() {
         return scTableModel;
     }
@@ -118,8 +127,8 @@ public class ShoppingCartView extends JPanel
         return rmvFromCartBtn;
     }
 
-    public JButton getContinueShopBtn() {
-        return continueShopBtn;
+    public JButton getViewTotalBtn() {
+        return viewTotalBtn;
     }
 
     public JButton getProceedToChkOutBtn() {
