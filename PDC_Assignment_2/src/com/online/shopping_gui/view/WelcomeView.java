@@ -22,13 +22,13 @@ public class WelcomeView extends JFrame {
 
     public WelcomeView() {
         FlatLightLaf.install();
-        setLayout(null);
+        setLayout(new FlowLayout());
         setPreferredSize(new Dimension(900, 600));
         setBackground(Color.WHITE);
         setForeground(Color.WHITE);
         
         initLeftPanel();
-
+//        this.add(Box.createRigidArea(new Dimension(10, 0)));
         initRightPanel();
     }
     
@@ -36,7 +36,9 @@ public class WelcomeView extends JFrame {
         leftPanel = new ImageShopAndRun();
         leftPanel.setAlignmentX(SwingConstants.CENTER);
         leftPanel.setAlignmentY(SwingConstants.CENTER);
-        leftPanel.setBounds(50, 200, 400, 116);
+//        leftPanel.setBounds(10, 10, leftPanel.getWidth(), leftPanel.getHeight());
+//        leftPanel.setSize(leftP);
+
         this.add(leftPanel);
     }
     
@@ -57,7 +59,7 @@ public class WelcomeView extends JFrame {
         cardView.addController(mainMenuController);
         
         rightPanel = cardView;
-        rightPanel.setBounds(475, 0, 400, 560);
+//        rightPanel.setBounds(475, 0, 400, 560);
         this.add(rightPanel);
     }
 
