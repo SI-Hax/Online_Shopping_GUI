@@ -28,8 +28,8 @@ public class CreateAccountView extends JPanel
     
     public CreateAccountView() {
         FlatLightLaf.install();
-        setLayout(null);
-        setPreferredSize(new Dimension(296, 406));
+        this.setLayout(null);
+        this.setPreferredSize(new Dimension(296, 406));
         this.setBackground(Color.WHITE);
         
         // Construct components.
