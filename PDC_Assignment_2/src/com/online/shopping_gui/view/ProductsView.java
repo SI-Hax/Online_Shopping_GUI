@@ -22,6 +22,8 @@ import javax.swing.*;
 public class ProductsView extends JPanel {
     
     private final String[] COLUMN_HEADERS = new String[]{"ID", "Product Name", "Price", "Category", "Stock"};
+    public final int PANEL_WIDTH = 900;
+    public final int PANEL_HEIGHT = 500;
     private ProductList list;
     private Table table;
     private JTable productTable;
@@ -31,13 +33,14 @@ public class ProductsView extends JPanel {
     private JTextField qtyTxtField;
     private JButton addToCartBtn;
 
-    public ProductsView() {
+    public ProductsView(ProductList list) {
         FlatLightLaf.install();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setPreferredSize(new Dimension(900, 500));
+        this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         this.setBackground(Color.WHITE);
         
-        list = ProductFileIO.importProductData(); // Import products list.
+//        this.list = ProductFileIO.importProductData();
+        this.list = list;
         
         // Init table panel.
         tablePanel = new JPanel();
@@ -45,7 +48,7 @@ public class ProductsView extends JPanel {
         boolean sorter = true;
         table = new Table(list.convertProductList(), COLUMN_HEADERS); // Init Table Model.
         productTable = new JTable(table);
-        productTable.setPreferredScrollableViewportSize(new Dimension(700, 400));
+        productTable.setPreferredScrollableViewportSize(new Dimension(700, 370));
         productTable.setFillsViewportHeight(true);
         productTable.setAutoCreateRowSorter(sorter);
         scrollPane = new JScrollPane(productTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -131,12 +134,10 @@ public class ProductsView extends JPanel {
         return addToCartBtn;
     }
     
-    
-    
     public static void main(String[] args) {
         JFrame frame = new JFrame("Test Table");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ProductsView pv = new ProductsView();
+        ProductsView pv = new ProductsView(null);
         frame.add(pv);
         frame.pack();
         frame.setMinimumSize(pv.getPreferredSize()); // Specifies the min size so table's info wont be obscured.
