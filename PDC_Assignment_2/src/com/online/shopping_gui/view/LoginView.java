@@ -1,6 +1,7 @@
 package com.online.shopping_gui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
 
 import javax.swing.*;
 
@@ -23,6 +24,7 @@ public class LoginView extends JPanel {
     public LoginView() {
         FlatLightLaf.install();
         this.setLayout(null);
+        this.setBackground(Color.WHITE);
 
         okay = new JButton("Login");
         quit = new JButton("Quit"); //TODO: Remove redundant Quit Button.
