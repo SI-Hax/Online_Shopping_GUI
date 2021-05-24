@@ -13,7 +13,7 @@ import java.awt.*;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.0.4
+ * @version 2.0.5
  * @since 15/05/2021
  */
 public class WelcomeView extends JFrame {
@@ -34,11 +34,9 @@ public class WelcomeView extends JFrame {
     
     public void initLeftPanel() {
         leftPanel = new ImageShopAndRun();
-        leftPanel.setAlignmentX(SwingConstants.CENTER);
-        leftPanel.setAlignmentY(SwingConstants.CENTER);
+//        leftPanel.setAlignmentX(SwingConstants.CENTER);
+//        leftPanel.setAlignmentY(SwingConstants.CENTER);
 //        leftPanel.setBounds(10, 10, leftPanel.getWidth(), leftPanel.getHeight());
-//        leftPanel.setSize(leftP);
-
         this.add(leftPanel);
     }
     
