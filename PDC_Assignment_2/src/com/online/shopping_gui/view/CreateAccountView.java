@@ -30,6 +30,7 @@ public class CreateAccountView extends JPanel
         FlatLightLaf.install();
         setLayout(null);
         setPreferredSize(new Dimension(296, 406));
+        this.setBackground(Color.WHITE);
         
         // Construct components.
         loginIDLbl = new JLabel("Login ID");
@@ -110,6 +111,56 @@ public class CreateAccountView extends JPanel
         createAccountBtn.setBounds(135, 345, TXT_FIELD_WIDTH, 45);
         backBtn.setBounds(280, 500, 100, 25);
     }
+
+    public JLabel getLoginIDCheckLbl() {
+        return loginIDCheckLbl;
+    }
+
+    public JLabel getPasswordCheckLbl() {
+        return passwordCheckLbl;
+    }
+
+    public JLabel getConfirmPassCheckLbl() {
+        return confirmPassCheckLbl;
+    }
+
+    public JTextField getLoginIDTxtField() {
+        return loginIDTxtField;
+    }
+
+    public JTextField getNameTxtField() {
+        return nameTxtField;
+    }
+
+    public JTextField getPhoneNoTxtField() {
+        return phoneNoTxtField;
+    }
+
+    public JTextField getEmailTxtField() {
+        return emailTxtField;
+    }
+
+    public JTextField getCardNoTxtField() {
+        return cardNoTxtField;
+    }
+
+    public JTextField getCardHolderTxtField() {
+        return cardHolderTxtField;
+    }
+
+    public JPasswordField getPasswordPassField() {
+        return passwordPassField;
+    }
+
+    public JPasswordField getConfirmPassField() {
+        return confirmPassField;
+    }
+
+    public JButton getCreateAccountBtn() {
+        return createAccountBtn;
+    }
+    
+    
     
     public JButton getBackBtn() {
         return backBtn;
