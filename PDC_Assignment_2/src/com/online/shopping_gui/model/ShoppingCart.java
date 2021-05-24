@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 1.03
+ * @version 2.0.4
  * @since 01/04/2021
  *
  */
@@ -69,10 +69,14 @@ public class ShoppingCart {
      *
      */
     public void addToCart(Product product, int amount) {
-        this.products.add(product);
-        this.quantity.add(amount);
-        product.setStock(product.getStock() - amount); // Decrements product stock.
-        this.grandTotal += (product.getPrice() * amount);
+        if(amount < product.getStock()) { // If quantity requested is less than available stock...
+            this.products.add(product); // Add product to the cart.
+            this.quantity.add(amount); // Specify quantity needed in the cart.
+            product.setStock(product.getStock() - amount); // Decrements product stock.
+            this.grandTotal += (product.getPrice() * amount); // Tally up total.
+        } else { // Otherwise...
+            throw new IllegalArgumentException("Insufficient stock! Please select a number less than or equal to " + product.getStock());
+        }
     }
 
     /**
