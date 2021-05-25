@@ -11,7 +11,9 @@ import java.awt.event.MouseListener;
 import javax.swing.*;
 
 /**
- * This class contains the Products Table
+ * This class contains the Products Table, and buttons to
+ * allow user to add a specific product alongside a 
+ * quantity to the shopping cart.
  *
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
@@ -21,13 +23,11 @@ import javax.swing.*;
  */
 public class ProductsView extends JPanel {
     
-    private final String[] COLUMN_HEADERS = new String[]{"ID", "Product Name", "Price", "Category", "Stock"};
+    
     public final int PANEL_WIDTH = 900;
     public final int PANEL_HEIGHT = 500;
     private ProductList list;
-    private Table table;
-    private JTable productTable;
-    private JScrollPane scrollPane;
+    
     private JPanel tablePanel, lblPanel, btnPanel;
     private JLabel itemSelectedLbl, qtyLbl;
     private JTextField qtyTxtField;
@@ -45,40 +45,9 @@ public class ProductsView extends JPanel {
         // Init table panel.
         tablePanel = new JPanel();
         tablePanel.setBackground(Color.WHITE);
-        boolean sorter = true;
-        table = new Table(list.convertProductList(), COLUMN_HEADERS); // Init Table Model.
-        productTable = new JTable(table);
-        productTable.setPreferredScrollableViewportSize(new Dimension(700, 370));
-        productTable.setFillsViewportHeight(true);
-        productTable.setAutoCreateRowSorter(sorter);
-        scrollPane = new JScrollPane(productTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        productTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Allows user to select only one row at a time.
-        productTable.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-            
-            @Override
-            public void mousePressed(MouseEvent e) {
-                String selectedCellValue = productTable.getValueAt(productTable.getSelectedRow() , 1).toString();
-                System.out.println(selectedCellValue);
-            }
-            
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-            
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-            
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                itemSelectedLbl.setText("Item Selected: " + productTable.getValueAt(productTable.getSelectedRow() , 1));
-            }
-        });
-        tablePanel.add(scrollPane);
+        tablePanel.add(new ProductsTableView(list));
+        
+//        tablePanel.add(scrollPane);
         
         // Init label panel to display item selected.
         lblPanel = new JPanel();
@@ -110,17 +79,7 @@ public class ProductsView extends JPanel {
         return list;
     }
 
-    public Table getTable() {
-        return table;
-    }
-
-    public JTable getProductTable() {
-        return productTable;
-    }
-
-    public JScrollPane getScrollPane() {
-        return scrollPane;
-    }
+   
 
     public JLabel getItemSelectedLbl() {
         return itemSelectedLbl;
