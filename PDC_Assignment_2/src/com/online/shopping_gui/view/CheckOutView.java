@@ -1,6 +1,11 @@
 package com.online.shopping_gui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.online.shopping_gui.model.Customer;
+import com.online.shopping_gui.model.ProductList;
+import com.online.shopping_gui.model.ShoppingCart;
+import com.online.shopping_gui.model.User;
+import com.online.shopping_gui.utilities.ProductFileIO;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -29,11 +34,13 @@ public class CheckOutView extends JPanel{
     private JButton confirm;
     private JButton cancel;
 
-    public CheckOutView() {
+    public CheckOutView(ShoppingCart cart, User user) {
         FlatLightLaf.install();
 
         total = new JLabel("Total:");
         totalTxt = new JTextField(20);
+        totalTxt.setEditable(false);
+        totalTxt.setText(String.valueOf(String.format("%.2f", cart.getGrandTotal())));
         shipTo = new JLabel("Ship To:");
         shipToTxt = new JTextArea(100, 100);
         visa = new JLabel("Visa:");
@@ -67,5 +74,19 @@ public class CheckOutView extends JPanel{
         ccvTxt.setBounds(95, 265, 165, 25);
         confirm.setBounds(30, 315, 100, 25);
         cancel.setBounds(145, 315, 100, 25);
+    }
+    
+        public static void main(String[] args) {
+	User currentUser = new Customer("test1234", "Woohoo10101!");
+	ShoppingCart scart = new ShoppingCart(currentUser);
+        ProductList plist = ProductFileIO.importProductData();
+        scart.addToCart(plist.searchProduct("Apple"), 3);
+        scart.addToCart(plist.searchProduct("AOC"), 3);
+        JFrame frame = new JFrame("MyPanel");
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(new CheckOutView(scart, currentUser));
+        frame.pack();
+        frame.setVisible(true);
     }
 }
