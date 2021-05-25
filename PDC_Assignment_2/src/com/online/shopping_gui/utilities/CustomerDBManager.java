@@ -1,6 +1,5 @@
 package com.online.shopping_gui.utilities;
 
-import com.online.shopping_gui.model.Administrator;
 import com.online.shopping_gui.model.Customer;
 import com.online.shopping_gui.model.User;
 import java.sql.Connection;
@@ -21,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.1.0
+ * @version 2.1.1
  * @since 23/05/2021
  */
 public final class CustomerDBManager {
@@ -170,7 +169,7 @@ public final class CustomerDBManager {
         String query = "SELECT * FROM CUSTOMER WHERE LOGINID = \'" + loginID + "\'";
         
         try {
-            ResultSet rs = queryDB(query); // Query the admin database for a specific Customer.
+            ResultSet rs = queryDB(query); // Query the Customer database for a specific Customer.
             
             if(rs.next()) { // If rs.next has something...
                 return true; // Row exists.
@@ -191,7 +190,7 @@ public final class CustomerDBManager {
             
             // Writes data from the passed in Hash Map onto the file specified.          
             for (Map.Entry<String, User> user : users.entrySet()) {
-                if (user.getValue() instanceof Administrator) { // Check if user is an instance of an Administrator...
+                if (user.getValue() instanceof Customer) { // Check if user is an instance of an Customer...
                     String[] data = user.getValue().toString().split(",");
 
                     if(!rowExists(data[0])) { // If the admin is non-existent in the table...
