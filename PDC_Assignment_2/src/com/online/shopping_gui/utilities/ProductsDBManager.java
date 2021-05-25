@@ -120,10 +120,10 @@ public final class ProductsDBManager {
     public static void createTable() {
         String createTbl = "CREATE TABLE PRODUCTS("
                 + "PRODUCTNAME VARCHAR(100), "
-                + "PRODUCTID INT(10), "
-                + "PRICE DOUBLE(10,2), "
+                + "PRODUCTID INT, "
+                + "PRICE DOUBLE, "
                 + "CATEGORY VARCHAR(50), "
-                + "STOCK INT(10))";
+                + "STOCK INT)";
         
         if(tableExists("PRODUCTS")) {
             dropTableIfExists("PRODUCTS");
@@ -147,7 +147,7 @@ public final class ProductsDBManager {
                 productName = rs.getString("PRODUCTNAME");
                 productID = rs.getInt("PRODUCTID");
                 price = rs.getDouble("PRICE");
-                category = rs.getString("PHONE");
+                category = rs.getString("CATEGORY");
                 stock = rs.getInt("STOCK");
                 pList.addSingleProduct(new Product(productName, productID, price, Category.valueOf(category), stock));
             }
