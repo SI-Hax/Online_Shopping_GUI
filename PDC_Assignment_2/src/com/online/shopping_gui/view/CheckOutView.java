@@ -1,5 +1,6 @@
 package com.online.shopping_gui.view;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -29,6 +30,8 @@ public class CheckOutView extends JPanel{
     private JButton cancel;
 
     public CheckOutView() {
+        FlatLightLaf.install();
+
         total = new JLabel("Total:");
         totalTxt = new JTextField(20);
         shipTo = new JLabel("Ship To:");
