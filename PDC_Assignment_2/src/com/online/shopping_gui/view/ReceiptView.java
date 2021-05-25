@@ -22,7 +22,6 @@ import javax.swing.event.*;
  */
 public class ReceiptView extends JPanel {
 
-    private JLabel rec;
     private JTextArea receipt;
     private JLabel thank;
     private ShoppingCart cart;
