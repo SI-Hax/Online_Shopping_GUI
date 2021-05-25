@@ -7,9 +7,7 @@ import com.online.shopping_gui.model.ShoppingCart;
 import com.online.shopping_gui.model.User;
 import com.online.shopping_gui.utilities.ProductFileIO;
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
 /**
  * Contains fields to collect data from user. 
@@ -20,7 +18,6 @@ import javax.swing.event.*;
  * @version 2.0.1
  * @since 25/05/2021
  */
-
 public class CheckOutView extends JPanel{
 
     private JLabel total;
@@ -40,10 +37,10 @@ public class CheckOutView extends JPanel{
         total = new JLabel("Total:");
         totalTxt = new JTextField(20);
         totalTxt.setEditable(false);
-        totalTxt.setText(String.valueOf(String.format("%.2f", cart.getGrandTotal())));
+        totalTxt.setText(String.valueOf(String.format("$%.2f", cart.getGrandTotal())));
         shipTo = new JLabel("Ship To:");
         shipToTxt = new JTextArea(100, 100);
-        visa = new JLabel("Visa:");
+        visa = new JLabel("Card No:");
         ccv = new JLabel("CCV:");
         visaTxt = new JPasswordField(20);
         ccvTxt = new JPasswordField(5);
@@ -76,9 +73,9 @@ public class CheckOutView extends JPanel{
         cancel.setBounds(145, 315, 100, 25);
     }
     
-        public static void main(String[] args) {
-	User currentUser = new Customer("test1234", "Woohoo10101!");
-	ShoppingCart scart = new ShoppingCart(currentUser);
+    public static void main(String[] args) {
+        User currentUser = new Customer("test1234", "Woohoo10101!");
+        ShoppingCart scart = new ShoppingCart(currentUser);
         ProductList plist = ProductFileIO.importProductData();
         scart.addToCart(plist.searchProduct("Apple"), 3);
         scart.addToCart(plist.searchProduct("AOC"), 3);
