@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.1.0
+ * @version 2.1.2
  * @since 23/05/2021
  */
 public final class ProductsDBManager {
