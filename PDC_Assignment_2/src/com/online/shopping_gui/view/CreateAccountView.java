@@ -21,8 +21,8 @@ public class CreateAccountView extends JPanel
     private final int FIELD_CHARS = 50;
 
     private JLabel loginIDLbl, loginIDCheckLbl, passwordLbl, passwordCheckLbl, confirmPassLbl, confirmPassCheckLbl;
-    private JLabel nameLbl, phoneNoLbl, emailLbl, cardNoLbl, cardHolderLbl;
-    private JTextField loginIDTxtField, nameTxtField, phoneNoTxtField, emailTxtField, cardNoTxtField, cardHolderTxtField;
+    private JLabel nameLbl, phoneNoLbl, emailLbl, addressLbl, cardNoLbl, cardHolderLbl;
+    private JTextField loginIDTxtField, nameTxtField, phoneNoTxtField, emailTxtField, addressTxtField, cardNoTxtField, cardHolderTxtField;
     private JPasswordField passwordPassField, confirmPassField;
     private JButton createAccountBtn, backBtn;
     
@@ -51,6 +51,9 @@ public class CreateAccountView extends JPanel
         
         emailLbl = new JLabel("Email");
         emailTxtField = new JTextField(FIELD_CHARS);
+
+        addressLbl = new JLabel("Address");
+        addressTxtField = new JTextField(FIELD_CHARS);
         
         phoneNoLbl = new JLabel("Phone Number");
         phoneNoTxtField = new JTextField(FIELD_CHARS);
@@ -79,6 +82,8 @@ public class CreateAccountView extends JPanel
         add(nameTxtField);
         add(emailLbl);
         add(emailTxtField);
+        add(addressLbl);
+        add(addressTxtField);
         add(phoneNoLbl);
         add(phoneNoTxtField);
         add(cardNoLbl);
@@ -102,13 +107,15 @@ public class CreateAccountView extends JPanel
         nameTxtField.setBounds(135, 145, TXT_FIELD_WIDTH, TXT_FIELD_HEIGHT);
         emailLbl.setBounds(85, 185, 35, 25);
         emailTxtField.setBounds(135, 185, TXT_FIELD_WIDTH, TXT_FIELD_HEIGHT);
-        phoneNoLbl.setBounds(35, 225, 85, 25);
-        phoneNoTxtField.setBounds(135, 225, TXT_FIELD_WIDTH, TXT_FIELD_HEIGHT);
-        cardNoLbl.setBounds(45, 265, 80, 25);
-        cardNoTxtField.setBounds(135, 265, TXT_FIELD_WIDTH, TXT_FIELD_HEIGHT);
-        cardHolderLbl.setBounds(50, 300, 70, 25);
-        cardHolderTxtField.setBounds(135, 305, TXT_FIELD_WIDTH, TXT_FIELD_HEIGHT);
-        createAccountBtn.setBounds(135, 345, TXT_FIELD_WIDTH, 45);
+        addressLbl.setBounds(75, 225, 50, 25);
+        addressTxtField.setBounds(135, 225, TXT_FIELD_WIDTH, TXT_FIELD_HEIGHT);
+        phoneNoLbl.setBounds(35, 265, 85, 25);
+        phoneNoTxtField.setBounds(135, 265, TXT_FIELD_WIDTH, TXT_FIELD_HEIGHT);
+        cardNoLbl.setBounds(45, 305, 80, 25);
+        cardNoTxtField.setBounds(135, 305, TXT_FIELD_WIDTH, TXT_FIELD_HEIGHT);
+        cardHolderLbl.setBounds(50, 340, 70, 25);
+        cardHolderTxtField.setBounds(135, 345, TXT_FIELD_WIDTH, TXT_FIELD_HEIGHT);
+        createAccountBtn.setBounds(135, 395, TXT_FIELD_WIDTH, 45);
         backBtn.setBounds(280, 500, 100, 25);
     }
 
@@ -159,8 +166,6 @@ public class CreateAccountView extends JPanel
     public JButton getCreateAccountBtn() {
         return createAccountBtn;
     }
-    
-    
     
     public JButton getBackBtn() {
         return backBtn;
