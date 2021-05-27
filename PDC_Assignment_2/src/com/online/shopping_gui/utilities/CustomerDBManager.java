@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -20,7 +21,7 @@ import javax.swing.JOptionPane;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.1.1
+ * @version 2.2.1
  * @since 23/05/2021
  */
 public final class CustomerDBManager {
@@ -83,6 +84,24 @@ public final class CustomerDBManager {
             JOptionPane.showMessageDialog(null, e.getMessage(), ("Error: " + e.getClass().getSimpleName()), JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
             return 0;
+        }
+    }
+    
+    public static int[] updateBatchedDB(ArrayList<String> sqls) {
+        Statement statement = null;
+
+        try {
+            statement = getConnection().createStatement();
+            
+            for(String sql : sqls) { // For each statement to be executed...
+                statement.addBatch(sql); // Load a batch on.
+            }
+            return statement.executeBatch();
+        } catch (SQLException e) {
+            closeConnections();
+            JOptionPane.showMessageDialog(null, e.getMessage(), ("Error: " + e.getClass().getSimpleName()), JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return null;
         }
     }
     
@@ -188,13 +207,15 @@ public final class CustomerDBManager {
                 createTable(); // Create table.
             }
             
+            ArrayList<String> inserts = new ArrayList<>();
+            
             // Writes data from the passed in Hash Map onto the file specified.          
             for (Map.Entry<String, User> user : users.entrySet()) {
                 if (user.getValue() instanceof Customer) { // Check if user is an instance of an Customer...
                     String[] data = user.getValue().toString().split(",");
 
                     if(!rowExists(data[0])) { // If the admin is non-existent in the table...
-                        String insertValue = "INSERT INTO CUSTOMER VALUES (\'" 
+                        inserts.add("INSERT INTO CUSTOMER VALUES (\'" 
                                 + data[0] + "\', \'" // Login ID
                                 + data[1] + "\', \'" // Encrypted Password
                                 + data[2] + "\', \'" // Name
@@ -202,14 +223,16 @@ public final class CustomerDBManager {
                                 + data[4] + "\', \'" // Email
                                 + data[5].replaceAll(";", ",") + "\', \'" // Address
                                 + data[6] + "\', \'" // Encrypted Card Number
-                                + data[7] + "\')";   // Card Holder
-                        
-                        updateDB(insertValue);
+                                + data[7] + "\')");   // Card Holder
                     } else {
                         System.err.println("User " + data[0] + " exists!");
                     }
                 }
             }
+            
+            if(inserts.size() > 0) { // If inserts has more than 0 statements to execute...
+                updateBatchedDB(inserts); // Calls the updateBatchedDB method.
+            }    
         } catch(Exception e) {
             closeConnections();
             JOptionPane.showMessageDialog(null, e.getMessage(), ("Error: " + e.getClass().getSimpleName()), JOptionPane.ERROR_MESSAGE);
