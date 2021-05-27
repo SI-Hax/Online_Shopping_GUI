@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.1.2
+ * @version 2.2.2
  * @since 23/05/2021
  */
 public final class ProductsDBManager {
@@ -83,6 +83,24 @@ public final class ProductsDBManager {
             JOptionPane.showMessageDialog(null, e.getMessage(), ("Error: " + e.getClass().getSimpleName()), JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
             return 0;
+        }
+    }
+    
+    public static int[] updateBatchedDB(ArrayList<String> sqls) {
+        Statement statement = null;
+
+        try {
+            statement = getConnection().createStatement();
+            
+            for(String sql : sqls) { // For each statement to be executed...
+                statement.addBatch(sql); // Load a batch on.
+            }
+            return statement.executeBatch();
+        } catch (SQLException e) {
+            closeConnections();
+            JOptionPane.showMessageDialog(null, e.getMessage(), ("Error: " + e.getClass().getSimpleName()), JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return null;
         }
     }
     
@@ -183,21 +201,24 @@ public final class ProductsDBManager {
             }
             
             ArrayList<Product> pList = products.getProductList();
+            ArrayList<String> inserts = new ArrayList<>();
             
             for (Product product : pList) {
                 if(!rowExists(product.getProductName())) { // If the product is non-existent in the table...
-                    String insertValue = "INSERT INTO PRODUCTS VALUES (\'" 
+                    inserts.add("INSERT INTO PRODUCTS VALUES (\'" 
                             + product.getProductName() + "\', "         // Product name
                             + product.getProductID() + ", "             // Product ID
                             + product.getPrice() + ", \'"               // Price
                             + product.getCategory().toString() + "\', " // Category
-                            + product.getStock() + ")";                 // Stock
-
-                    updateDB(insertValue);
+                            + product.getStock() + ")");                 // Stock
                 } else {
                     System.err.println("Product " + product.getProductName() + " exists!");
                 }
             }
+            
+            if(inserts.size() > 0) { // If inserts has more than 0 statements to execute...
+                updateBatchedDB(inserts); // Calls the updateBatchedDB method.
+            }    
         } catch(Exception e) {
             closeConnections();
             JOptionPane.showMessageDialog(null, e.getMessage(), ("Error: " + e.getClass().getSimpleName()), JOptionPane.ERROR_MESSAGE);
