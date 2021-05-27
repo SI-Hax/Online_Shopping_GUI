@@ -147,6 +147,10 @@ public class CreateAccountView extends JPanel
         return emailTxtField;
     }
 
+    public JTextField getAddressTxtField() {
+        return addressTxtField;
+    }
+
     public JTextField getCardNoTxtField() {
         return cardNoTxtField;
     }
