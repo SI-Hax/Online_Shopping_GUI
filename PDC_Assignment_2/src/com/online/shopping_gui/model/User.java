@@ -32,7 +32,7 @@ import com.online.shopping_gui.enumerations.State;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 1.03
+ * @version 2.0.1
  * @since 29/03/2021
  *
  */
@@ -63,9 +63,8 @@ public abstract class User {
     }
 
     public void setLoginID(String loginID) {
-        this.loginID = loginID.trim(); // Trim any whitespace...
+        this.loginID = loginID.trim().toLowerCase(); // Trim any whitespace & converts to lowercase...
     }
-
     //-------------------------------------------------------
     public String getPassword() {
         return password;
