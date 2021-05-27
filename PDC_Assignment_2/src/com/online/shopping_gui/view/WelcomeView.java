@@ -3,6 +3,7 @@ package com.online.shopping_gui.view;
 import com.online.shopping_gui.model.CardModel;
 import com.online.shopping_gui.controller.CardController;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.online.shopping_gui.utilities.CustomerDBManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,6 +31,7 @@ public class WelcomeView extends JFrame {
         initLeftPanel();
 //        this.add(Box.createRigidArea(new Dimension(10, 0)));
         initRightPanel();
+        CustomerDBManager.getConnection();
     }
     
     public void initLeftPanel() {
@@ -50,7 +52,7 @@ public class WelcomeView extends JFrame {
         cardModel.addObserver(cardView);
         
         CardController mainMenuController = new CardController();
-        //pass the reference of model and view to the controllor
+        //pass the reference of model and view to the controller
         mainMenuController.addModel(cardModel);
         mainMenuController.addView(this, cardView);
         mainMenuController.initModel(0);
