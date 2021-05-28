@@ -20,7 +20,7 @@ public class LoginView extends JPanel {
     private final int TXT_FIELD_HEIGHT = 25;
     private final int FIELD_CHARS = 30;
 
-    private JButton okay, quit, backBtn;
+    private JButton okay, resetBtn, backBtn;
     private JLabel logLbl, passLbl;
     private JPasswordField enterPass;
     private JTextField loginTxt;
@@ -31,7 +31,7 @@ public class LoginView extends JPanel {
         this.setBackground(Color.WHITE);
 
         okay = new JButton("Login");
-        quit = new JButton("Quit"); //TODO: Remove redundant Quit Button.
+        resetBtn = new JButton("Reset"); //TODO: Remove redundant Quit Button.
         logLbl = new JLabel("Login ID");
         passLbl = new JLabel("Password");
         enterPass = new JPasswordField(FIELD_CHARS);
@@ -39,7 +39,7 @@ public class LoginView extends JPanel {
         backBtn = new JButton("Back");
 
         add(okay);
-        add(quit); //TODO: Remove redundant Quit Button.
+        add(resetBtn); //TODO: Remove redundant Quit Button.
         add(logLbl);
         add(passLbl);
         add(enterPass);
@@ -47,7 +47,7 @@ public class LoginView extends JPanel {
         add(backBtn);
 
         okay.setBounds(75, 165, 100, 25);
-        quit.setBounds(180, 165, 100, 25); //TODO: Remove redundant Quit Button.
+        resetBtn.setBounds(180, 165, 100, 25); //TODO: Remove redundant Quit Button.
         logLbl.setBounds(80, 80, 100, 25);
         passLbl.setBounds(75, 120, 100, 25);
         enterPass.setBounds(145, 120, TXT_FIELD_WIDTH, TXT_FIELD_HEIGHT);
@@ -59,8 +59,8 @@ public class LoginView extends JPanel {
         return okay;
     }
 
-    public JButton getQuit() {
-        return quit;
+    public JButton getResetBtn() {
+        return resetBtn;
     }
 
     public JPasswordField getEnterPass() {
@@ -71,9 +71,12 @@ public class LoginView extends JPanel {
         return loginTxt;
     }
     
-    
-    
     public JButton getBackBtn() {
         return backBtn;
+    }
+
+    public void reset() {
+        loginTxt.setText("");
+        enterPass.setText("");
     }
 }

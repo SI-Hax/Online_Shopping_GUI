@@ -1,7 +1,9 @@
 package com.online.shopping_gui.controller;
 
 import com.online.shopping_gui.model.CardModel;
+import com.online.shopping_gui.model.Customer;
 import com.online.shopping_gui.view.CardView;
+import com.online.shopping_gui.view.CreateAccountView;
 import com.online.shopping_gui.view.WelcomeView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,6 +41,8 @@ public class CardController implements ActionListener {
             System.exit(0);
         } else if(source == cardView.getLoginView().getBackBtn()) { // Login Panel -> Back btn
             cardModel.setMainMenuSelection(0);
+        } else if(source == cardView.getLoginView().getResetBtn()) { // Login Panel -> Reset Btn
+            cardView.getLoginView().reset();
         } else if(source == cardView.getCreateAccountView().getBackBtn()) { // Create Account Panel -> Back btn
             cardModel.setMainMenuSelection(0);
         }
