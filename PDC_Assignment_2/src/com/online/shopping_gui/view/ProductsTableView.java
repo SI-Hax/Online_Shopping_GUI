@@ -43,36 +43,36 @@ public class ProductsTableView extends JPanel {
         productTable.setPreferredScrollableViewportSize(new Dimension(700, 300));
         productTable.setFillsViewportHeight(true);
         productTable.setAutoCreateRowSorter(sorter);
+        productTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Allows user to select only one row at a time.
         scrollPane = new JScrollPane(productTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        productTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Allows user to select only one row at a time.
-        productTable.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                
-            }
-            
-            @Override
-            public void mousePressed(MouseEvent e) {
-                if(productTable.getSelectedRow() >= 0) {
-                    String selectedCellValue = productTable.getValueAt(productTable.getSelectedRow() , 1).toString();
-                    System.out.println(selectedCellValue);
-                }
-            }
-            
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-            
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-            
-            @Override
-            public void mouseClicked(MouseEvent e) {
+//        productTable.addMouseListener(new MouseListener() {
+//            @Override
+//            public void mouseReleased(MouseEvent e) {
+//                
+//            }
+//            
+//            @Override
+//            public void mousePressed(MouseEvent e) {
+//                if(productTable.getSelectedRow() >= 0) {
+//                    String selectedCellValue = productTable.getValueAt(productTable.getSelectedRow() , 1).toString();
+//                    System.out.println(selectedCellValue);
+//                }
+//            }
+//            
+//            @Override
+//            public void mouseExited(MouseEvent e) {
+//            }
+//            
+//            @Override
+//            public void mouseEntered(MouseEvent e) {
+//            }
+//            
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
 //                itemSelectedLbl.setText("Item Selected: " + productTable.getValueAt(productTable.getSelectedRow() , 1));
-            }
-        });
+//            }
+//        });
         
         this.add(scrollPane);
     }
