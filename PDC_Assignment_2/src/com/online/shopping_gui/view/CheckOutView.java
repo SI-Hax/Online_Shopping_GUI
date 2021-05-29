@@ -1,10 +1,12 @@
 package com.online.shopping_gui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.online.shopping_gui.model.Customer;
 import com.online.shopping_gui.model.ProductList;
 import com.online.shopping_gui.model.ShoppingCart;
 import com.online.shopping_gui.model.User;
+import com.online.shopping_gui.model.UserList;
+import com.online.shopping_gui.utilities.AdminDBManager;
+import com.online.shopping_gui.utilities.CustomerDBManager;
 import com.online.shopping_gui.utilities.ProductFileIO;
 import java.awt.*;
 import javax.swing.*;
@@ -40,6 +42,7 @@ public class CheckOutView extends JPanel{
         totalTxt.setText(String.valueOf(String.format("$%.2f", cart.getGrandTotal())));
         shipTo = new JLabel("Ship To:");
         shipToTxt = new JTextArea(100, 100);
+        
         visa = new JLabel("Card No:");
         ccv = new JLabel("CCV:");
         visaTxt = new JPasswordField(20);
@@ -74,7 +77,8 @@ public class CheckOutView extends JPanel{
     }
     
     public static void main(String[] args) {
-        User currentUser = new Customer("test1234", "Woohoo10101!");
+        UserList users = new UserList(CustomerDBManager.importData(), AdminDBManager.importData());
+        User currentUser = users.searchUser("djorange77");
         ShoppingCart scart = new ShoppingCart(currentUser);
         ProductList plist = ProductFileIO.importProductData();
         scart.addToCart(plist.searchProduct("Apple"), 3);
