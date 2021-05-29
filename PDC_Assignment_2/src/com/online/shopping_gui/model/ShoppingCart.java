@@ -38,6 +38,19 @@ public class ShoppingCart {
     private User user;
 
     /**
+     * 0-Parameter constructor for ShoppingCart, prepares Object attributes so
+     * it can be used.
+     *
+     * @param user : Logged in user who will be using the cart.
+     *
+     */
+    public ShoppingCart() {
+        this.products = new ArrayList<Product>();
+        this.quantity = new ArrayList<Integer>();
+        this.grandTotal = 0D;
+    }
+    
+    /**
      * 1-Parameter constructor for ShoppingCart, prepares Object attributes so
      * it can be used.
      *
@@ -51,6 +64,10 @@ public class ShoppingCart {
         this.user = user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
     /**
      * Returns the total summed value of the cart items.
      *
