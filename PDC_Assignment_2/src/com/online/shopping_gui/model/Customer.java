@@ -27,7 +27,7 @@ import com.online.shopping_gui.utilities.Utilities;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.0.1
+ * @version 2.0.2
  * @since 30/03/2021
  *
  */
@@ -100,10 +100,14 @@ public class Customer extends User {
     }
 
     public void setPhone(String phone) {
-        if(!phone.trim().isEmpty()) { // If string is not empty.
-            Integer.parseInt(phone); // Throws an exception if string passed in are not numbers.
+        if (phone.equalsIgnoreCase("UNKNOWN") || phone.trim().isEmpty()) { // Checks if passed in data is "UNKNOWN"...
+            this.phone = "UNKNOWN";
+        } else if(!(phone.equalsIgnoreCase("UNKNOWN") && phone.trim().isEmpty())) { // If string is not "UNKNOWN".
+            Integer.parseInt(phone); // Throws an exception if string passed in are not numbers.           
+            this.phone = phone;
+        } else {
+            this.phone = "UNKNOWN"; // Set phone to unknown.
         }
-        this.phone = (phone.isEmpty() ? "UNKNOWN" : phone);
     }
 
     public String getEmail() {
