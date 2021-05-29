@@ -11,14 +11,14 @@ import java.awt.*;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.0.2
+ * @version 2.0.3
  * @since 15/05/2021
  */
 public class CreateAccountView extends JPanel 
 {
-    private final String ID_CHECK = "Existing ID detected, please select another.";
+    private final String ID_CHECK = "Existing ID detected, please re-select.";
     private final String PASS_GUIDE = "Password must contain 8+ Characters, 1 Upper, 1 Lower, 1 Number, & 1 Symbol";
-    private final String PASS_CHECK = "Weak Password. Please hover over field to see tip.";
+    private final String PASS_CHECK = "Weak Password. Please hover over ^";
     private final String PASS_NO_MATCH = "Passwords do not match.";
     private final int TXT_FIELD_WIDTH = 200;
     private final int TXT_FIELD_HEIGHT = 25;
@@ -39,6 +39,7 @@ public class CreateAccountView extends JPanel
         // Construct components.
         loginIDLbl = new JLabel("Login ID");
         loginIDTxtField = new JTextField(FIELD_CHARS);
+        loginIDTxtField.setToolTipText("Select a unique identifier.");
         loginIDCheckLbl = new JLabel("");
         loginIDCheckLbl.setForeground(Color.RED);
         
@@ -50,6 +51,7 @@ public class CreateAccountView extends JPanel
 
         confirmPassLbl = new JLabel("Confirm Password");
         confirmPassField = new JPasswordField(FIELD_CHARS);
+        confirmPassField.setToolTipText("Password must match above field.");
         confirmPassCheckLbl = new JLabel("");
         confirmPassCheckLbl.setForeground(Color.RED);
         
@@ -58,20 +60,24 @@ public class CreateAccountView extends JPanel
         
         emailLbl = new JLabel("Email");
         emailTxtField = new JTextField(FIELD_CHARS);
+        emailTxtField.setToolTipText("Email must be in valid email format.");
 
         addressLbl = new JLabel("Address");
         addressTxtField = new JTextField(FIELD_CHARS);
         
         phoneNoLbl = new JLabel("Phone Number");
         phoneNoTxtField = new JTextField(FIELD_CHARS);
+        phoneNoTxtField.setToolTipText("Phone number must contain numbers only.");
         
         cardNoLbl = new JLabel("Card Number");
         cardNoTxtField = new JTextField(FIELD_CHARS);
+        cardNoTxtField.setToolTipText("Card number must only contain numbers and be a valid card.");
         
         cardHolderLbl = new JLabel("Card Holder");
         cardHolderTxtField = new JTextField(FIELD_CHARS);
         
         createAccountBtn = new JButton("Create Account");
+        createAccountBtn.setEnabled(false);
         
         backBtn = new JButton("Back");
 
@@ -172,11 +178,11 @@ public class CreateAccountView extends JPanel
     }
     
     public void warnConfirmPassCheck() {
-        passwordCheckLbl.setText(PASS_NO_MATCH);
+        confirmPassCheckLbl.setText(PASS_NO_MATCH);
     }
     
     public void passConfirmPassCheck() {
-        passwordCheckLbl.setText("");
+        confirmPassCheckLbl.setText("");
     }
 
     public JTextField getLoginIDTxtField() {
