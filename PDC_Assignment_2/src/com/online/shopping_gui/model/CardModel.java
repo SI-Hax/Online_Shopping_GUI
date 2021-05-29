@@ -3,7 +3,9 @@ package com.online.shopping_gui.model;
 import com.online.shopping_gui.utilities.AdminDBManager;
 import com.online.shopping_gui.utilities.CustomerDBManager;
 import com.online.shopping_gui.utilities.ProductsDBManager;
+import com.online.shopping_gui.utilities.UserFileIO;
 import com.online.shopping_gui.utilities.Utilities;
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Observable;
 
@@ -114,7 +116,8 @@ public class CardModel extends Observable {
        
         if(!CustomerDBManager.rowExists(loginID)) { // If loginID is non-existant in database...
             Runnable updateCustDB = () -> {
-                CustomerDBManager.updateDB(updateDB); // Insert row into table.
+                CustomerDBManager.updateDB(updateDB); // Insert row into EDB table.
+                UserFileIO.exportUserData(users.getUserList()); // Write to csv.
             };
             new Thread(updateCustDB).start(); // Run in separate thread (background) to optimize UI responsiveness.  
         }
