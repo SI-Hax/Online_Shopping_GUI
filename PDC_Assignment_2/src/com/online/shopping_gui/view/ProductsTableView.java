@@ -1,6 +1,7 @@
 package com.online.shopping_gui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.online.shopping_gui.utilities.ProductFileIO;
 import com.online.shopping_gui.model.ProductList;
 import com.online.shopping_gui.model.Table;
 import java.awt.Color;
@@ -20,7 +21,7 @@ import javax.swing.ScrollPaneConstants;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.0.1
+ * @version 2.0.2
  * @since 25/05/2021
  */
 public class ProductsTableView extends JPanel {
@@ -29,14 +30,15 @@ public class ProductsTableView extends JPanel {
     private JTable productTable;
     private JScrollPane scrollPane;
     
-    public ProductsTableView(ProductList list) {
+    public ProductsTableView() {
         FlatLightLaf.install();
         this.setLayout(new FlowLayout());
         this.setPreferredSize(new Dimension(710, 350));
         this.setBackground(Color.WHITE);
+        ProductList pList = ProductFileIO.importProductData();
         
         boolean sorter = true;
-        table = new Table(list.convertProductList(), COLUMN_HEADERS); // Init Table Model.
+        table = new Table(pList.convertProductList(), COLUMN_HEADERS); // Init Table Model.
         productTable = new JTable(table);
         productTable.setPreferredScrollableViewportSize(new Dimension(700, 300));
         productTable.setFillsViewportHeight(true);
@@ -52,8 +54,10 @@ public class ProductsTableView extends JPanel {
             
             @Override
             public void mousePressed(MouseEvent e) {
-                String selectedCellValue = productTable.getValueAt(productTable.getSelectedRow() , 1).toString();
-                System.out.println(selectedCellValue);
+                if(productTable.getSelectedRow() >= 0) {
+                    String selectedCellValue = productTable.getValueAt(productTable.getSelectedRow() , 1).toString();
+                    System.out.println(selectedCellValue);
+                }
             }
             
             @Override
@@ -72,15 +76,27 @@ public class ProductsTableView extends JPanel {
         
         this.add(scrollPane);
     }
+
+    public String[] getCOLUMN_HEADERS() {
+        return COLUMN_HEADERS;
+    }
     
     public Table getTable() {
         return table;
     }
 
+    public void setTable(Table table) {
+        this.table = table;
+    }
+    
     public JTable getProductTable() {
         return productTable;
     }
 
+    public void setProductTable(JTable productTable) {
+        this.productTable = productTable;
+    }
+    
     public JScrollPane getScrollPane() {
         return scrollPane;
     }
