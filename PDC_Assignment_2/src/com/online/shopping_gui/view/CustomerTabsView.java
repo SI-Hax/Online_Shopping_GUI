@@ -1,17 +1,20 @@
 package com.online.shopping_gui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.online.shopping_gui.model.CardModel;
 import com.online.shopping_gui.model.Customer;
 import com.online.shopping_gui.model.ProductList;
 import com.online.shopping_gui.model.ShoppingCart;
+import com.online.shopping_gui.model.Table;
 import com.online.shopping_gui.utilities.ProductFileIO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 /**
@@ -26,27 +29,32 @@ import javax.swing.JTabbedPane;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.0.1
+ * @version 2.1.0
  * @since 24/05/2021
  */
-public class CustomerTabsView extends JPanel implements Observer {
+public class CustomerTabsView extends JFrame implements Observer {
     public final int PANEL_WIDTH = 920;
-    public final int PANEL_HEIGHT = 540;
+    public final int PANEL_HEIGHT = 580;
     // TODO: Add a main frame to this Panel.
     private JTabbedPane customerTabs;
     private ProductsView productsView;
     private ShoppingCartView cartView;
     
     public CustomerTabsView(ProductList list, ShoppingCart cart) {
+        super("Si-Hax Store");
         FlatLightLaf.install();
         this.setLayout(new FlowLayout());
-	this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
+//	this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
+        this.setSize(PANEL_WIDTH, PANEL_HEIGHT);
         this.setBackground(Color.WHITE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(new Point((d.width / 2) - (this.getWidth() / 2), (d.height / 2) - (this.getHeight() / 2)));
         
         // Initialise components.
         customerTabs = new JTabbedPane();
         
-        productsView = new ProductsView(list);
+        productsView = new ProductsView();
         customerTabs.add("View Products", productsView);
         
         cartView = new ShoppingCartView(cart);
@@ -71,8 +79,23 @@ public class CustomerTabsView extends JPanel implements Observer {
     }
     
     @Override
-    public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Observable o, Object selection) {
+        CardModel cm = (CardModel) selection;
+        
+        if(cm.isCustLoginFlag()) {
+            System.out.println("Customer logged in");
+            this.showTabs(cm.getShoppingCart(), cm.getProductList());
+            System.out.println("Window pop up");
+        }
+    }
+   
+    public void showTabs(ShoppingCart sc, ProductList pList) {
+        Table table = new Table(pList.convertProductList(), productsView.getProductsTableView().getCOLUMN_HEADERS());
+        productsView.getProductsTableView().setTable(table);
+        productsView.getProductsTableView().getProductTable().updateUI();
+        this.setMinimumSize(new Dimension(this.PANEL_WIDTH, this.PANEL_HEIGHT)); // Specifies the min size so table's info wont be obscured.
+        this.setVisible(true); 
+        this.setResizable(true);
     }
     
     public static void main(String[] args) {
