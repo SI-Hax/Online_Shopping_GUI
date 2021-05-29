@@ -2,6 +2,9 @@ package com.online.shopping_gui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import com.online.shopping_gui.controller.CardController;
+import com.online.shopping_gui.model.CardModel;
+import com.online.shopping_gui.model.ShoppingCart;
+import com.online.shopping_gui.utilities.ProductFileIO;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,18 +20,19 @@ import javax.swing.JPanel;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.0.1
+ * @version 2.1.0
  * @since 17/05/2021
  */
 public class CardView extends JPanel implements Observer {
     protected MainMenuView mainMenuView;
     protected LoginView loginView;
     protected CreateAccountView createAccountView;
+    protected CustomerTabsView customerTabsView;
     
     public CardView() {
         FlatLightLaf.install();
         this.setLayout(new CardLayout());
-        this.setPreferredSize(new Dimension(400, 560));
+        this.setPreferredSize(new Dimension(395, 550));
         this.setBackground(Color.WHITE);
         
         this.mainMenuView = new MainMenuView();
@@ -39,6 +43,8 @@ public class CardView extends JPanel implements Observer {
         
         this.createAccountView = new CreateAccountView();
         add(createAccountView, "Create Account");
+        
+        customerTabsView = new CustomerTabsView(ProductFileIO.importProductData(), new ShoppingCart());
     }
     
     /**
@@ -63,15 +69,25 @@ public class CardView extends JPanel implements Observer {
     }
 
     public void addController(CardController controller) {
-        //need a controller before adding it as a listener 
-        mainMenuView.getCustLogin().addActionListener(controller);
-        mainMenuView.getAdminLogin().addActionListener(controller);
+        // Main Menu View
+        mainMenuView.getLoginBtn().addActionListener(controller);
         mainMenuView.getCreateAccount().addActionListener(controller);
         mainMenuView.getQuit().addActionListener(controller);
+        // Login View.
+        loginView.getOkay().addActionListener(controller);
         loginView.getBackBtn().addActionListener(controller);
         loginView.getResetBtn().addActionListener(controller);
+        loginView.getEnterPass().getDocument().addDocumentListener(controller);
+        loginView.getEnterPass().addKeyListener(controller);
+        
+        // Create Account View
         createAccountView.getBackBtn().addActionListener(controller);
         createAccountView.getCreateAccountBtn().addActionListener(controller);
+        
+//        createAccountView.getLoginIDTxtField().getDocument().addDocumentListener(controller);
+        createAccountView.getPasswordPassField().getDocument().addDocumentListener(controller);
+        createAccountView.getConfirmPassField().getDocument().addDocumentListener(controller);
+        createAccountView.getConfirmPassField().addKeyListener(controller);
     }
 
     public MainMenuView getMainMenuView() {
@@ -87,7 +103,12 @@ public class CardView extends JPanel implements Observer {
     }
     
     @Override
-    public void update(Observable cardModel, Object selection) {        
-        setActivePanel((int) selection);
+    public void update(Observable o, Object selection) {
+        CardModel cm = (CardModel) selection;
+        if(cm.isCardFlag()) {
+            setActivePanel(cm.getMainMenuSelection());
+        } else if (cm.isCustLoginFlag()) {
+            loginView.resetFields();
+        }
     }
 }
