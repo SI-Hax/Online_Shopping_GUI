@@ -49,7 +49,7 @@ public class ShoppingCartView extends JPanel
         this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         this.setBackground(Color.WHITE);
         
-        this.cart = cart;
+        this.setCart(cart);
    
         // Init table panel.
         tablePanel = new JPanel();
