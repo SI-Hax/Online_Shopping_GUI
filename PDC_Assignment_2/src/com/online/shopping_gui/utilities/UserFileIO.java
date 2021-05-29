@@ -4,8 +4,8 @@ import com.online.shopping_gui.model.Administrator;
 import com.online.shopping_gui.model.Customer;
 import com.online.shopping_gui.model.User;
 import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class maintains a set of tools (static methods) essential for
@@ -49,8 +49,8 @@ public final class UserFileIO {
      * fresh HashMap if there are errors when reading from file.
      *
      */
-    public static HashMap<String, User> importUserData() {
-        HashMap<String, User> usersData = new HashMap<>();
+    public static ConcurrentHashMap<String, User> importUserData() {
+        ConcurrentHashMap<String, User> usersData = new ConcurrentHashMap<>();
 
         // Try-with-resources to import data from 2 csv files (1st:customer_database; 2nd:admin_database).
         try (BufferedReader br2 = new BufferedReader(new FileReader(UserFileIO.ADMIN_FILEPATH));
@@ -129,7 +129,7 @@ public final class UserFileIO {
      * @return T/F whether the write was successful.
      *
      */
-    public static boolean exportUserData(HashMap<String, User> users) {
+    public static boolean exportUserData(ConcurrentHashMap<String, User> users) {
         boolean writeSuccess = false;
 
         // Try-with-resources (Buffered PrintWriter which overwrites existing files with new data).
