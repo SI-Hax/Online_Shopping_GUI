@@ -27,7 +27,7 @@ import com.online.shopping_gui.utilities.Utilities;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 1.03
+ * @version 2.0.1
  * @since 30/03/2021
  *
  */
@@ -100,6 +100,9 @@ public class Customer extends User {
     }
 
     public void setPhone(String phone) {
+        if(!phone.trim().isEmpty()) { // If string is not empty.
+            Integer.parseInt(phone); // Throws an exception if string passed in are not numbers.
+        }
         this.phone = (phone.isEmpty() ? "UNKNOWN" : phone);
     }
 
@@ -117,7 +120,7 @@ public class Customer extends User {
                 this.email = email; // Assign passed in data to instance's attribute.
                 set = true;
             } else { // If email in an invalid format...
-                set = false; // Do not save email and reprompt user to enter a valid email/blank one.
+                throw new IllegalArgumentException("Invalid email format.");   
             }
         } else { // If its blank...
             this.email = "UNKNOWN"; // Set email to unknown.
@@ -149,7 +152,7 @@ public class Customer extends User {
                 this.cardNumber = cardNumber.trim(); // Assign passed in data to instance's attribute.
                 set = true;
             } else {
-                set = false; // Return false to caller
+                throw new IllegalArgumentException("Card number is invalid!");
             }
         } else {
             this.cardNumber = "UNKNOWN";
@@ -194,7 +197,7 @@ public class Customer extends User {
             this.password = password; // Saves user-defined password.
             set = true;
         } else {
-            set = false;
+            throw new IllegalArgumentException("Password do not meet requirements!");
         }
         
         return set;
