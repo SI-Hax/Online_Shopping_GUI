@@ -31,6 +31,7 @@ public class LoginView extends JPanel {
         this.setBackground(Color.WHITE);
 
         okay = new JButton("Login");
+        okay.setEnabled(false);
         resetBtn = new JButton("Reset"); //TODO: Remove redundant Quit Button.
         logLbl = new JLabel("Login ID");
         passLbl = new JLabel("Password");
@@ -47,12 +48,12 @@ public class LoginView extends JPanel {
         add(backBtn);
 
         okay.setBounds(75, 165, 100, 25);
-        resetBtn.setBounds(180, 165, 100, 25); //TODO: Remove redundant Quit Button.
+        resetBtn.setBounds(180, 165, 100, 25); 
         logLbl.setBounds(80, 80, 100, 25);
         passLbl.setBounds(75, 120, 100, 25);
         enterPass.setBounds(145, 120, TXT_FIELD_WIDTH, TXT_FIELD_HEIGHT);
         loginTxt.setBounds(145, 80, TXT_FIELD_WIDTH, TXT_FIELD_HEIGHT);
-        backBtn.setBounds(280, 500, 100, 25);
+        backBtn.setBounds(275, 500, 100, 25);
     }
 
     public JButton getOkay() {
@@ -75,8 +76,13 @@ public class LoginView extends JPanel {
         return backBtn;
     }
 
-    public void reset() {
+    public void resetFields() {
         loginTxt.setText("");
         enterPass.setText("");
+        okay.setEnabled(false);
+    }
+    
+    public void configLoginBtn(boolean value) {
+        okay.setEnabled(value);
     }
 }
