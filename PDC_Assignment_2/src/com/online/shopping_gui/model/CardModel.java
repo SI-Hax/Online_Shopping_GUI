@@ -31,14 +31,14 @@ public class CardModel extends Observable {
 //        users = new UserList(AdminDBManager.importData(), CustomerDBManager.importData()); 
 //        productList = ProductsDBManager.importData();
         Runnable loadUsers = () -> {
-            users = new UserList(AdminDBManager.importData(), CustomerDBManager.importData()); 
+            users = new UserList(AdminDBManager.importData(), CustomerDBManager.importData()); // Import data from database.
         };
-        new Thread(loadUsers).start();
+        new Thread(loadUsers).start(); // Run in separate thread (background) to optimize UI responsiveness. 
         
         Runnable loadProducts = () -> {
-            productList = ProductsDBManager.importData();
+            productList = ProductsDBManager.importData(); // Import data from database.
         };
-        new Thread(loadProducts).start();
+        new Thread(loadProducts).start(); // Run in separate thread (background) to optimize UI responsiveness. 
     }
     
       public void setMainMenuSelection(int selection){
@@ -111,11 +111,13 @@ public class CardModel extends Observable {
                             + address + "\', \'" // Address
                             + Utilities.encrypt(cardNumber) + "\', \'" // Encrypted Card Number
                             + cardHolder + "\')";   // Card Holder
-        
-        Runnable updateCustDB = () -> {
-            CustomerDBManager.updateDB(updateDB); // Insert row into table.
-        };
-        new Thread(updateCustDB).start(); // Run in separate thread (background) to optimize UI responsiveness.
+       
+        if(!CustomerDBManager.rowExists(loginID)) { // If loginID is non-existant in database...
+            Runnable updateCustDB = () -> {
+                CustomerDBManager.updateDB(updateDB); // Insert row into table.
+            };
+            new Thread(updateCustDB).start(); // Run in separate thread (background) to optimize UI responsiveness.  
+        }
     }
 
     public int getMainMenuSelection() {
