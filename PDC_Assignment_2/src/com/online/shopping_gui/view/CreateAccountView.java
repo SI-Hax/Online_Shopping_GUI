@@ -11,11 +11,15 @@ import java.awt.*;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.0.1
+ * @version 2.0.2
  * @since 15/05/2021
  */
 public class CreateAccountView extends JPanel 
 {
+    private final String ID_CHECK = "Existing ID detected, please select another.";
+    private final String PASS_GUIDE = "Password must contain 8+ Characters, 1 Upper, 1 Lower, 1 Number, & 1 Symbol";
+    private final String PASS_CHECK = "Weak Password. Please hover over field to see tip.";
+    private final String PASS_NO_MATCH = "Passwords do not match.";
     private final int TXT_FIELD_WIDTH = 200;
     private final int TXT_FIELD_HEIGHT = 25;
     private final int FIELD_CHARS = 50;
@@ -36,15 +40,18 @@ public class CreateAccountView extends JPanel
         loginIDLbl = new JLabel("Login ID");
         loginIDTxtField = new JTextField(FIELD_CHARS);
         loginIDCheckLbl = new JLabel("");
+        loginIDCheckLbl.setForeground(Color.RED);
         
         passwordLbl = new JLabel("Password");
         passwordPassField = new JPasswordField(FIELD_CHARS);
-        passwordPassField.setToolTipText("Password must contain 8+ Characters, 1 Upper, 1 Lower, 1 Number, & 1 Symbol");
+        passwordPassField.setToolTipText(PASS_GUIDE);
         passwordCheckLbl = new JLabel("");
+        passwordCheckLbl.setForeground(Color.RED);
 
         confirmPassLbl = new JLabel("Confirm Password");
         confirmPassField = new JPasswordField(FIELD_CHARS);
         confirmPassCheckLbl = new JLabel("");
+        confirmPassCheckLbl.setForeground(Color.RED);
         
         nameLbl = new JLabel("Name");
         nameTxtField = new JTextField(FIELD_CHARS);
@@ -116,23 +123,72 @@ public class CreateAccountView extends JPanel
         cardHolderLbl.setBounds(50, 340, 70, 25);
         cardHolderTxtField.setBounds(135, 345, TXT_FIELD_WIDTH, TXT_FIELD_HEIGHT);
         createAccountBtn.setBounds(135, 395, TXT_FIELD_WIDTH, 45);
-        backBtn.setBounds(280, 500, 100, 25);
+        backBtn.setBounds(275, 500, 100, 25);
+    }
+    
+    public void resetFields() {
+        loginIDTxtField.setText("");
+        passwordPassField.setText("");
+        confirmPassField.setText("");
+        nameTxtField.setText("");
+        emailTxtField.setText("");
+        addressTxtField.setText("");
+        phoneNoTxtField.setText("");
+        cardNoTxtField.setText("");
+        cardHolderTxtField.setText("");
+        createAccountBtn.setEnabled(false);
+    }
+    
+    public void configCreateBtn(boolean value) {
+        createAccountBtn.setEnabled(value);
     }
 
     public JLabel getLoginIDCheckLbl() {
         return loginIDCheckLbl;
     }
-
+    
+    public void warnLoginIDCheck() {
+        loginIDCheckLbl.setText(ID_CHECK);
+    }
+    
+    public void passLoginIDCheck() {
+        loginIDCheckLbl.setText("");
+    }
+    
     public JLabel getPasswordCheckLbl() {
         return passwordCheckLbl;
+    }
+    
+    public void warnPassCheck() {
+        passwordCheckLbl.setText(PASS_CHECK);
+    }
+    
+    public void passPassCheck() {
+        passwordCheckLbl.setText("");
     }
 
     public JLabel getConfirmPassCheckLbl() {
         return confirmPassCheckLbl;
     }
+    
+    public void warnConfirmPassCheck() {
+        passwordCheckLbl.setText(PASS_NO_MATCH);
+    }
+    
+    public void passConfirmPassCheck() {
+        passwordCheckLbl.setText("");
+    }
 
     public JTextField getLoginIDTxtField() {
         return loginIDTxtField;
+    }
+    
+    public JPasswordField getPasswordPassField() {
+        return passwordPassField;
+    }
+
+    public JPasswordField getConfirmPassField() {
+        return confirmPassField;
     }
 
     public JTextField getNameTxtField() {
@@ -157,14 +213,6 @@ public class CreateAccountView extends JPanel
 
     public JTextField getCardHolderTxtField() {
         return cardHolderTxtField;
-    }
-
-    public JPasswordField getPasswordPassField() {
-        return passwordPassField;
-    }
-
-    public JPasswordField getConfirmPassField() {
-        return confirmPassField;
     }
 
     public JButton getCreateAccountBtn() {
