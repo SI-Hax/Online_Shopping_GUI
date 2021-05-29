@@ -26,26 +26,26 @@ public class ProductsView extends JPanel {
     
     public final int PANEL_WIDTH = 900;
     public final int PANEL_HEIGHT = 500;
-    private ProductList list;
+    private ProductsTableView productsTableView;
     
     private JPanel tablePanel, lblPanel, btnPanel;
     private JLabel itemSelectedLbl, qtyLbl;
     private JTextField qtyTxtField;
     private JButton addToCartBtn;
 
-    public ProductsView(ProductList list) {
+    public ProductsView() {
         FlatLightLaf.install();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         this.setBackground(Color.WHITE);
         
 //        this.list = ProductFileIO.importProductData();
-        this.list = list;
-        
+//        this.list = list;
+        productsTableView = new ProductsTableView();
         // Init table panel.
         tablePanel = new JPanel();
         tablePanel.setBackground(Color.WHITE);
-        tablePanel.add(new ProductsTableView(list));
+        tablePanel.add(productsTableView);
         
 //        tablePanel.add(scrollPane);
         
@@ -75,12 +75,13 @@ public class ProductsView extends JPanel {
         this.add(Box.createRigidArea(new Dimension(0, 10)));
     }
 
-    public ProductList getList() {
-        return list;
+    public ProductsTableView getProductsTableView() {
+        return productsTableView;
     }
 
-   
-
+    public void setProductsTableView(ProductsTableView productsTableView) {
+        this.productsTableView = productsTableView;
+    }
     public JLabel getItemSelectedLbl() {
         return itemSelectedLbl;
     }
@@ -96,7 +97,7 @@ public class ProductsView extends JPanel {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Test Table");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ProductsView pv = new ProductsView(null);
+        ProductsView pv = new ProductsView();
         frame.add(pv);
         frame.pack();
         frame.setMinimumSize(pv.getPreferredSize()); // Specifies the min size so table's info wont be obscured.
