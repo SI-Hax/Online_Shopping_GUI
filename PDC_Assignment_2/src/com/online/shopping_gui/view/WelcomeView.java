@@ -3,8 +3,9 @@ package com.online.shopping_gui.view;
 import com.online.shopping_gui.model.CardModel;
 import com.online.shopping_gui.controller.CardController;
 import com.formdev.flatlaf.FlatLightLaf;
-import com.online.shopping_gui.utilities.CustomerDBManager;
+import com.online.shopping_gui.model.ShoppingCart;
 
+import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -20,7 +21,7 @@ import java.awt.*;
 public class WelcomeView extends JFrame {
 
     private JPanel leftPanel, rightPanel;
-
+    
     public WelcomeView() {
         FlatLightLaf.install();
         setLayout(new FlowLayout());
@@ -29,16 +30,11 @@ public class WelcomeView extends JFrame {
         setForeground(Color.WHITE);
         
         initLeftPanel();
-//        this.add(Box.createRigidArea(new Dimension(10, 0)));
         initRightPanel();
-        CustomerDBManager.getConnection();
     }
     
     public void initLeftPanel() {
         leftPanel = new ImageShopAndRun();
-//        leftPanel.setAlignmentX(SwingConstants.CENTER);
-//        leftPanel.setAlignmentY(SwingConstants.CENTER);
-//        leftPanel.setBounds(10, 10, leftPanel.getWidth(), leftPanel.getHeight());
         this.add(leftPanel);
     }
     
@@ -49,12 +45,13 @@ public class WelcomeView extends JFrame {
     public void initRightPanel() {
         CardModel cardModel = new CardModel();
         CardView cardView = new CardView();
+        CustomerTabsView custTabsView = new CustomerTabsView(cardModel.getProductList(), new ShoppingCart());
         cardModel.addObserver(cardView);
         
         CardController mainMenuController = new CardController();
         //pass the reference of model and view to the controller
         mainMenuController.addModel(cardModel);
-        mainMenuController.addView(this, cardView);
+        mainMenuController.addView(this, cardView, custTabsView);
         mainMenuController.initModel(0);
         cardView.addController(mainMenuController);
         
@@ -62,7 +59,7 @@ public class WelcomeView extends JFrame {
 //        rightPanel.setBounds(475, 0, 400, 560);
         this.add(rightPanel);
     }
-
+    
     /**
      * Entry point of the program.
      * 
