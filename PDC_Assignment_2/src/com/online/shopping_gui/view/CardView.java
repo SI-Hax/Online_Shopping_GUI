@@ -37,10 +37,10 @@ public class CardView extends JPanel implements Observer {
         
         this.mainMenuView = new MainMenuView();
         add(mainMenuView, "Main Menu");
-        
+
         this.loginView = new LoginView();
         add(loginView, "Login Menu");
-        
+
         this.createAccountView = new CreateAccountView();
         add(createAccountView, "Create Account");
         

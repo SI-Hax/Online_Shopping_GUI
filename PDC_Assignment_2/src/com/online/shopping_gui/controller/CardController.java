@@ -52,6 +52,8 @@ public class CardController implements ActionListener, DocumentListener, KeyList
             createAccount();
         } else if(source == cardView.getCreateAccountView().getBackBtn()) { // Create Account Panel -> Back btn
             cardModel.setMainMenuSelection(0);
+        } else if(source == cardView.getCreateAccountView().getCreateAccountBtn()) { // Create Account Panel -> Create Account Btn
+            System.out.println("Create Btn Clicked!");
         }
     }
     //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
