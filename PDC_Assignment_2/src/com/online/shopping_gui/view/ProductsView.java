@@ -73,10 +73,21 @@ public class ProductsView extends JPanel {
     public void setProductsTableView(ProductsTableView productsTableView) {
         this.productsTableView = productsTableView;
     }
+    
     public JLabel getItemSelectedLbl() {
         return itemSelectedLbl;
     }
 
+    public void updateSelectedLabel(int index) {
+//        int index = productsTableView.getProductTable().getSelectedRow(); // Get selected row index.
+        System.out.println("Updating label");
+        itemSelectedLbl.setText("Item Selected: " + productsTableView.getProductTable().getValueAt(index , 1)); // Set label.   
+        if(index >= 0) { // If its greater or equal to 0...
+        } else {
+            itemSelectedLbl.setText("Item Selected: 0");
+        }
+    }
+    
     public JTextField getQtyTxtField() {
         return qtyTxtField;
     }
