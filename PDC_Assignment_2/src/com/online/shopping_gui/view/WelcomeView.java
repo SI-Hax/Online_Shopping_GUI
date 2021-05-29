@@ -66,22 +66,38 @@ public class WelcomeView extends JFrame {
      * @param args 
      */
     public static void main(String[] args) {
-        WelcomeView hi = new WelcomeView();
-        // Get the size of the screen
-        Toolkit kit = Toolkit.getDefaultToolkit();
-        Dimension screenSize = kit.getScreenSize();
-
-        hi.setSize(900, 600);
-
-        // Calculate the frame location
-        int x = (screenSize.width - hi.getWidth()) / 2;
-        int y = (screenSize.height - hi.getHeight()) / 2;
-
-        hi.setLocation(x,y);
-        hi.setTitle("Si Hax Store");
-        hi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        hi.pack();
-        hi.setVisible(true);
-        hi.setResizable(false);
+        SwingUtilities.invokeLater(() -> {
+            WelcomeView hi = new WelcomeView();
+            // Get the size of the screen
+            Toolkit kit = Toolkit.getDefaultToolkit();
+            Dimension screenSize = kit.getScreenSize();
+            hi.setSize(900, 600);
+            // Calculate the frame location
+            int x1 = (screenSize.width - hi.getWidth()) / 2;
+            int y1 = (screenSize.height - hi.getHeight()) / 2;
+            hi.setLocation(x1, y1);
+            hi.setTitle("Si Hax Store");
+            hi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            hi.pack();
+            hi.setVisible(true);
+            hi.setResizable(false);
+        });
+//        WelcomeView hi = new WelcomeView();
+//        // Get the size of the screen
+//        Toolkit kit = Toolkit.getDefaultToolkit();
+//        Dimension screenSize = kit.getScreenSize();
+//
+//        hi.setSize(900, 600);
+//
+//        // Calculate the frame location
+//        int x = (screenSize.width - hi.getWidth()) / 2;
+//        int y = (screenSize.height - hi.getHeight()) / 2;
+//
+//        hi.setLocation(x,y);
+//        hi.setTitle("Si Hax Store");
+//        hi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        hi.pack();
+//        hi.setVisible(true);
+//        hi.setResizable(false);
     }
 }
