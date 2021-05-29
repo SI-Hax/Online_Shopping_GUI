@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.*;
 
 /**
@@ -21,13 +23,12 @@ import javax.swing.*;
  * @version 2.0.5
  * @since 17/05/2021
  */
-public class CustProductsView extends JPanel {
-    
+public class CustProductsView extends JPanel{
     
     public final int PANEL_WIDTH = 900;
     public final int PANEL_HEIGHT = 500;
     private ProductList list;
-    
+    private ProductsTableView productsTableView;
     private JPanel tablePanel, lblPanel, btnPanel;
     private JLabel itemSelectedLbl, qtyLbl;
     private JTextField qtyTxtField;
@@ -40,12 +41,12 @@ public class CustProductsView extends JPanel {
         this.setBackground(Color.WHITE);
         
 //        this.list = ProductFileIO.importProductData();
-        this.list = list;
-        
+//        this.list = list;
+        productsTableView = new ProductsTableView();
         // Init table panel.
         tablePanel = new JPanel();
         tablePanel.setBackground(Color.WHITE);
-        tablePanel.add(new ProductsTableView(list));
+        tablePanel.add(productsTableView);
         
 //        tablePanel.add(scrollPane);
         
@@ -79,7 +80,17 @@ public class CustProductsView extends JPanel {
         return list;
     }
 
-   
+    public void setList(ProductList list) {
+        this.list = list;
+    }
+
+    public ProductsTableView getProductsTableView() {
+        return productsTableView;
+    }
+
+    public void setProductsTableView(ProductsTableView productsTableView) {
+        this.productsTableView = productsTableView;
+    }
 
     public JLabel getItemSelectedLbl() {
         return itemSelectedLbl;
@@ -102,4 +113,9 @@ public class CustProductsView extends JPanel {
         frame.setMinimumSize(pv.getPreferredSize()); // Specifies the min size so table's info wont be obscured.
         frame.setVisible(true);
     }
+
+//    @Override
+//    public void update(Observable o, Object arg) {
+//        
+//    }
 }
