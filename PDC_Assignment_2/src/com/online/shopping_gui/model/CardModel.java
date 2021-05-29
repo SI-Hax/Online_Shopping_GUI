@@ -117,7 +117,9 @@ public class CardModel extends Observable {
         if(!CustomerDBManager.rowExists(loginID)) { // If loginID is non-existant in database...
             Runnable updateCustDB = () -> {
                 CustomerDBManager.updateDB(updateDB); // Insert row into EDB table.
-                UserFileIO.exportUserData(users.getUserList()); // Write to csv.
+                HashMap<String, User> temp = new HashMap<>();
+                temp.putAll(users.getUserList());
+                UserFileIO.exportUserData(temp); // Write to csv.
             };
             new Thread(updateCustDB).start(); // Run in separate thread (background) to optimize UI responsiveness.  
         }
