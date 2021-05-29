@@ -1,13 +1,8 @@
 package com.online.shopping_gui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.online.shopping_gui.model.Table;
-import com.online.shopping_gui.model.ProductList;
-import com.online.shopping_gui.utilities.ProductFileIO;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.*;
 
 /**
@@ -39,15 +34,11 @@ public class ProductsView extends JPanel {
         this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         this.setBackground(Color.WHITE);
         
-//        this.list = ProductFileIO.importProductData();
-//        this.list = list;
         productsTableView = new ProductsTableView();
         // Init table panel.
         tablePanel = new JPanel();
         tablePanel.setBackground(Color.WHITE);
         tablePanel.add(productsTableView);
-        
-//        tablePanel.add(scrollPane);
         
         // Init label panel to display item selected.
         lblPanel = new JPanel();
