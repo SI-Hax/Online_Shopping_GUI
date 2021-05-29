@@ -22,7 +22,8 @@ import javax.swing.JPanel;
  */
 public class CardView extends JPanel implements Observer {
     protected MainMenuView mainMenuView;
-    protected LoginView loginView;
+    protected LoginAdminView loginAdminView;
+    protected LoginCustomerView loginCustomerView;
     protected CreateAccountView createAccountView;
     
     public CardView() {
@@ -33,10 +34,13 @@ public class CardView extends JPanel implements Observer {
         
         this.mainMenuView = new MainMenuView();
         add(mainMenuView, "Main Menu");
-        
-        this.loginView = new LoginView();
-        add(loginView, "Login Menu");
-        
+
+        this.loginCustomerView = new LoginCustomerView();
+        add(loginCustomerView, "Customer Login Menu");
+
+        this.loginAdminView = new LoginAdminView();
+        add(loginAdminView, "Admin Login Menu");
+
         this.createAccountView = new CreateAccountView();
         add(createAccountView, "Create Account");
     }
@@ -54,22 +58,42 @@ public class CardView extends JPanel implements Observer {
                 cl.show(this, "Main Menu");
                 break;
             case 1:
-                cl.show(this, "Login Menu");
+                cl.show(this, "Customer Login Menu");
                 break;
             case 2:
+                cl.show(this, "Admin Login Menu");
+                break;
+            case 3:
                 cl.show(this, "Create Account");
                 break; 
         }
     }
 
     public void addController(CardController controller) {
-        //need a controller before adding it as a listener 
+        // Need a controller before adding it as a listener
+
+        // Main Menu View Controllers
         mainMenuView.getCustLogin().addActionListener(controller);
         mainMenuView.getAdminLogin().addActionListener(controller);
         mainMenuView.getCreateAccount().addActionListener(controller);
         mainMenuView.getQuit().addActionListener(controller);
-        loginView.getBackBtn().addActionListener(controller);
-        loginView.getResetBtn().addActionListener(controller);
+
+        // Login Customer View
+        loginCustomerView.getLogin().addActionListener(controller);
+        loginCustomerView.getResetBtn().addActionListener(controller);
+        loginCustomerView.getBackBtn().addActionListener(controller);
+        loginCustomerView.getLoginTxt().addActionListener(controller);
+        loginCustomerView.getEnterPass().addActionListener(controller);
+
+        // Login Admin View
+        loginAdminView.getLogin().addActionListener(controller);
+        loginAdminView.getResetBtn().addActionListener(controller);
+        loginAdminView.getBackBtn().addActionListener(controller);
+        loginAdminView.getLoginTxt().addActionListener(controller);
+        loginAdminView.getEnterPass().addActionListener(controller);
+
+
+        // Create Account View Controllers
         createAccountView.getBackBtn().addActionListener(controller);
         createAccountView.getCreateAccountBtn().addActionListener(controller);
     }
@@ -78,8 +102,12 @@ public class CardView extends JPanel implements Observer {
         return mainMenuView;
     }
 
-    public LoginView getLoginView() {
-        return loginView;
+    public LoginCustomerView getLoginCustomerView() {
+        return loginCustomerView;
+    }
+
+    public LoginAdminView getLoginAdminView() {
+        return loginAdminView;
     }
 
     public CreateAccountView getCreateAccountView() {

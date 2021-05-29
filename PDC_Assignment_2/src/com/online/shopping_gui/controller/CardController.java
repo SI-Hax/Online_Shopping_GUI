@@ -1,9 +1,7 @@
 package com.online.shopping_gui.controller;
 
 import com.online.shopping_gui.model.CardModel;
-import com.online.shopping_gui.model.Customer;
 import com.online.shopping_gui.view.CardView;
-import com.online.shopping_gui.view.CreateAccountView;
 import com.online.shopping_gui.view.WelcomeView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,18 +31,28 @@ public class CardController implements ActionListener {
         if(source == cardView.getMainMenuView().getCustLogin()) { // Main Menu Panel -> Customer login btn.
             cardModel.setMainMenuSelection(1); 
         } else if(source == cardView.getMainMenuView().getAdminLogin()) { // Main Menu Panel -> Admin login btn.
-            cardModel.setMainMenuSelection(1);
-        } else if(source == cardView.getMainMenuView().getCreateAccount()) { // Main Menu Panel -> Create account btn
             cardModel.setMainMenuSelection(2);
+        } else if(source == cardView.getMainMenuView().getCreateAccount()) { // Main Menu Panel -> Create account btn
+            cardModel.setMainMenuSelection(3);
         } else if(source == cardView.getMainMenuView().getQuit()) { // Main Menu Panel-> Quit btn
             // TODO: Temporary solution.
             System.exit(0);
-        } else if(source == cardView.getLoginView().getBackBtn()) { // Login Panel -> Back btn
+        } else if(source == cardView.getLoginCustomerView().getBackBtn()) { // Login Customer Panel -> Back btn
             cardModel.setMainMenuSelection(0);
-        } else if(source == cardView.getLoginView().getResetBtn()) { // Login Panel -> Reset Btn
-            cardView.getLoginView().reset();
+        } else if(source == cardView.getLoginCustomerView().getResetBtn()) { // Login Customer Panel -> Reset Btn
+            cardView.getLoginCustomerView().reset();
+        } else if(source == cardView.getLoginCustomerView().getLogin()) { // Login Customer Panel -> Reset Btn
+            System.out.println("Customer Login Btn Clicked!");
+        } else if(source == cardView.getLoginAdminView().getBackBtn()) { // Login Admin Panel -> Back btn
+            cardModel.setMainMenuSelection(0);
+        } else if(source == cardView.getLoginAdminView().getResetBtn()) { // Login Admin Panel -> Reset Btn
+            cardView.getLoginAdminView().reset();
+        } else if(source == cardView.getLoginAdminView().getLogin()) { // Login Customer Panel -> Reset Btn
+            System.out.println("Admin Login Btn Clicked!");
         } else if(source == cardView.getCreateAccountView().getBackBtn()) { // Create Account Panel -> Back btn
             cardModel.setMainMenuSelection(0);
+        } else if(source == cardView.getCreateAccountView().getCreateAccountBtn()) { // Create Account Panel -> Create Account Btn
+            System.out.println("Create Btn Clicked!");
         }
     }
     
