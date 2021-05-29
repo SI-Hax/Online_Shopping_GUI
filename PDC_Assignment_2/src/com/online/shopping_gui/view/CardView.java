@@ -20,7 +20,7 @@ import javax.swing.JPanel;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.1.0
+ * @version 2.1.1
  * @since 17/05/2021
  */
 public class CardView extends JPanel implements Observer {
@@ -73,6 +73,7 @@ public class CardView extends JPanel implements Observer {
         mainMenuView.getLoginBtn().addActionListener(controller);
         mainMenuView.getCreateAccount().addActionListener(controller);
         mainMenuView.getQuit().addActionListener(controller);
+        
         // Login View.
         loginView.getOkay().addActionListener(controller);
         loginView.getBackBtn().addActionListener(controller);
@@ -83,11 +84,16 @@ public class CardView extends JPanel implements Observer {
         // Create Account View
         createAccountView.getBackBtn().addActionListener(controller);
         createAccountView.getCreateAccountBtn().addActionListener(controller);
-        
-//        createAccountView.getLoginIDTxtField().getDocument().addDocumentListener(controller);
+        createAccountView.getLoginIDTxtField().getDocument().addDocumentListener(controller);
         createAccountView.getPasswordPassField().getDocument().addDocumentListener(controller);
         createAccountView.getConfirmPassField().getDocument().addDocumentListener(controller);
         createAccountView.getConfirmPassField().addKeyListener(controller);
+        
+        // CustomerTabsView -> ProductsView -> ProductTableView -> Product Table
+        customerTabsView.getProductsView().getProductsTableView().getProductTable().addMouseListener(controller);
+        customerTabsView.getProductsView().getProductsTableView().addMouseListener(controller);
+        customerTabsView.getProductsView().addMouseListener(controller);
+        customerTabsView.addMouseListener(controller);
     }
 
     public MainMenuView getMainMenuView() {
