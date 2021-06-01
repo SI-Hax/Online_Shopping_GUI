@@ -46,14 +46,23 @@ public class WelcomeView extends JFrame {
         CardModel cardModel = new CardModel();
         CardView cardView = new CardView();
         CustomerTabsView custTabsView = new CustomerTabsView(cardModel.getProductList(), new ShoppingCart());
-        cardModel.addObserver(cardView);
+        CheckOutView checkOutView = new CheckOutView();
+        ReceiptView receiptView = new ReceiptView();
         
-        CardController mainMenuController = new CardController();
+        cardModel.addObserver(cardView);
+        cardModel.addObserver(custTabsView);
+        cardModel.addObserver(checkOutView);
+        cardModel.addObserver(receiptView);
+        
+        CardController cardController = new CardController();
         //pass the reference of model and view to the controller
-        mainMenuController.addModel(cardModel);
-        mainMenuController.addView(this, cardView, custTabsView);
-        mainMenuController.initModel(0);
-        cardView.addController(mainMenuController);
+        cardController.addModel(cardModel);
+        cardController.addView(this, cardView, custTabsView, checkOutView, receiptView);
+        cardController.initModel(0);
+        cardView.addController(cardController);
+        custTabsView.addController(cardController);
+        checkOutView.addController(cardController);
+        receiptView.addController(cardController);
         
         rightPanel = cardView;
 //        rightPanel.setBounds(475, 0, 400, 560);
