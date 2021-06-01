@@ -99,7 +99,7 @@ public class Customer extends User {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(String phone) throws NumberFormatException {
         if (phone.equalsIgnoreCase("UNKNOWN") || phone.trim().isEmpty()) { // Checks if passed in data is "UNKNOWN"...
             this.phone = "UNKNOWN";
         } else if(!(phone.equalsIgnoreCase("UNKNOWN") && phone.trim().isEmpty())) { // If string is not "UNKNOWN".
@@ -114,7 +114,7 @@ public class Customer extends User {
         return email;
     }
 
-    public boolean setEmail(String email){
+    public boolean setEmail(String email) throws IllegalArgumentException{
         boolean set = false;
         if (email.equalsIgnoreCase("UNKNOWN")) { // Checks if passed in data is "UNKNOWN"...
             this.email = "UNKNOWN";
