@@ -8,6 +8,7 @@ import com.online.shopping_gui.model.Table;
 import com.online.shopping_gui.utilities.ProductFileIO;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  * This class contains the view to simulate a Shopping Cart.
@@ -32,7 +34,7 @@ import javax.swing.ScrollPaneConstants;
  */
 public class ShoppingCartView extends JPanel
 {
-    private final String[] COLUMN_HEADERS = new String[]{"Product", "Quantity", "Price"};
+    private final String[] COLUMN_HEADERS = new String[]{"Product", "Quantity", "Total Cost (NZD $)"};
     public final int PANEL_WIDTH = 900;
     public final int PANEL_HEIGHT = 500;
     private ShoppingCart cart;
@@ -54,12 +56,19 @@ public class ShoppingCartView extends JPanel
         // Init table panel.
         tablePanel = new JPanel();
         tablePanel.setBackground(Color.WHITE);
-        boolean sorter = false; // Does not allow sort function of table columns.
+        
         this.scTableModel = new Table(cart.convertShoppingCart(), COLUMN_HEADERS);
         cartTable = new JTable(scTableModel);
         cartTable.setPreferredScrollableViewportSize(new Dimension(700, 350));
         cartTable.setFillsViewportHeight(true);
-        cartTable.setAutoCreateRowSorter(sorter);
+        cartTable.setAutoCreateRowSorter(false); // Does not allow sort function of table columns.
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer(); // Prep text alignment renderer.
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER); // Define centre alignment.
+        for(int i = 0; i < cartTable.getColumnCount(); i++) { // For each column in the productTable.
+            cartTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer); // Set text alignment to centre.
+        }
+        
         scrollPane = new JScrollPane(cartTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         tablePanel.add(scrollPane);
@@ -68,6 +77,7 @@ public class ShoppingCartView extends JPanel
         lblPanel = new JPanel();
         lblPanel.setBackground(Color.WHITE);
         itemSelectedLbl = new JLabel("Item Selected: ");
+        itemSelectedLbl.setFont(new Font("MS Sans Serif", Font.BOLD, 18));
         lblPanel.add(itemSelectedLbl);
         
         // Init bottom panel to allow user to add an item with quantity specified to cart.
@@ -76,8 +86,10 @@ public class ShoppingCartView extends JPanel
         btnPanel.setPreferredSize(new Dimension(700, 40));
         btnPanel.setBackground(Color.WHITE);
         rmvFromCartBtn = new JButton("Remove From Cart");
+        rmvFromCartBtn.setEnabled(false);
         viewTotalBtn = new JButton("View Grand Total");
         proceedToChkOutBtn = new JButton("Proceed to Checkout");
+        proceedToChkOutBtn.setEnabled(false);
         btnPanel.add(Box.createRigidArea(new Dimension(20, 0)));
         btnPanel.add(rmvFromCartBtn);
         btnPanel.add(Box.createRigidArea(new Dimension(20, 0)));
@@ -96,6 +108,10 @@ public class ShoppingCartView extends JPanel
         this.add(Box.createRigidArea(new Dimension(0, 10)));
     }
 
+    public String[] getCOLUMN_HEADERS() {
+        return COLUMN_HEADERS;
+    }
+    
     public ShoppingCart getCart() {
         return cart;
     }
@@ -111,10 +127,18 @@ public class ShoppingCartView extends JPanel
         return scTableModel;
     }
 
+    public void setScTableModel(Table scTableModel) {
+        this.scTableModel = scTableModel;
+    }
+
     public JTable getCartTable() {
         return cartTable;
     }
 
+    public void setCartTable(JTable cartTable) {
+        this.cartTable = cartTable;
+    }
+    
     public JScrollPane getScrollPane() {
         return scrollPane;
     }
@@ -133,6 +157,14 @@ public class ShoppingCartView extends JPanel
 
     public JButton getProceedToChkOutBtn() {
         return proceedToChkOutBtn;
+    }
+
+    public void configRmvBtn(boolean value) {
+        rmvFromCartBtn.setEnabled(value);
+    }
+    
+    public void configChkOutBtn(boolean value) {
+        proceedToChkOutBtn.setEnabled(value);
     }
     
     public static void main(String[] args) {
