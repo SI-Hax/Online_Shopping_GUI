@@ -88,12 +88,6 @@ public class CardView extends JPanel implements Observer {
         createAccountView.getPasswordPassField().getDocument().addDocumentListener(controller);
         createAccountView.getConfirmPassField().getDocument().addDocumentListener(controller);
         createAccountView.getConfirmPassField().addKeyListener(controller);
-        
-        // CustomerTabsView -> ProductsView -> ProductTableView -> Product Table
-        customerTabsView.getProductsView().getProductsTableView().getProductTable().addMouseListener(controller);
-        customerTabsView.getProductsView().getProductsTableView().addMouseListener(controller);
-        customerTabsView.getProductsView().addMouseListener(controller);
-        customerTabsView.addMouseListener(controller);
     }
 
     public MainMenuView getMainMenuView() {
