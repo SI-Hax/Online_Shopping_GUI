@@ -3,17 +3,19 @@ package com.online.shopping_gui.controller;
 import com.online.shopping_gui.model.CardModel;
 import com.online.shopping_gui.utilities.Utilities;
 import com.online.shopping_gui.view.CardView;
+import com.online.shopping_gui.view.CheckOutView;
 import com.online.shopping_gui.view.CustomerTabsView;
+import com.online.shopping_gui.view.ReceiptView;
 import com.online.shopping_gui.view.WelcomeView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  * This class contains the controllers for associated Panels in CardView.
@@ -24,11 +26,13 @@ import javax.swing.event.DocumentListener;
  * @version 2.2.1
  * @since 17/05/2021
  */
-public class CardController implements ActionListener, DocumentListener, KeyListener, MouseListener {
+public class CardController implements ActionListener, DocumentListener, KeyListener, ListSelectionListener {
     protected WelcomeView welcomeView;
     protected CardView cardView;
     protected CardModel cardModel;
     protected CustomerTabsView customerTabsView;
+    protected CheckOutView checkOutView;
+    protected ReceiptView receiptView;
     
     public CardController() {
         
@@ -55,6 +59,18 @@ public class CardController implements ActionListener, DocumentListener, KeyList
             createAccount();
         } else if(source == cardView.getCreateAccountView().getBackBtn()) { // Create Account Panel -> Back btn
             cardModel.setMainMenuSelection(0);
+        } else if(source == customerTabsView.getProductsView().getAddToCartBtn()) { // Customer Tabs View -> View Products -> Add To Cart btn
+            addToCart();            
+        } else if(source == customerTabsView.getCartView().getRmvFromCartBtn()) { // Customer Tabs View -> View Cart -> Remove From Cart btn
+            removeFromCart();            
+        } else if(source == customerTabsView.getCartView().getViewTotalBtn()) { // Customer Tabs View -> View Cart -> Display Grand Total btn
+            displayGrandTotal();
+        } else if(source == customerTabsView.getCartView().getProceedToChkOutBtn()) { // Customer Tabs View -> View Cart -> Proceed To Checkout btn
+            cardModel.checkOut();
+        } else if(source == checkOutView.getConfirm()) { // Check Out View -> Confirm btn
+            //TODO: 
+        } else if(source == checkOutView.getCancel()) { // Check Out View -> Cancel btn
+            checkOutView.dispose(); // Dispose of the frame.
         }
     }
     //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -71,9 +87,8 @@ public class CardController implements ActionListener, DocumentListener, KeyList
         } else if(source == cardView.getCreateAccountView().getPasswordPassField().getDocument()) { // Create Account -> Password field
             checkCreateCredentialUpdates();
             togglePassLabel();
-        } else if(source == cardView.getCreateAccountView().getConfirmPassField().getDocument()) { // Create Account -> Confirm Password field
-            checkCreateCredentialUpdates();
-            toggleConfirmPassLabel();
+        } else if(source == customerTabsView.getProductsView().getQtyTxtField().getDocument()) { // Customer Tabs View -> Products View -> Qty Text Field
+            checkQtyUpdates();
         }
     }
     
@@ -92,6 +107,11 @@ public class CardController implements ActionListener, DocumentListener, KeyList
         } else if(source == cardView.getCreateAccountView().getConfirmPassField().getDocument()) { // Create Account -> Confirm Password field
             checkCreateCredentialUpdates();
             toggleConfirmPassLabel();
+        } else if(source == cardView.getCreateAccountView().getConfirmPassField().getDocument()) { // Create Account -> Confirm Password field
+            checkCreateCredentialUpdates();
+            toggleConfirmPassLabel();
+        } else if(source == customerTabsView.getProductsView().getQtyTxtField().getDocument()) { // Customer Tabs View -> Products View -> Qty Text Field
+            checkQtyUpdates();
         }  
     }
 
@@ -110,14 +130,14 @@ public class CardController implements ActionListener, DocumentListener, KeyList
         } else if(source == cardView.getCreateAccountView().getConfirmPassField().getDocument()) { // Create Account -> Confirm Password field
             checkCreateCredentialUpdates();
             toggleConfirmPassLabel();
+        } else if(source == customerTabsView.getProductsView().getQtyTxtField().getDocument()) { // Customer Tabs View -> Products View -> Qty Text Field
+            checkQtyUpdates();
         }
     }
     //DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
     //KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
     @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
+    public void keyTyped(KeyEvent e) {    }
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -131,70 +151,43 @@ public class CardController implements ActionListener, DocumentListener, KeyList
             if(e.getKeyCode() == KeyEvent.VK_ENTER) { // If enter is pressed in confirm password field...
                 createAccount();  // Create a new Customer account.
             }
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
-    //KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-    //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        System.out.println(e.getComponent());
-        Object source = e.getComponent();
-        int index = customerTabsView.getProductsView().getProductsTableView().getProductTable().getSelectedRow();
-        System.out.println(index);
-        customerTabsView.getProductsView().updateSelectedLabel(index);
- 
-        
-        if(source == customerTabsView.getProductsView().getProductsTableView().getProductTable()) {
-            System.out.println("Clicked");
-//            int index = customerTabsView.getProductsView().getProductsTableView().getProductTable().getSelectedRow();
-            if(index >= 0) {
-                customerTabsView.getProductsView().updateSelectedLabel(index);
-                String selectedCellValue = customerTabsView.getProductsView().getProductsTableView().getProductTable().getValueAt(customerTabsView.getProductsView().getProductsTableView().getProductTable().getSelectedRow() , 1).toString();
-                System.out.println(selectedCellValue);
+        } else if(source == customerTabsView.getProductsView().getQtyTxtField()) { // Customer Tabs View -> View Products -> Quantity Text Field
+            if(e.getKeyCode() == KeyEvent.VK_ENTER) { // If enter is pressed in quantity field...
+                if(customerTabsView.getProductsView().getQtyTxtField().getText().matches("[0-9]+$")) { // Check if field contains valid values.
+                    addToCart();  // Add the product to cart.                 
+                }
+            }
+        } else if(source == customerTabsView.getCartView().getViewTotalBtn()) { // Customer Tabs View -> View Cart -> View Total Button
+            if(e.getKeyCode() == KeyEvent.VK_SPACE) { // If space bar is pressed...
+                displayGrandTotal(); // Display grand total.
+            }
+        } else if(source == customerTabsView.getCartView().getProceedToChkOutBtn()) { // Customer Tabs View -> View Cart -> Proceed To Checkout btn
+            if(e.getKeyCode() == KeyEvent.VK_ENTER) { // If enter is pressed...
+                cardModel.checkOut(); // Go to check out view.
             }
         }
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        System.out.println(e.getComponent());
-        Object source = e.getComponent();
-        int index = customerTabsView.getProductsView().getProductsTableView().getProductTable().getSelectedRow();
-        System.out.println(index);
-        customerTabsView.getProductsView().updateSelectedLabel(index);
-
-//        if(source == customerTabsView.getProductsView().getProductsTableView().getProductTable()) {
-//            System.out.println("Pressed");
-//            int index = customerTabsView.getProductsView().getProductsTableView().getProductTable().getSelectedRow();
-//            if(index >= 0) {
-//                customerTabsView.getProductsView().updateSelectedLabel(index);
-//                String selectedCellValue = customerTabsView.getProductsView().getProductsTableView().getProductTable().getValueAt(customerTabsView.getProductsView().getProductsTableView().getProductTable().getSelectedRow() , 1).toString();
-//                System.out.println(selectedCellValue);
-//            }
-//        }
-    }
-
+    public void keyReleased(KeyEvent e) {    }
+    //KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+    //LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void valueChanged(ListSelectionEvent e) {
+        Object source = e.getSource();
         
+        if(source == customerTabsView.getProductsView().getProductsTableView().getProductTable().getSelectionModel()) { // Customer Tabs View -> View Products -> Products Table
+            int index = customerTabsView.getProductsView().getProductsTableView().getProductTable().getSelectionModel().getMinSelectionIndex(); // Get the index of the selected row.
+            customerTabsView.updateSelectedLabelProdV(index); // Update view products' ui.
+        } else if(source == customerTabsView.getCartView().getCartTable().getSelectionModel()) { // Customer Tabs View -> View Cart -> Shopping Cart Table
+            int index = customerTabsView.getCartView().getCartTable().getSelectionModel().getMinSelectionIndex(); // Get the index of the selected row.
+            if(index >= 0) {
+                customerTabsView.updateSelectedLabelCartV(index); // Update view cart's ui.
+                customerTabsView.getCartView().configRmvBtn(true);                
+            }
+        }
     }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        
-    }
-    
-    @Override
-    public void mouseExited(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-
+    //LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
     /**
      * Helper method (for Action Listener/Key Listener) for checking login ID and password
      * in Login View and showing Customer Shopping Window if credentials checks out.
@@ -250,6 +243,58 @@ public class CardController implements ActionListener, DocumentListener, KeyList
     }
     
     /**
+     * Helper method (for Action Listener) to add an item from Products Table to Cart.
+     */
+    public void addToCart() {
+        int index = customerTabsView.getProductsView().getProductsTableView().getProductTable().getSelectionModel().getMinSelectionIndex(); // Get the index of the selected row.
+        if(index >= 0) { // If selected index is valid...
+            try{
+                String prodName = (String)customerTabsView.getProductsView().getProductsTableView().getProductTable().getValueAt(index , 1); // Get product name.
+                int quantity = Integer.parseInt(customerTabsView.getProductsView().getQtyTxtField().getText().trim()); // Try parse the quantity.
+                cardModel.addToCart(prodName, quantity);
+                customerTabsView.updateAddedToCartLabel(index); // Update label to notify user.
+                customerTabsView.getProductsView().resetQtyTxtField(); // Reset field.  
+                customerTabsView.getCartView().configChkOutBtn(true); // Enable proceed to checkout button in View Cart.
+            } catch(Exception ex) {
+                JOptionPane.showMessageDialog(customerTabsView, ex.getMessage(), ("Error: " + ex.getClass().getSimpleName()), JOptionPane.ERROR_MESSAGE); // Output dialog if any errors arise.
+            }
+        }
+    }
+    
+    /**
+     * Helper method (for Action Listener) to add an item from Products Table to Cart.
+     */
+    public void removeFromCart() {
+        int index = customerTabsView.getCartView().getCartTable().getSelectionModel().getMinSelectionIndex(); // Get the index of the selected row.
+        if(index >= 0) { // If selected index is valid...
+            customerTabsView.updateRemoveFromCartLabel(index); // Update label to notify user.
+            cardModel.rmvFromCart(index);
+            customerTabsView.getCartView().getCartTable().clearSelection(); // Clears selection.            
+            if(customerTabsView.getCartView().getCart().isEmpty()) { // If shopping cart has nothing in it...
+                customerTabsView.getCartView().configChkOutBtn(false); // Disable proceed to check out button.
+                customerTabsView.getCartView().configRmvBtn(false); // Disable remove from cart button to prevent accidental presses.
+            }
+        }
+    }
+    
+    /**
+     * Helper method (for Action/Key Listener) to display the grand 
+     * total for all items in the cart in a dialog box.
+     */
+    public void displayGrandTotal() {        
+        String msg = String.format("$%.2f", customerTabsView.getCartView().getCart().getGrandTotal());
+        JOptionPane.showMessageDialog(customerTabsView, msg, "Grand Total", JOptionPane.INFORMATION_MESSAGE); // Output dialog for grandtotal.
+    }
+    
+    /**
+     * Helper method (for Action Listener) to display the receipt 
+     * view after confirming payment details and shipping address.
+     */
+    public void processCheckOut() {
+        //TODO:
+    }
+    
+    /**
      * Helper method (for Document Listener) to check if both fields in
      * Login View are filled so that the login button can be enabled/disabled.
      */
@@ -270,6 +315,17 @@ public class CardController implements ActionListener, DocumentListener, KeyList
                 (cardView.getCreateAccountView().getPasswordPassField().getPassword().length > 0) &&
                 (cardView.getCreateAccountView().getConfirmPassField().getPassword().length > 0); // Check if essential fields are filled in...
         cardView.getCreateAccountView().configCreateBtn(value); // Set login button.
+    }
+    
+    /**
+     * Helper method (for Document Listener) to check if essential fields in Product 
+     * View (Tab 0) are filled so that the add to cart button can be enabled/disabled.
+     */
+    public void checkQtyUpdates() {
+        boolean value;
+        value = (!customerTabsView.getProductsView().getQtyTxtField().getText().trim().isEmpty()) &&
+                (customerTabsView.getProductsView().getQtyTxtField().getText().matches("[0-9]+$")); // Check if quantity field is not empty and is whole number.
+        customerTabsView.getProductsView().configAddToCartBtn(value); // Enable/disables add to cart btn.
     }
     
     /**
@@ -315,10 +371,12 @@ public class CardController implements ActionListener, DocumentListener, KeyList
         }
     }
     
-    public void addView(WelcomeView wv, CardView cv, CustomerTabsView ctv) {
+    public void addView(WelcomeView wv, CardView cv, CustomerTabsView ctv, CheckOutView cov, ReceiptView rv) {
         this.welcomeView = wv;
         this.cardView = cv;
         this.customerTabsView = ctv;
+        this.checkOutView = cov;
+        this.receiptView = rv;
     }
     
     public void addModel(CardModel cm) {
