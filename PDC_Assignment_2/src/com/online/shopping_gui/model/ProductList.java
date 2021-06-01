@@ -3,7 +3,6 @@ package com.online.shopping_gui.model;
 import com.online.shopping_gui.enumerations.Category;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import javax.swing.JButton;
 
 /**
  * This class contains the ProductList Class which encapsulates the following
@@ -18,7 +17,7 @@ import javax.swing.JButton;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.1.0
+ * @version 2.1.1
  * @since 18/05/2021
  */
 public class ProductList {
@@ -130,13 +129,13 @@ public class ProductList {
     public Object[][] convertProductList() {
         ArrayList<Product> pList = this.getProductList();
         int secondElement = pList.getClass().getDeclaredFields().length;
-
+        
         Object[][] data = new Object[pList.size()][secondElement];
 
         for (int i = 0; i < pList.size(); i++) {
             data[i][0] = pList.get(i).getProductID();
             data[i][1] = pList.get(i).getProductName();
-            data[i][2] = String.format("$%.2f", pList.get(i).getPrice());
+            data[i][2] = pList.get(i).getPrice();
             data[i][3] = pList.get(i).getCategory();
             data[i][4] = pList.get(i).getStock();
         }
