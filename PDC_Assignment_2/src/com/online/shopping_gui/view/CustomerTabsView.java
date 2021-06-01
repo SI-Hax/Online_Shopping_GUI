@@ -1,11 +1,11 @@
 package com.online.shopping_gui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.online.shopping_gui.controller.CardController;
 import com.online.shopping_gui.model.CardModel;
 import com.online.shopping_gui.model.Customer;
 import com.online.shopping_gui.model.ProductList;
 import com.online.shopping_gui.model.ShoppingCart;
-import com.online.shopping_gui.model.Table;
 import com.online.shopping_gui.utilities.ProductFileIO;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,13 +29,12 @@ import javax.swing.JTabbedPane;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.1.0
+ * @version 2.2.0
  * @since 24/05/2021
  */
 public class CustomerTabsView extends JFrame implements Observer {
     public final int PANEL_WIDTH = 920;
     public final int PANEL_HEIGHT = 580;
-    // TODO: Add a main frame to this Panel.
     private JTabbedPane customerTabs;
     private ProductsView productsView;
     private ShoppingCartView cartView;
@@ -44,7 +43,6 @@ public class CustomerTabsView extends JFrame implements Observer {
         super("Si-Hax Store");
         FlatLightLaf.install();
         this.setLayout(new FlowLayout());
-//	this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         this.setSize(PANEL_WIDTH, PANEL_HEIGHT);
         this.setBackground(Color.WHITE);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -74,28 +72,119 @@ public class CustomerTabsView extends JFrame implements Observer {
         return cartView;
     }
     
-    public void addController() {
+    public void addController(CardController controller) {
         // TODO: Add controllers to respective views.
+        // CustomerTabsView -> View Products
+        this.getProductsView().getProductsTableView().getProductTable().getSelectionModel().addListSelectionListener(controller);    
+        this.getProductsView().getQtyTxtField().getDocument().addDocumentListener(controller);
+        this.getProductsView().getQtyTxtField().addKeyListener(controller);
+        this.getProductsView().getAddToCartBtn().addActionListener(controller);
+        
+        // CustomerTabsView -> View Cart
+        this.getCartView().getCartTable().getSelectionModel().addListSelectionListener(controller);
+        this.getCartView().getRmvFromCartBtn().addActionListener(controller);
+        this.getCartView().getViewTotalBtn().addActionListener(controller);
+        this.getCartView().getViewTotalBtn().addKeyListener(controller);
+        this.getCartView().getProceedToChkOutBtn().addActionListener(controller);
+        this.getCartView().getProceedToChkOutBtn().addKeyListener(controller);
     }
     
     @Override
     public void update(Observable o, Object selection) {
         CardModel cm = (CardModel) selection;
         
-        if(cm.isCustLoginFlag()) {
-            System.out.println("Customer logged in");
+        if(cm.isCustLoginFlag()) { // If its customer loggin in....
             this.showTabs(cm.getShoppingCart(), cm.getProductList());
-            System.out.println("Window pop up");
+        } else if(cm.isAddToCartFlag()) { // If add to cart modifications made...
+            this.updateTables(cm.getShoppingCart(), cm.getProductList());
+        } else if(cm.isRmvFromCartFlag()) { // If remove from cart modifications made...
+            this.updateTables(cm.getShoppingCart(), cm.getProductList());
         }
     }
    
+    /**
+     * Helper method to launch Window for Customer's shopping.
+     * 
+     * @param sc : Shopping Cart object.
+     * @param pList : Product List.
+     */
     public void showTabs(ShoppingCart sc, ProductList pList) {
-        Table table = new Table(pList.convertProductList(), productsView.getProductsTableView().getCOLUMN_HEADERS());
-        productsView.getProductsTableView().setTable(table);
+        productsView.getProductsTableView().getTable().update(pList.convertProductList());
         productsView.getProductsTableView().getProductTable().updateUI();
+        productsView.getProductsTableView().updateUI();
         this.setMinimumSize(new Dimension(this.PANEL_WIDTH, this.PANEL_HEIGHT)); // Specifies the min size so table's info wont be obscured.
         this.setVisible(true); 
         this.setResizable(true);
+//        productsView.getProductsTableView().requestFocusInWindow();
+    }
+    
+    /**
+     * Helper method to update the item selected label in View Products tab.
+     * 
+     * @param index : Index of the selected item.
+     */
+    public void updateSelectedLabelProdV(int index) {
+        if(index >= 0) { // If its greater or equal to 0...
+            getProductsView().getItemSelectedLbl().setText("Item Selected: " + getProductsView().getProductsTableView().getProductTable().getValueAt(index , 1)); // Set label.   
+        } else {
+            getProductsView().getItemSelectedLbl().setText("Item Selected:");
+        }
+    }
+    
+    /**
+     * Helper method to update the item selected label in View Cart tab.
+     * 
+     * @param index : Index of the selected item.
+     */
+    public void updateSelectedLabelCartV(int index) {
+        if(!getCartView().getCart().isEmpty() && index >= 0) { // If its greater or equal to 0...
+            getCartView().getItemSelectedLbl().setText("Item Selected: " + getCartView().getScTableModel().getValueAt(index , 0)); // Set label.   
+        } else {
+            getCartView().getItemSelectedLbl().setText("Item Selected:");
+        }
+    }
+    
+    /**
+     * Helper method to notify user of the item that is added to the cart in View Products tab.
+     * 
+     * @param index : Index of the selected item.
+     */
+    public void updateAddedToCartLabel(int index) {
+        if(index >= 0) { // If its greater or equal to 0...
+            getProductsView().getItemSelectedLbl().setText(getProductsView().getQtyTxtField().getText() + " * " + getProductsView().getProductsTableView().getProductTable().getValueAt(index , 1) + " Added To Cart!"); // Notify user item & qty has been added to cart..   
+        } else {
+            getProductsView().getItemSelectedLbl().setText("Item Selected:");
+        }
+    }
+    
+    /**
+     * Helper method to notify user of the item that is added to the cart in View Cart tab.
+     * 
+     * @param index : Index of the selected item.
+     */
+    public void updateRemoveFromCartLabel(int index) {
+        if(!getCartView().getCart().isEmpty() && index >= 0) { // If its greater or equal to 0...
+            getCartView().getItemSelectedLbl().setText(getCartView().getScTableModel().getValueAt(index , 0) + " Removed From Cart!"); // Notify user item & qty has been removed from cart..   
+        } else {
+            getCartView().getItemSelectedLbl().setText("Item Selected:");
+        }
+    }
+    
+    /**
+     * Helper method to refresh and update the tables' data so user
+     * can view information in real-time.
+     * @param sc : ShoppingCart object.
+     * @param pList : Product List.
+     */
+    public void updateTables(ShoppingCart sc, ProductList pList) {
+        productsView.getProductsTableView().getTable().update(pList.convertProductList());
+        productsView.getProductsTableView().getProductTable().updateUI();
+        productsView.getProductsTableView().updateUI();
+        
+        cartView.setCart(sc);
+        cartView.getScTableModel().update(sc.convertShoppingCart());
+        cartView.getCartTable().updateUI();
+        cartView.getScrollPane().updateUI();
     }
     
     public static void main(String[] args) {
