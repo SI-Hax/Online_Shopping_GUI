@@ -68,6 +68,18 @@ public class ShoppingCart {
         this.user = user;
     }
     
+    public int size() {
+        return products.size();
+    }
+    
+    public boolean isEmpty() {
+        return (products.size() == 0);
+    }
+    
+    public Product getProduct(int index) {
+        return this.products.get(index);
+    }
+    
     /**
      * Returns the total summed value of the cart items.
      *
@@ -86,13 +98,18 @@ public class ShoppingCart {
      *
      */
     public void addToCart(Product product, int amount) {
-        if(amount < product.getStock()) { // If quantity requested is less than available stock...
-            this.products.add(product); // Add product to the cart.
-            this.quantity.add(amount); // Specify quantity needed in the cart.
+        if(amount <= product.getStock()) { // If quantity requested is less thn eql to available stock...
+            if(!products.contains(product)) { // If cart does not contain the product...
+                this.products.add(product); // Add product to the cart.
+                this.quantity.add(amount); // Specify quantity needed in the cart.                
+            } else { // If product is already in the cart
+                int indexOf = products.indexOf(product); // Get index of existing product in cart.
+                quantity.set(indexOf, (this.quantity.get(indexOf) + amount)); // Update quantity. 
+            }
             product.setStock(product.getStock() - amount); // Decrements product stock.
             this.grandTotal += (product.getPrice() * amount); // Tally up total.
         } else { // Otherwise...
-            throw new IllegalArgumentException("Insufficient stock! Please select a number less than or equal to " + product.getStock());
+            throw new IllegalArgumentException("Insufficient stock! Please wait while we restock =)");
         }
     }
 
@@ -100,13 +117,19 @@ public class ShoppingCart {
      * Removes a specific item from the cart.
      *
      * @param index : Index of item to be removed.
-     *
+     * @return A new updated stock number.
      */
-    public void removeFromCart(int index) {
-        this.grandTotal -= (this.products.get(index).getPrice() * this.quantity.get(index));
-        this.products.get(index).setStock(this.products.get(index).getStock() + this.quantity.get(index)); // Increments product's stock.
-        this.products.remove(index);
-        this.quantity.remove(index);
+    public int removeFromCart(int index) {
+        int newStock = 0;
+        if(!isEmpty() && index >= 0) { // Check if index passed in is within bounds...
+            newStock = this.products.get(index).getStock();
+            newStock += this.quantity.get(index);
+            this.grandTotal -= (this.products.get(index).getPrice() * this.quantity.get(index));
+            this.products.get(index).setStock(newStock); // Increments product's stock.
+            this.products.remove(index);
+            this.quantity.remove(index);            
+        } 
+        return newStock;
     }
 
     /**
@@ -173,7 +196,7 @@ public class ShoppingCart {
         for(int i = 0; i < products.size(); i++) {
             cartObjArr[i][0] = products.get(i).getProductName();
             cartObjArr[i][1] = quantity.get(i);
-            cartObjArr[i][2] = String.format("$%.2f", products.get(i).getPrice() * quantity.get(i));
+            cartObjArr[i][2] = products.get(i).getPrice() * quantity.get(i);
         }
         
         return cartObjArr;
