@@ -2,6 +2,7 @@ package com.online.shopping_gui.model;
 
 import com.online.shopping_gui.utilities.AdminDBManager;
 import com.online.shopping_gui.utilities.CustomerDBManager;
+import com.online.shopping_gui.utilities.ProductFileIO;
 import com.online.shopping_gui.utilities.ProductsDBManager;
 import com.online.shopping_gui.utilities.UserFileIO;
 import com.online.shopping_gui.utilities.Utilities;
@@ -15,7 +16,7 @@ import java.util.Observable;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.1.0
+ * @version 2.2.0
  * @since 17/05/2021
  */
 public class CardModel extends Observable {
@@ -24,14 +25,19 @@ public class CardModel extends Observable {
     protected ProductList productList;
     protected ShoppingCart shoppingCart;
     protected boolean custLoginFlag, adminLoginFlag, createAccFlag, cardFlag;
+    protected boolean addToCartFlag, rmvFromCartFlag;
+    protected boolean checkOutFlag, receiptFlag;
     
     public CardModel() {
         custLoginFlag = false;
         adminLoginFlag = false;
         createAccFlag = false;
         cardFlag = false;
-//        users = new UserList(AdminDBManager.importData(), CustomerDBManager.importData()); 
-//        productList = ProductsDBManager.importData();
+        addToCartFlag= false;
+        rmvFromCartFlag = false;
+        checkOutFlag = false;
+        receiptFlag = false;
+
         Runnable loadUsers = () -> {
             users = new UserList(AdminDBManager.importData(), CustomerDBManager.importData()); // Import data from database.
         };
@@ -49,6 +55,10 @@ public class CardModel extends Observable {
         custLoginFlag = false;
         adminLoginFlag = false;
         createAccFlag = false;
+        addToCartFlag= false;
+        rmvFromCartFlag = false;
+        checkOutFlag = false;
+        receiptFlag = false;
         setChanged();
         notifyObservers(this);
     }
@@ -68,6 +78,10 @@ public class CardModel extends Observable {
                     cardFlag = false;
                     adminLoginFlag = false;
                     createAccFlag = false;
+                    addToCartFlag= false;
+                    rmvFromCartFlag = false;
+                    checkOutFlag = false;
+                    receiptFlag = false;
                     setChanged();
                     notifyObservers(this);
                     return true;
@@ -76,6 +90,10 @@ public class CardModel extends Observable {
                     cardFlag = false;
                     custLoginFlag = false;
                     createAccFlag = false;
+                    addToCartFlag= false;
+                    rmvFromCartFlag = false;
+                    checkOutFlag = false;
+                    receiptFlag = false;
                     setChanged();
                     notifyObservers(this);
                     return true;
@@ -97,6 +115,10 @@ public class CardModel extends Observable {
         custLoginFlag = false; 
         cardFlag = false;
         adminLoginFlag = false;
+        addToCartFlag= false;
+        rmvFromCartFlag = false;
+        checkOutFlag = false;
+        receiptFlag = false;
         setChanged();
         notifyObservers(this);
         return addSuccess;
@@ -123,6 +145,81 @@ public class CardModel extends Observable {
             };
             new Thread(updateCustDB).start(); // Run in separate thread (background) to optimize UI responsiveness.  
         }
+    }
+    
+    public void addToCart(String prodName, int quantity) {
+        if(quantity > 0) { // If quantity is valid....
+            Product product = productList.searchProduct(prodName); // Obtain product.
+            this.shoppingCart.addToCart(product, quantity); // Add item to cart.
+            int updatedStock = productList.searchProduct(product.getProductName()).getStock() - quantity; // Compute stock remaining
+            updateProdStockDB(prodName, updatedStock); // Record transaction into database and csv file.
+            addToCartFlag= true;  // Set addToCart flag to true.
+            createAccFlag = false;
+            custLoginFlag = false; 
+            cardFlag = false;
+            adminLoginFlag = false;
+            rmvFromCartFlag = false;
+            checkOutFlag = false;
+            receiptFlag = false;
+            setChanged();
+            notifyObservers(this);            
+        }
+    }
+    
+    public void rmvFromCart(int index) {
+        if(index >= 0 && !shoppingCart.isEmpty()) { // If index is within bounds...
+            String prodName = shoppingCart.getProduct(index).getProductName(); // Get product name.
+            int updatedStock = this.shoppingCart.removeFromCart(index); // Remove from cart and save the returning updated stock number.
+            updateProdStockDB(prodName, updatedStock); // Record transaction into database and csv file.
+            rmvFromCartFlag = true; // Set rmvFromCart flag to true.
+            addToCartFlag= false;  
+            createAccFlag = false;
+            custLoginFlag = false; 
+            cardFlag = false;
+            adminLoginFlag = false;
+            checkOutFlag = false;
+            receiptFlag = false;
+            setChanged();
+            notifyObservers(this);            
+        }
+    }
+    
+    public void updateProdStockDB(String prodName, int updatedStock) {       
+        String updateDB = "UPDATE PRODUCTS SET STOCK = " + updatedStock + " WHERE PRODUCTNAME = \'" + prodName + "\'";
+        
+        if(ProductsDBManager.rowExists(prodName)) { // If row exists....
+            Runnable updateProdDB = () -> {
+                ProductsDBManager.updateDB(updateDB); // Update row in EDB table.
+                ProductFileIO.exportProductData(productList); // Write to csv.
+            };
+            new Thread(updateProdDB).start(); // Run in separate thread (background) to optimize UI responsiveness.
+        }
+    }
+    
+    public void checkOut() {
+        checkOutFlag = true; // Set check out flag to true.
+        rmvFromCartFlag = false; 
+        addToCartFlag= false;  
+        createAccFlag = false;
+        custLoginFlag = false; 
+        cardFlag = false;
+        adminLoginFlag = false;
+        receiptFlag = false;
+        setChanged();
+        notifyObservers(this); 
+    }
+    
+    public void viewReceipt() {
+        receiptFlag = true;  // Set receipt flag to true.
+        rmvFromCartFlag = false;
+        addToCartFlag= false;  
+        createAccFlag = false;
+        custLoginFlag = false; 
+        cardFlag = false;
+        adminLoginFlag = false;
+        checkOutFlag = false;
+        setChanged();
+        notifyObservers(this); 
     }
 
     public int getMainMenuSelection() {
@@ -156,4 +253,20 @@ public class CardModel extends Observable {
     public boolean isCardFlag() {
         return cardFlag;
     }
+
+    public boolean isAddToCartFlag() {
+        return addToCartFlag;
+    }
+
+    public boolean isRmvFromCartFlag() {
+        return rmvFromCartFlag;
+    }
+
+    public boolean isCheckOutFlag() {
+        return checkOutFlag;
+    }
+
+    public boolean isReceiptFlag() {
+        return receiptFlag;
+    }    
 }
