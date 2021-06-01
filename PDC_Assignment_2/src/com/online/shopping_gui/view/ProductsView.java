@@ -3,6 +3,7 @@ package com.online.shopping_gui.view;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.*;
 
 /**
@@ -44,6 +45,7 @@ public class ProductsView extends JPanel {
         lblPanel = new JPanel();
         lblPanel.setBackground(Color.WHITE);
         itemSelectedLbl = new JLabel("Item Selected: ");
+        itemSelectedLbl.setFont(new Font("MS Sans Serif", Font.BOLD, 18));
         lblPanel.add(itemSelectedLbl);
         
         // Init bottom panel to allow user to add an item with quantity specified to cart.
@@ -52,8 +54,10 @@ public class ProductsView extends JPanel {
         qtyLbl = new JLabel("Quantity:");
         btnPanel.add(qtyLbl);
         qtyTxtField = new JTextField(5);
+        qtyTxtField.setToolTipText("Quantity must be a whole number.");
         btnPanel.add(qtyTxtField);
         addToCartBtn = new JButton("Add to Cart");
+        addToCartBtn.setEnabled(false);
         btnPanel.add(addToCartBtn);
         
         // Add all panels to the parent container.
@@ -77,16 +81,6 @@ public class ProductsView extends JPanel {
     public JLabel getItemSelectedLbl() {
         return itemSelectedLbl;
     }
-
-    public void updateSelectedLabel(int index) {
-//        int index = productsTableView.getProductTable().getSelectedRow(); // Get selected row index.
-        System.out.println("Updating label");
-        itemSelectedLbl.setText("Item Selected: " + productsTableView.getProductTable().getValueAt(index , 1)); // Set label.   
-        if(index >= 0) { // If its greater or equal to 0...
-        } else {
-            itemSelectedLbl.setText("Item Selected: 0");
-        }
-    }
     
     public JTextField getQtyTxtField() {
         return qtyTxtField;
@@ -94,6 +88,15 @@ public class ProductsView extends JPanel {
 
     public JButton getAddToCartBtn() {
         return addToCartBtn;
+    }
+    
+    public void resetQtyTxtField() {
+        qtyTxtField.setText("");
+        addToCartBtn.setEnabled(false);
+    }
+    
+    public void configAddToCartBtn(boolean value) {
+        addToCartBtn.setEnabled(value);
     }
     
     public static void main(String[] args) {
