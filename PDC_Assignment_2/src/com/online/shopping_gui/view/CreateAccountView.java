@@ -37,19 +37,19 @@ public class CreateAccountView extends JPanel
         this.setBackground(Color.WHITE);
         
         // Construct components.
-        loginIDLbl = new JLabel("Login ID");
+        loginIDLbl = new JLabel("Login ID*");
         loginIDTxtField = new JTextField(FIELD_CHARS);
-        loginIDTxtField.setToolTipText("Select a unique identifier.");
+        loginIDTxtField.setToolTipText("Please select a unique identifier. Fields with * are mandatory.");
         loginIDCheckLbl = new JLabel("");
         loginIDCheckLbl.setForeground(Color.RED);
         
-        passwordLbl = new JLabel("Password");
+        passwordLbl = new JLabel("Password*");
         passwordPassField = new JPasswordField(FIELD_CHARS);
         passwordPassField.setToolTipText(PASS_GUIDE);
         passwordCheckLbl = new JLabel("");
         passwordCheckLbl.setForeground(Color.RED);
 
-        confirmPassLbl = new JLabel("Confirm Password");
+        confirmPassLbl = new JLabel("Confirm Password*");
         confirmPassField = new JPasswordField(FIELD_CHARS);
         confirmPassField.setToolTipText("Password must match above field.");
         confirmPassCheckLbl = new JLabel("");
