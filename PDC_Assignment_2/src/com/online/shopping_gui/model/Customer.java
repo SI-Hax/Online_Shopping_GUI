@@ -156,7 +156,7 @@ public class Customer extends User {
                 this.cardNumber = cardNumber.trim(); // Assign passed in data to instance's attribute.
                 set = true;
             } else {
-                throw new IllegalArgumentException("Card number is invalid!");
+                throw new IllegalArgumentException("Card number is not valid! Please enter a valid card number.");
             }
         } else {
             this.cardNumber = "UNKNOWN";
