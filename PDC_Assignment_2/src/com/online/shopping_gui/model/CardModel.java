@@ -64,16 +64,18 @@ public class CardModel extends Observable {
     }
              
     public boolean checkLogin(String loginID, String password) {
-        System.out.println("Checking login for " + loginID + ", " + password);
         if(users.userExists(loginID)) { // If there's an existing user with passed-id login id...
-            System.out.println("User exists");
             User user = users.searchUser(loginID);
             if(user.getPassword().equals(password)) { // Check if password match database stored password.
-                System.out.println("Password match");
+                if(users.getCurrentUser() != null) { // If current user is not empty...
+                    if(!users.getCurrentUser().equals(user)) { // Check if current user is the user trying to log in, if not...
+                        users.logOutUser(); // Log the previous user out.
+                        this.shoppingCart = null; // Null the shopping cart.
+                    }
+                }
                 users.logInUser(loginID); // Log in user (saves it as current user).
                 if(user instanceof Customer) { // If user is an instance of Customer...
-                    shoppingCart = new ShoppingCart(user);
-                    System.out.println("Customer logged in.");
+                    this.shoppingCart = new ShoppingCart(user);
                     custLoginFlag = true; // Set custLogin flag to true to enable customer pop-up window.
                     cardFlag = false;
                     adminLoginFlag = false;
