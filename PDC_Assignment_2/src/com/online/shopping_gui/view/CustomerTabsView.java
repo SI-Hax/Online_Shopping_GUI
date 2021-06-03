@@ -27,7 +27,7 @@ import javax.swing.JTabbedPane;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.2.0
+ * @version 2.2.1
  * @since 24/05/2021
  */
 public class CustomerTabsView extends JFrame implements Observer {
@@ -98,7 +98,10 @@ public class CustomerTabsView extends JFrame implements Observer {
             this.updateTables(cm.getShoppingCart(), cm.getProductList());
         } else if(cm.isRmvFromCartFlag()) { // If remove from cart modifications made...
             this.updateTables(cm.getShoppingCart(), cm.getProductList());
-        }
+        } 
+//        else if(cm.isCheckOutFlag()) { // If check out view flag is triggered...
+//            this.dispose();
+//        }
     }
    
     /**
