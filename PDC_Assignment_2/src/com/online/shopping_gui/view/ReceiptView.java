@@ -3,11 +3,8 @@ package com.online.shopping_gui.view;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.online.shopping_gui.controller.CardController;
 import com.online.shopping_gui.model.CardModel;
-import com.online.shopping_gui.model.Customer;
-import com.online.shopping_gui.model.ProductList;
 import com.online.shopping_gui.model.ShoppingCart;
 import com.online.shopping_gui.model.User;
-import com.online.shopping_gui.utilities.ProductFileIO;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
@@ -19,10 +16,12 @@ import javax.swing.*;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.1.0
+ * @version 2.1.1
  * @since 25/05/2021
  */
 public class ReceiptView extends JFrame implements Observer {
+    public final int PANEL_WIDTH = 284;
+    public final int PANEL_HEIGHT = 422;
     private JPanel mainPanel;
     private JTextArea receipt;
     private JLabel thank;
@@ -37,19 +36,18 @@ public class ReceiptView extends JFrame implements Observer {
         initView();
         
         mainPanel = new JPanel();
-        mainPanel.setPreferredSize(new Dimension(284, 382));
+        mainPanel.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         mainPanel.setLayout(null);
         
         receipt = new JTextArea(55, 50);
         receipt.setEditable(false);
-//        receipt.setText(cart.generateInvoice(currentUser)); 
         thank = new JLabel("Thank you for shopping with us!");
-
+        
         mainPanel.add(receipt);
         mainPanel.add(thank);
 
-        receipt.setBounds(30, 50, 212, 280);
-        thank.setBounds(55, 340, 185, 30);
+        receipt.setBounds(30, 20, 212, 370);
+        thank.setBounds(55, 380, 185, 30);
         
         this.add(mainPanel);
     }
@@ -74,28 +72,14 @@ public class ReceiptView extends JFrame implements Observer {
         this.setLayout(new FlowLayout());
         this.setBackground(Color.WHITE);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(new Point((d.width / 2) - (this.getWidth() / 2), (d.height / 2) - (this.getHeight() / 2)));
+        this.setLocation(new Point((d.width /4) , (d.height /4)));
+        this.setMinimumSize(new Dimension(PANEL_WIDTH+40, this.PANEL_HEIGHT+40));
     }
     
     public void showReceipt() {
         receipt.setText(cart.generateInvoice(currentUser)); 
         this.pack();
         this.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-	User currentUser = new Customer("test1234", "Woohoo10101!");
-	ShoppingCart scart = new ShoppingCart(currentUser);
-        
-        ProductList plist = ProductFileIO.importProductData();
-        scart.addToCart(plist.searchProduct("Apple"), 3);
-        scart.addToCart(plist.searchProduct("AOC"), 3);
-        JFrame frame = new JFrame("MyPanel");
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.getContentPane().add(new ReceiptView(scart, currentUser));
-        frame.pack();
-        frame.setVisible(true);
     }
     
     public void addController(CardController controller) {
@@ -111,6 +95,10 @@ public class ReceiptView extends JFrame implements Observer {
             this.setCart(cm.getShoppingCart()); // Init shopping cart.
             this.setCurrentUser(cm.getUsers().getCurrentUser()); // Init current user.
             this.showReceipt(); // Show frame.
-        } 
+        } else if(cm.isCustLoginFlag()) { // If a different customer is logged in...
+            this.dispose();
+            this.setCart(cm.getShoppingCart()); // Re-init shopping cart.
+            this.setCurrentUser(cm.getUsers().getCurrentUser()); // Re-init current user.
+        }
     }
 }
