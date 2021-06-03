@@ -20,25 +20,18 @@ public class MainMenuView extends JPanel {
         this.setLayout(null);
         this.setBackground(Color.WHITE);
         
-//        custLogin = new JButton("Login as Customer");
         loginBtn = new JButton("Login");
         createAccount = new JButton("Create an Account");
         quit = new JButton("Quit");
 
-//        add(custLogin);
         add(loginBtn);
         add(createAccount);
         add(quit);
 
-//        custLogin.setBounds(125, 110, 150, 55);
         loginBtn.setBounds(125, 165, 150, 55);
         createAccount.setBounds(125, 240, 150, 55);
         quit.setBounds(125, 315, 150, 55);
     }
-
-//    public JButton getCustLogin() {
-//        return custLogin;
-//    }
 
     public JButton getLoginBtn() {
         return loginBtn;
