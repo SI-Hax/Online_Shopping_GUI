@@ -103,8 +103,8 @@ public class Customer extends User {
         if (phone.equalsIgnoreCase("UNKNOWN") || phone.trim().isEmpty()) { // Checks if passed in data is "UNKNOWN"...
             this.phone = "UNKNOWN";
         } else if(!(phone.equalsIgnoreCase("UNKNOWN") && phone.trim().isEmpty())) { // If string is not "UNKNOWN".
-            Integer.parseInt(phone); // Throws an exception if string passed in are not numbers.           
-            this.phone = phone;
+            Integer.parseInt(phone.replaceAll("[-?\\s?]+", "")); // Throws an exception if string passed in are not numbers.           
+            this.phone = phone.replaceAll("[-?\\s?]+", "");
         } else {
             this.phone = "UNKNOWN"; // Set phone to unknown.
         }
@@ -152,11 +152,11 @@ public class Customer extends User {
             this.cardNumber = "UNKNOWN";
             set = true;
         } else if (!(cardNumber.isEmpty() || cardNumber.equals(" "))) { // Checks if passed in data is not empty...
-            if (Utilities.cardIsValid(cardNumber.trim())) { // If passed in card number passes check...
-                this.cardNumber = cardNumber.trim(); // Assign passed in data to instance's attribute.
+            if (Utilities.cardIsValid(cardNumber.replaceAll("[-?\\s?]+", ""))) { // If passed in card number passes check...
+                this.cardNumber = cardNumber.replaceAll("[-?\\s?]+", ""); // Assign passed in data to instance's attribute.
                 set = true;
             } else {
-                throw new IllegalArgumentException("Card number is not valid! Please enter a valid card number.");
+                throw new IllegalArgumentException("Card number is not valid! Please enter a valid card number (no spaces).");
             }
         } else {
             this.cardNumber = "UNKNOWN";
