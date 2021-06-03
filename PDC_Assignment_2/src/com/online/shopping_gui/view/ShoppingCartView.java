@@ -166,19 +166,4 @@ public class ShoppingCartView extends JPanel
     public void configChkOutBtn(boolean value) {
         proceedToChkOutBtn.setEnabled(value);
     }
-    
-    public static void main(String[] args) {
-        ProductList list = ProductFileIO.importProductData();
-        ShoppingCart cart = new ShoppingCart(new Customer("test1234", "Woohoo10101!"));
-        cart.addToCart(list.searchProduct("Apple"), 3);
-        cart.addToCart(list.searchProduct("AOC"), 3);
-        
-        JFrame frame = new JFrame("Test Shopping Cart Table");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ShoppingCartView cartView = new ShoppingCartView(cart); 
-        frame.add(cartView);
-        frame.pack();
-        frame.setMinimumSize(cartView.getPreferredSize()); // Specifies the min size so table's info wont be obscured.
-        frame.setVisible(true);
-    }
 }
