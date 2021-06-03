@@ -67,6 +67,10 @@ public class ShoppingCart {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public User getUser() {
+        return user;
+    }
     
     public int size() {
         return products.size();
@@ -167,19 +171,20 @@ public class ShoppingCart {
      */
     public String generateInvoice(User currentUser) {
         String invoice = "";
+        String [] address = ((Customer)currentUser).getAddress().split(",");
 
-        invoice += "\n-----------------Invoice----------------\n";
+        invoice += "\n-----------------Invoice-----------------\n";
         invoice += "Bill To: " + ((Customer) currentUser).getName() + "\n";
-        invoice += "Billing Address: " + ((Customer) currentUser).getAddress() + "\n";
-        invoice += "----------------------------------------\n";
-        invoice += String.format("%20s%10s%7s\n", "Product", "Quantity", "Price");
+        invoice += "Address: " + address[0] + "\n";
+        invoice += "-----------------------------------------\n";
+        invoice += String.format("%-5s%-25s%10s\n",  "Qty", "Product", "Price");
 
         for (int i = 0; i < this.products.size(); i++) {
-            invoice += String.format("%20s %8d  $%7.2f\n", this.products.get(i).getProductName(), this.quantity.get(i), (this.products.get(i).getPrice() * this.quantity.get(i)));
+            invoice += String.format("%-4d  %-23s  $%-7.2f\n", this.quantity.get(i), this.products.get(i).getProductName(), (this.products.get(i).getPrice() * this.quantity.get(i)));
         }
-        invoice += "----------------------------------------\n";
+        invoice += "-----------------------------------------\n";
         invoice += String.format("%32s%7.2f\n", "Grand Total: $", this.getGrandTotal());
-        invoice += "----------------------------------------";
+        invoice += "-----------------------------------------";
         return invoice;
     }
     
