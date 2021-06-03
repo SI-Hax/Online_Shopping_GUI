@@ -176,7 +176,6 @@ public class CheckOutView extends JFrame implements Observer {
     }
     
     public void showCheckOut() {
-        System.out.println("Current User: " + this.currentUser.toString());
         totalTxt.setText(String.valueOf(String.format("$%.2f", this.cart.getGrandTotal())));
         setShipToTxt(this.currentUser);
         setVisaTxt(this.currentUser);
