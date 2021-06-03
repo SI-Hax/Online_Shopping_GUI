@@ -34,9 +34,6 @@ public class CheckOutView extends JFrame implements Observer {
     private JButton confirm, cancel;
     private ShoppingCart cart;
     private User currentUser;
-//    
-//    UserList userList = new UserList(CustomerDBManager.importData());
-//    protected User currentUser = userList.searchUser("djorange77");
 
     public CheckOutView() {
         super("Check Out");
