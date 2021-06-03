@@ -24,7 +24,7 @@ import javax.swing.event.ListSelectionListener;
  * @author Miguel Emmara - 18022146
  * @author Amos Foong - 18044418
  * @author Roxy Dao - 1073633
- * @version 2.2.1
+ * @version 2.2.2
  * @since 17/05/2021
  */
 public class CardController implements ActionListener, DocumentListener, KeyListener, ListSelectionListener {
@@ -69,8 +69,7 @@ public class CardController implements ActionListener, DocumentListener, KeyList
         } else if(source == customerTabsView.getCartView().getProceedToChkOutBtn()) { // Customer Tabs View -> View Cart -> Proceed To Checkout btn
             cardModel.checkOut();
         } else if(source == checkOutView.getConfirm()) { // Check Out View -> Confirm btn
-            processCheckOut(); // Process checkout..
-            cardModel.viewReceipt(); // Notify model which will trigger receipt view. 
+            processCheckOut(); // Process checkout.. 
         } else if(source == checkOutView.getCancel()) { // Check Out View -> Cancel btn
             checkOutView.dispose(); // Dispose of the frame.
         }
@@ -185,7 +184,6 @@ public class CardController implements ActionListener, DocumentListener, KeyList
         } else if(source == checkOutView.getCcvTxt()) { // Check Out View -> CCV Password field.
             if(e.getKeyCode() == KeyEvent.VK_ENTER) { // If enter is pressed...
                 processCheckOut(); // Process checkout..
-                cardModel.viewReceipt(); // Notify model which will trigger receipt view.
             }
         }
     }
@@ -259,7 +257,7 @@ public class CardController implements ActionListener, DocumentListener, KeyList
             cardView.getCreateAccountView().resetFields(); // Clear fields.
         } else { // Otherwise...
             // Output error message.
-            String errMsg = "Much apologies, system encounted an error during the creation of your account. Please double-check fields and ensure they are valid then try again. Thank you.";
+            String errMsg = "Much apologies, our system had encounted an error during the creation of your account. Please double-check fields and ensure they are valid then try again. Thank you.";
             JOptionPane.showMessageDialog(welcomeView, errMsg, "Sorry", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -325,9 +323,9 @@ public class CardController implements ActionListener, DocumentListener, KeyList
             if(((Customer)cardModel.getUsers().getCurrentUser()).getAddress().equals("UNKNOWN")) { // If the current user has no address in the system.
                 try{
                     if(!address.isEmpty()) { // If second line is not empty...
-                        ((Customer)cardModel.getUsers().getCurrentUser()).setAddress(address); // Set to the address specified. 
+                        ((Customer)cardModel.getUsers().getCurrentUser()).setAddress(address.replace(",", ";")); // Set to the address specified. 
                     } else {
-                        throw new IllegalArgumentException("Address not specified. Pick-up only.");
+                        throw new IllegalArgumentException("Address was not specified. Please visit your nearest outlet store to collect your newly purchased goods =)");
                     }                    
                 } catch(Exception ex) {
                     JOptionPane.showMessageDialog(checkOutView, ex.getMessage(), ("Warning: " + ex.getClass().getSimpleName()), JOptionPane.WARNING_MESSAGE); // Output dialog to notify user.
@@ -336,14 +334,19 @@ public class CardController implements ActionListener, DocumentListener, KeyList
         }
         
         if(checkOutView.getVisaTxt().isEditable()) { // If visa area is editable...
-            String cardNumber = checkOutView.getVisaTxt().getText().trim(); // Get the card number...
+            String cardNumber = checkOutView.getVisaTxt().getText().replaceAll("[-?\\s?]+", ""); // Get the card number...
             
             try {
                 ((Customer)cardModel.getUsers().getCurrentUser()).setCardNumber(cardNumber); // Update card number.
             } catch(Exception ex) {
-                JOptionPane.showMessageDialog(checkOutView, ex.getMessage(), ("Warning: " + ex.getClass().getSimpleName()), JOptionPane.WARNING_MESSAGE); // Output dialog to notify user.
+                String msg = " Payment was not processed. You may also visit our nearest outlet to pay for your purchase.";
+                JOptionPane.showMessageDialog(checkOutView, (ex.getMessage() + msg), ("Warning: " + ex.getClass().getSimpleName()), JOptionPane.WARNING_MESSAGE); // Output dialog to notify user.
             }
-        }            
+        }
+        
+        if(!((Customer)cardModel.getUsers().getCurrentUser()).getCardNumber().equals("UNKNOWN")) { // If payment has been processed.
+            cardModel.viewReceipt(); // Update model and show Receipt view.
+        }
     }
     
     /**
@@ -432,8 +435,8 @@ public class CardController implements ActionListener, DocumentListener, KeyList
     
     public void toggleVisaChkLabel() {
         if(checkOutView.getVisaTxt().isEditable()) { // If the visa text field is editable...
-            String cardNumber = checkOutView.getVisaTxt().getText().trim(); // Get the text within it.
-            if(cardNumber.matches("[0-9]+$")) { // If cardNumber matches the number pattern.
+            String cardNumber = checkOutView.getVisaTxt().getText().replaceAll("[-?\\s?]+", ""); // Get the text within it (replacing dashes and space separators).
+            if(cardNumber.matches("[0-9]+$") && cardNumber.length() >= 13) { // If cardNumber matches the number pattern and its length is more than 12.
                 boolean pass = Utilities.cardIsValid(cardNumber); // Check if it is a valid card number.
                 
                 if(!pass) { // If does not pass checks...
