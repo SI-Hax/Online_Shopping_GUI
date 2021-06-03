@@ -1,15 +1,9 @@
 package com.online.shopping_gui.view;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.online.shopping_gui.model.Table;
 import com.online.shopping_gui.model.ProductList;
-import com.online.shopping_gui.utilities.ProductFileIO;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.Observable;
-import java.util.Observer;
 import javax.swing.*;
 
 /**
@@ -39,16 +33,13 @@ public class CustProductsView extends JPanel{
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         this.setBackground(Color.WHITE);
-        
-//        this.list = ProductFileIO.importProductData();
-//        this.list = list;
+
         productsTableView = new ProductsTableView();
+        
         // Init table panel.
         tablePanel = new JPanel();
         tablePanel.setBackground(Color.WHITE);
-        tablePanel.add(productsTableView);
-        
-//        tablePanel.add(scrollPane);
+        tablePanel.add(productsTableView);      
         
         // Init label panel to display item selected.
         lblPanel = new JPanel();
@@ -103,19 +94,4 @@ public class CustProductsView extends JPanel{
     public JButton getAddToCartBtn() {
         return addToCartBtn;
     }
-    
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Test Table");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        CustProductsView pv = new CustProductsView(null);
-        frame.add(pv);
-        frame.pack();
-        frame.setMinimumSize(pv.getPreferredSize()); // Specifies the min size so table's info wont be obscured.
-        frame.setVisible(true);
-    }
-
-//    @Override
-//    public void update(Observable o, Object arg) {
-//        
-//    }
 }
