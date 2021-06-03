@@ -83,8 +83,7 @@ public class ReceiptView extends JFrame implements Observer {
     }
     
     public void addController(CardController controller) {
-        // TODO: Add controllers to respective views.
-        
+        // No controllers to add.        
     }
 
     @Override
