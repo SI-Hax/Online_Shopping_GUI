@@ -94,6 +94,7 @@ public class CustomerTabsView extends JFrame implements Observer {
         CardModel cm = (CardModel) selection;
         
         if(cm.isCustLoginFlag()) { // If its customer loggin in....
+            this.updateTables(cm.getShoppingCart(), cm.getProductList()); // Refresh tables' ui.
             this.showTabs(cm.getShoppingCart(), cm.getProductList());
         } else if(cm.isAddToCartFlag()) { // If add to cart modifications made...
             this.updateTables(cm.getShoppingCart(), cm.getProductList());
