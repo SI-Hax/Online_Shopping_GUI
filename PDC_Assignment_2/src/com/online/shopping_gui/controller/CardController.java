@@ -1,6 +1,7 @@
 package com.online.shopping_gui.controller;
 
 import com.online.shopping_gui.model.CardModel;
+import com.online.shopping_gui.model.Customer;
 import com.online.shopping_gui.utilities.Utilities;
 import com.online.shopping_gui.view.CardView;
 import com.online.shopping_gui.view.CheckOutView;
@@ -68,7 +69,8 @@ public class CardController implements ActionListener, DocumentListener, KeyList
         } else if(source == customerTabsView.getCartView().getProceedToChkOutBtn()) { // Customer Tabs View -> View Cart -> Proceed To Checkout btn
             cardModel.checkOut();
         } else if(source == checkOutView.getConfirm()) { // Check Out View -> Confirm btn
-            //TODO: 
+            processCheckOut(); // Process checkout..
+            cardModel.viewReceipt(); // Notify model which will trigger receipt view. 
         } else if(source == checkOutView.getCancel()) { // Check Out View -> Cancel btn
             checkOutView.dispose(); // Dispose of the frame.
         }
@@ -89,6 +91,11 @@ public class CardController implements ActionListener, DocumentListener, KeyList
             togglePassLabel();
         } else if(source == customerTabsView.getProductsView().getQtyTxtField().getDocument()) { // Customer Tabs View -> Products View -> Qty Text Field
             checkQtyUpdates();
+        } else if(source == checkOutView.getVisaTxt().getDocument()) { // Check Out View -> Card Number field.
+            checkCardFields();
+            toggleVisaChkLabel();
+        } else if(source == checkOutView.getCcvTxt().getDocument()) { // Check Out View -> CCV Password field.
+            checkCardFields();
         }
     }
     
@@ -112,7 +119,12 @@ public class CardController implements ActionListener, DocumentListener, KeyList
             toggleConfirmPassLabel();
         } else if(source == customerTabsView.getProductsView().getQtyTxtField().getDocument()) { // Customer Tabs View -> Products View -> Qty Text Field
             checkQtyUpdates();
-        }  
+        } else if(source == checkOutView.getVisaTxt().getDocument()) { // Check Out View -> Card Number field.
+            checkCardFields();
+            toggleVisaChkLabel();
+        } else if(source == checkOutView.getCcvTxt().getDocument()) { // Check Out View -> CCV Password field.
+            checkCardFields();
+        } 
     }
 
     @Override
@@ -132,6 +144,11 @@ public class CardController implements ActionListener, DocumentListener, KeyList
             toggleConfirmPassLabel();
         } else if(source == customerTabsView.getProductsView().getQtyTxtField().getDocument()) { // Customer Tabs View -> Products View -> Qty Text Field
             checkQtyUpdates();
+        } else if(source == checkOutView.getVisaTxt().getDocument()) { // Check Out View -> Card Number field.
+            checkCardFields();
+            toggleVisaChkLabel();
+        } else if(source == checkOutView.getCcvTxt().getDocument()) { // Check Out View -> CCV Password field.
+            checkCardFields();
         }
     }
     //DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
@@ -164,6 +181,11 @@ public class CardController implements ActionListener, DocumentListener, KeyList
         } else if(source == customerTabsView.getCartView().getProceedToChkOutBtn()) { // Customer Tabs View -> View Cart -> Proceed To Checkout btn
             if(e.getKeyCode() == KeyEvent.VK_ENTER) { // If enter is pressed...
                 cardModel.checkOut(); // Go to check out view.
+            }
+        } else if(source == checkOutView.getCcvTxt()) { // Check Out View -> CCV Password field.
+            if(e.getKeyCode() == KeyEvent.VK_ENTER) { // If enter is pressed...
+                processCheckOut(); // Process checkout..
+                cardModel.viewReceipt(); // Notify model which will trigger receipt view.
             }
         }
     }
@@ -287,11 +309,41 @@ public class CardController implements ActionListener, DocumentListener, KeyList
     }
     
     /**
-     * Helper method (for Action Listener) to display the receipt 
+     * Helper method (for Action/Key Listener) to display the receipt 
      * view after confirming payment details and shipping address.
      */
     public void processCheckOut() {
-        //TODO:
+        if(checkOutView.getNameTxt().isEditable()) { // If the name text area is editable...
+            if(((Customer)cardModel.getUsers().getCurrentUser()).getName().equals("UNKNOWN")) { // If the current user has no name in the system.
+                ((Customer)cardModel.getUsers().getCurrentUser()).setName(checkOutView.getNameTxt().getText()); // Set to the name specified.
+            }            
+        }
+        
+        if(checkOutView.getAddressTxt().isEditable()) { // If the ship to text area is editable...
+            String address = checkOutView.getAddressTxt().getText(); // Collect the text and split it when there is a newline.
+            
+            if(((Customer)cardModel.getUsers().getCurrentUser()).getAddress().equals("UNKNOWN")) { // If the current user has no address in the system.
+                try{
+                    if(!address.isEmpty()) { // If second line is not empty...
+                        ((Customer)cardModel.getUsers().getCurrentUser()).setAddress(address); // Set to the address specified. 
+                    } else {
+                        throw new IllegalArgumentException("Address not specified. Pick-up only.");
+                    }                    
+                } catch(Exception ex) {
+                    JOptionPane.showMessageDialog(checkOutView, ex.getMessage(), ("Warning: " + ex.getClass().getSimpleName()), JOptionPane.WARNING_MESSAGE); // Output dialog to notify user.
+                }
+            }
+        }
+        
+        if(checkOutView.getVisaTxt().isEditable()) { // If visa area is editable...
+            String cardNumber = checkOutView.getVisaTxt().getText().trim(); // Get the card number...
+            
+            try {
+                ((Customer)cardModel.getUsers().getCurrentUser()).setCardNumber(cardNumber); // Update card number.
+            } catch(Exception ex) {
+                JOptionPane.showMessageDialog(checkOutView, ex.getMessage(), ("Warning: " + ex.getClass().getSimpleName()), JOptionPane.WARNING_MESSAGE); // Output dialog to notify user.
+            }
+        }            
     }
     
     /**
@@ -324,8 +376,15 @@ public class CardController implements ActionListener, DocumentListener, KeyList
     public void checkQtyUpdates() {
         boolean value;
         value = (!customerTabsView.getProductsView().getQtyTxtField().getText().trim().isEmpty()) &&
-                (customerTabsView.getProductsView().getQtyTxtField().getText().matches("[0-9]+$")); // Check if quantity field is not empty and is whole number.
+                (customerTabsView.getProductsView().getQtyTxtField().getText().trim().matches("[0-9]+$")); // Check if quantity field is not empty and is whole number.
         customerTabsView.getProductsView().configAddToCartBtn(value); // Enable/disables add to cart btn.
+    }
+    
+    public void checkCardFields() {
+        boolean value;
+        value = (!checkOutView.getVisaTxt().getText().trim().isEmpty()) &&
+                (checkOutView.getCcvTxt().getPassword().length > 0);
+        checkOutView.configConfirmBtn(value);
     }
     
     /**
@@ -369,6 +428,21 @@ public class CardController implements ActionListener, DocumentListener, KeyList
         } else { // Otherwise...
             cardView.getCreateAccountView().passConfirmPassCheck(); // Clear label.
         }
+    }
+    
+    public void toggleVisaChkLabel() {
+        if(checkOutView.getVisaTxt().isEditable()) { // If the visa text field is editable...
+            String cardNumber = checkOutView.getVisaTxt().getText().trim(); // Get the text within it.
+            if(cardNumber.matches("[0-9]+$")) { // If cardNumber matches the number pattern.
+                boolean pass = Utilities.cardIsValid(cardNumber); // Check if it is a valid card number.
+                
+                if(!pass) { // If does not pass checks...
+                    checkOutView.warnVisaCheck(); // Display warning label to user.
+                } else { // Otherwise...
+                    checkOutView.passVisaCheck(); // Clear label.
+                }
+            }            
+        }  
     }
     
     public void addView(WelcomeView wv, CardView cv, CustomerTabsView ctv, CheckOutView cov, ReceiptView rv) {
