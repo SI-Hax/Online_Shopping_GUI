@@ -7,7 +7,7 @@ import com.online.shopping_gui.view.CardView;
 import com.online.shopping_gui.view.CheckOutView;
 import com.online.shopping_gui.view.CustomerTabsView;
 import com.online.shopping_gui.view.ReceiptView;
-import com.online.shopping_gui.view.WelcomeView;
+import com.online.shopping_gui.driver.WelcomeView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
