@@ -98,14 +98,4 @@ public class ProductsView extends JPanel {
     public void configAddToCartBtn(boolean value) {
         addToCartBtn.setEnabled(value);
     }
-    
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Test Table");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ProductsView pv = new ProductsView();
-        frame.add(pv);
-        frame.pack();
-        frame.setMinimumSize(pv.getPreferredSize()); // Specifies the min size so table's info wont be obscured.
-        frame.setVisible(true);
-    }
 }
