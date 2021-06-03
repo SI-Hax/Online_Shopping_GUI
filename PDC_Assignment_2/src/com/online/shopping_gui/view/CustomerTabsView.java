@@ -3,10 +3,8 @@ package com.online.shopping_gui.view;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.online.shopping_gui.controller.CardController;
 import com.online.shopping_gui.model.CardModel;
-import com.online.shopping_gui.model.Customer;
 import com.online.shopping_gui.model.ProductList;
 import com.online.shopping_gui.model.ShoppingCart;
-import com.online.shopping_gui.utilities.ProductFileIO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -116,7 +114,6 @@ public class CustomerTabsView extends JFrame implements Observer {
         this.setMinimumSize(new Dimension(this.PANEL_WIDTH, this.PANEL_HEIGHT)); // Specifies the min size so table's info wont be obscured.
         this.setVisible(true); 
         this.setResizable(true);
-//        productsView.getProductsTableView().requestFocusInWindow();
     }
     
     /**
@@ -186,20 +183,5 @@ public class CustomerTabsView extends JFrame implements Observer {
         cartView.getScTableModel().update(sc.convertShoppingCart());
         cartView.getCartTable().updateUI();
         cartView.getScrollPane().updateUI();
-    }
-    
-    public static void main(String[] args) {
-        ProductList plist = ProductFileIO.importProductData();
-        ShoppingCart scart = new ShoppingCart(new Customer("test1234", "Woohoo10101!"));
-        scart.addToCart(plist.searchProduct("Apple"), 3);
-        scart.addToCart(plist.searchProduct("AOC"), 3);
-        CustomerTabsView test = new CustomerTabsView(plist, scart);
-        
-        JFrame frame = new JFrame("Test Customer Tabs");
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.getContentPane().add(test);
-        frame.pack();
-        frame.setMinimumSize(new Dimension(test.PANEL_WIDTH+10, test.PANEL_HEIGHT+40)); // Specifies the min size so table's info wont be obscured.
-        frame.setVisible(true);
     }
 }
